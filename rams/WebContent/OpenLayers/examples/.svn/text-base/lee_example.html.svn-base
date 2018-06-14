@@ -1,0 +1,135 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>OpenLayers Example</title>
+    <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="../lib/OpenLayers.js"></script>
+    <script type="text/javascript">
+        // making this a global variable so that it is accessible for
+        // debugging/inspecting in Firebug
+        var map = null;
+
+		var sldx2 = "";
+		sldx2 += '<StyledLayerDescriptor version="1.0.0">'			
+		sldx2 += '<NamedLayer>'
+		sldx2 += '<Name>BLDG_DOUBLE</Name>'
+		sldx2 += '<UserStyle>'
+		sldx2 += '<Name>default</Name>'
+		sldx2 += '<Title>default</Title>'
+		sldx2 += '<Abstract>BLDG_DOUBLE`s Default Style</Abstract>'
+		sldx2 += '<IsDefault>1</IsDefault>'
+		sldx2 += '<FeatureTypeStyle>'
+		sldx2 += '<Name>BLDG_DOUBLE</Name>'
+		sldx2 += '<Title>BLDG_DOUBLE</Title>'
+		sldx2 += '<Abstract>Feature Type Style</Abstract>'
+		sldx2 += '<SemanticTypeIdentifier/>'
+		sldx2 += '<Rule>'
+		sldx2 += '<Name>Rule1</Name>'
+		sldx2 += '<Title>Rule1</Title>'
+		sldx2 += '<Abstract>Feature Type Style</Abstract>'
+		sldx2 += '<MinScaleDenominator>0.000</MinScaleDenominator>'
+		sldx2 += '<MaxScaleDenominator>0.000</MaxScaleDenominator>'
+		sldx2 += '<PolygonSymbolizer>'
+		sldx2 += '<Geometry/>'
+		sldx2 += '<Fill>'
+		sldx2 += '<CssParameter name="fill" >#738BEB</CssParameter>'
+		sldx2 += '<CssParameter name="fill-opacity" >0.5</CssParameter>'
+		sldx2 += '</Fill>'
+		sldx2 += '<Stroke>'
+		sldx2 += '<CssParameter name="stroke" >#4B63C3</CssParameter>'
+		sldx2 += '<CssParameter name="stroke-width" >0</CssParameter>'
+		sldx2 += '<CssParameter name="stroke-linecap" >square</CssParameter>'
+		sldx2 += '<CssParameter name="stroke-linejoin" >bevel</CssParameter>'
+		sldx2 += '<CssParameter name="stroke-opacity" >0</CssParameter>'
+		sldx2 += '</Stroke>'
+		sldx2 += '</PolygonSymbolizer>'
+		sldx2 += '</Rule>'
+		sldx2 += '</FeatureTypeStyle>'
+		sldx2 += '</UserStyle>'
+		sldx2 += '</NamedLayer>'
+		sldx2 += '</StyledLayerDescriptor>';
+
+		var sld_url2 = "http://localhost:8080/test.xml";
+
+        function init(){
+            map = new OpenLayers.Map('map');
+
+			var over2 = new OpenLayers.Layer.WMS(
+				"", "http://localhost:9981/IntraMap/MapService", 
+				{
+					layers: 'BLDG_DOUBLE',
+					styles: 'default',
+					format: "image/jpeg",
+					ratio: 1,
+					SLD_BODY: sldx2,
+					//SLD: sld_url2,
+					transparent: "true"
+				}
+			);
+			over2.singleTile = true;
+
+			var ol_wms = new OpenLayers.Layer.WMS(
+                "OpenLayers WMS",
+                "http://labs.metacarta.com/wms/vmap0",
+                {layers: 'basic'}
+			);
+
+			var jpl_wms = new OpenLayers.Layer.WMS(
+                "NASA Global Mosaic",
+                "http://t1.hypercube.telascience.org/cgi-bin/landsat7", 
+                {layers: "landsat7"}
+			);
+
+			var dm_wms = new OpenLayers.Layer.WMS(
+				"DM Solutions Demo",
+                "http://www2.dmsolutions.ca/cgi-bin/mswms_gmap",
+                {
+                    layers: "bathymetry,land_fn,park,drain_fn,drainage," +
+                            "prov_bound,fedlimit,rail,road,popplace",
+                    transparent: "true", format: "image/png"},
+                {
+                    minResolution: 0.17578125,
+                    maxResolution: 0.703125
+                }
+            );
+
+            map.addLayers([over2, ol_wms, jpl_wms, dm_wms]);
+            map.addControl(new OpenLayers.Control.LayerSwitcher());
+            map.zoomToMaxExtent();
+            map.events.register('click', map, function (e) {
+	            OpenLayers.Util.getElement('nodeList').innerHTML = "Loading... please wait...";
+	            var url =  over2.getFullRequestString({
+	                            REQUEST: "GetFeatureInfo",
+	                            EXCEPTIONS: "application/vnd.ogc.se_xml",
+	                            BBOX: over2.map.getExtent().toBBOX(),
+	                            X: e.xy.x,
+	                            Y: e.xy.y,
+	                            INFO_FORMAT: 'text/html',
+	                            QUERY_LAYERS: "F00_ADM_SIGUNGU,A00_ETA_LPGPRDTOFF",
+	                            WIDTH: over2.map.size.w,
+	                            HEIGHT: over2.map.size.h,
+	                            FEATURE_COUNT:10});
+	            console.log(url);
+            	
+				
+				OpenLayers.loadURL(url, '', this, setHTML);
+				
+				OpenLayers.Event.stop(e);
+     				 });
+			}
+			function setHTML(response) {
+				OpenLayers.Util.getElement('nodeList').innerHTML = response.responseText;
+			}
+		</script>
+	</head>
+	<body onload="init()">
+		<h1 id="title">OpenLayers Example</h1>
+		<div id="tags"></div>
+		<p id="shortdesc">
+			Demonstrate a simple map with an overlay that includes layer switching controls.
+		</p>
+		<div id="map" class="smallmap"></div>
+		<div id="nodeList"></div>
+		<div id="docs"></div>
+	</body>
+</html>

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/doro/!svn/ver/126/rams/src/main/java/common/dao
+END
+RamsJdbcDaoSupport.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/src/main/java/common/dao/RamsJdbcDaoSupport.java
+END
+CommonCodeDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/126/rams/src/main/java/common/dao/CommonCodeDao.java
+END
+RamsDataSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/src/main/java/common/dao/RamsDataSource.java
+END

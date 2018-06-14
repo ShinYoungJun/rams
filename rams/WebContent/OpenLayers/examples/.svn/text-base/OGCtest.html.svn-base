@@ -1,0 +1,314 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" >
+    <head>
+        <title>OGC Test</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+        <link rel="stylesheet" href="style.css" type="text/css" />
+        <style type="text/css">
+            body {
+                margin: 0;
+            }
+            
+            #text {
+				position: absolute;
+                right: 1em;
+				top : 50px;
+                z-index : 9999;
+				background-color: gray;
+				opacity : 0.8;
+				filter : alpha(opacity=80);
+            }
+
+			td {
+				vertical-align : top;
+				border : solid 1px #0000FF;
+			}
+        </style>
+        <script src="../lib/OpenLayers.js"></script>
+        <script type="text/javascript">
+            var map, markers;
+			var lon = 5;
+			var lat = 40;
+			var zoom = 5;
+			var layer;
+			
+			var selectedLayer;		
+			
+			//esri  
+			var arrLayers = [
+				//{"name":"Autos", 				"checked":true, "korName":"Autos"},
+				//{"name":"BasicPolygons", 		"checked":true, "korName":"BasicPolygons"},
+				{"name":"cite:Bridges", 				"checked":true, "korName":"Bridges"},
+				{"name":"cite:Buildings", 			"checked":true, "korName":"Buildings"},
+				{"name":"cite:DividedRoutes", 		"checked":true, "korName":"DividedRoutes"},								
+				{"name":"cite:Forests", 				"checked":true, "korName":"Forests"},
+				{"name":"cite:Lakes", 				"checked":true, "korName":"Lakes"},
+				{"name":"cite:LakesWithElevation", 	"checked":true, "korName":"LakesWithElevation"},
+				{"name":"cite:MapNeatline", 			"checked":true, "korName":"MapNeatline"},
+				{"name":"cite:NamedPlaces", 			"checked":true, "korName":"NamedPlaces"},
+				{"name":"cite:Ponds", 				"checked":true, "korName":"Ponds"},
+				{"name":"cite:BuildingCenters", 		"checked":true, "korName":"BuildingCenters"},
+				{"name":"cite:RoadSegments", 		"checked":true, "korName":"RoadSegments"},
+				{"name":"cite:Streams", 				"checked":true, "korName":"Streams"}
+			];
+			/*
+				{"name":"cite:Autos", "checked":true, "korName":"Autos"},
+				{"name":"cite:BasicPolygons", "checked":true, "korName":"BasicPolygons"},
+				{"name":"cite:Bridges", "checked":true, "korName":"Bridges"},
+				{"name":"cite:BuildingCenters", "checked":true, "korName":"BuildingCenters"},
+				{"name":"cite:Buildings", "checked":true, "korName":"Buildings"},
+				{"name":"cite:DividedRoutes", "checked":true, "korName":"DividedRoutes"},								
+				{"name":"cite:Forests", "checked":true, "korName":"Forests"},
+				{"name":"cite:Lakes", "checked":true, "korName":"Lakes"},
+				{"name":"cite:LakesWithElevation", "checked":true, "korName":"LakesWithElevation"},
+				{"name":"cite:MapNeatline", "checked":true, "korName":"MapNeatline"},
+				{"name":"cite:NamedPlaces", "checked":true, "korName":"NamedPlaces"},
+				{"name":"cite:Ponds", "checked":true, "korName":"Ponds"},
+				{"name":"cite:RoadSegments", "checked":true, "korName":"RoadSegments"},
+				{"name":"cite:Streams", "checked":true, "korName":"Streams"}
+			*/
+
+
+			
+
+			function setMapSize()
+			{
+				var m = document.getElementById('map');
+				if( m ) 
+				{
+					if( navigator.appName.indexOf("") == -1 )
+					{
+						m.style.width = window.innerWidth - 260;
+						m.style.height = window.innerHeight - 80;
+					}
+					else
+					{
+						m.style.width = document.body.clientWidth - 260;
+						m.style.height = document.body.clientHeight - 80;
+					}
+
+					//alert("map size..width : " + m.style.width + ", height : " + m.style.height);
+					m.style.border = 'solid 1px red';
+
+					document.getElementById('mapSize').innerHTML += ("map size..width : " + m.style.width + ", height : " + m.style.height);
+				}
+
+			}
+
+            function init(){
+				//style set...esri  ..
+				setMapSize();
+				
+                var options = { 
+					projection: new OpenLayers.Projection("EPSG:4326"),
+					//projection: new OpenLayers.Projection("SR-ORG:6640"),
+					displayProjection: new OpenLayers.Projection("EPSG:4326"),
+					//displayProjection: new OpenLayers.Projection("SR-ORG:6640"),
+					//units: "m",
+					maxResolution : "auto",
+					//maxExtent:  new OpenLayers.Bounds( 934969.095, 1936360.618, 972001.695, 1966682.529),
+					maxExtent:  new OpenLayers.Bounds( -10.000, -10.000, 10.000, 10.000),
+					//maxExtent:  new OpenLayers.Bounds( -2.000, -1.000, 2.000, 6.000),
+					scales: [216000, 80000, 40000, 12000, 7000, 3372, 1686, 843],
+					controls: [
+						new OpenLayers.Control.PanZoomBar(),
+						new OpenLayers.Control.Scale(),
+						new OpenLayers.Control.Navigation(),
+						new OpenLayers.Control.MousePosition()
+					]
+				 };
+			
+				map = new OpenLayers.Map( 'map' , options );
+				layer = new OpenLayers.Layer.WMS( "OGC WMS",
+						"http://123.140.215.214:8081/IntraMap/MapService", 
+						//"http://localhost:9981/IntraMap/MapService", 
+						{layers: getSelectedLayer() , format: 'image/png'},
+						//{layers: 'Bridges', format: 'image/png'},
+						{singleTile: true, ratio:1, transitionEffect: "resize"},
+						{'buffer':0} 
+				);
+				map.addLayer(layer);
+
+				markers = new OpenLayers.Layer.Markers( "Markers" );
+				map.addLayer(markers);
+
+				map.zoomToMaxExtent();
+				
+				//------̾  .
+				setLayerInfo( 'layerinfo', arrLayers );
+				//setTargetLayer();
+				
+				map.events.register('click', map, function (e) {
+					var lonlat = map.getLonLatFromViewPortPx(e.xy);
+					var size = new OpenLayers.Size(30,30);
+					var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+					var icon;
+					//alert('aaaa');
+					icon = new OpenLayers.Icon('../img/marker.png',size,offset);
+					markers.clearMarkers();
+					markers.addMarker(new OpenLayers.Marker(lonlat,icon));
+
+					OpenLayers.Util.getElement('recordresult').value = "Loading... please wait...";
+					var url =  layer.getFullRequestString({
+									REQUEST: "GetFeatureInfo",
+									EXCEPTIONS: "application/vnd.ogc.se_xml",
+									//BBOX: layer.map.getExtent().toBBOX(),
+									BBOX: layer.getExtent().toBBOX(),
+									X: e.xy.x,
+									Y: e.xy.y,
+									INFO_FORMAT: 'text/xml',
+									QUERY_LAYERS: getSelectedLayer(),
+									WIDTH: layer.map.size.w,
+									HEIGHT: layer.map.size.h});
+					OpenLayers.loadURL(url, '', this, setResult);
+					OpenLayers.Event.stop(e);		
+				});
+            }
+
+
+		function setResult( response )
+		{
+			document.getElementById('recordresult').value = response.responseText;
+			
+		}
+		
+		function getSelectedLayer()
+		{
+		
+			var rStr = [];
+			for( var i = 0; i < arrLayers.length; i++)
+			{
+				if(arrLayers[i].checked) 
+				{
+					rStr.push(arrLayers[i].name);
+				}
+			}
+			
+			//alert(rStr.join(','));
+			return rStr.join(',');
+		}
+		
+		function setLayerInfo( id, arr )
+		{
+			if( !arr ) return;
+			
+			var r = document.getElementById( id );
+			
+			var divElem;
+			var chkElem;
+			var txtElem;
+			
+			for( var i = 0; i < arr.length; i++) 
+			{
+				divElem = document.createElement('div');
+				chkElem = document.createElement('input');
+				chkElem.type = 'checkbox';
+				//chkElem.checked = arr[i].checked
+				//chkElem.setAttribute("checked", arr[i].checked);
+				chkElem.onclick = onChkClick;
+				chkElem.name = arr[i].name;
+				chkElem.id = "chk" + i;
+
+				divElem.appendChild(chkElem);
+				
+				txtElem = document.createTextNode(arr[i].korName);
+				divElem.appendChild(txtElem);
+				
+				r.appendChild(divElem);
+			}
+
+			for( var j = 0; j < arr.length; j++ )
+			{
+				document.getElementById('chk'+j).checked = arr[j].checked;
+			}
+		}
+		
+		function setTargetLayer()
+		{
+			var oj = document.getElementById("tgtlayer");
+			var opElem, txtElem;
+			if(oj) 
+			{
+				oj.onchange = function() {
+					selectedLayer = this.value;
+				};
+				
+				for( var i = 0; i < arrLayers.length; i++ )
+				{
+					opElem = document.createElement('option');
+					opElem.value = arrLayers[i].name;
+					if( i == 0 ) {
+						opElem.selected = true;
+						selectedLayer = opElem.value;
+					}
+					
+					txtElem = document.createTextNode(arrLayers[i].korName);
+					opElem.appendChild( txtElem );
+					
+					oj.appendChild( opElem );
+				}
+			}
+		}
+		
+		// ̾ 
+		function onChkClick()
+		{
+			//alert(this.name);
+			
+			for( var i = 0; i < arrLayers.length; i++ )
+			{
+				if( arrLayers[i].name == this.name ) {
+					arrLayers[i].checked = this.checked;
+					break;
+				}
+			}
+			
+			var newParams = {'layers' : getSelectedLayer() };
+			layer.mergeNewParams( newParams );
+			layer.redraw();
+		}
+
+		function showFullExtent()
+		{
+			if( map )
+			{
+				map.zoomToMaxExtent();
+			}
+		}
+
+		
+
+
+		//window.onresize = setMapSize;
+        </script>
+    </head>
+    <body onload="init()">
+        <div id="map" class="smallMap"></div>
+		<div id='mapSize'></div>
+          <div id="text">
+              <table>
+				<tr width="100%">
+					<td>
+						<div id="layerinfo">
+						̾&nbsp;On&nbsp;/&nbsp;Off
+						</div>
+					</td>
+					<td>
+						<div id="targetlayer">
+						레코드&nbsp;검색<br /><br />
+						̾&nbsp;<br />
+							<select id="tgtlayer">
+							</select>
+						</div>
+						<div >
+							결과&nbsp;<br />
+							<textarea id="recordresult" rows="20" cols="30"></textarea>
+							<br />
+							<input type="button" value="검색" onclick="showFullExtent();" />
+						</div>
+					</td>
+				</tr>
+			</table>
+        </div>
+    </body>
+</html>

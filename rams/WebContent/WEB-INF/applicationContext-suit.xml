@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+					   "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="methodNameResolver_suit" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+ 		<property name="mappings">
+ 			<props>
+ 			<!-- 팝업 -->
+ 			<prop key="/suit/suit_file_pop_add.do">SuitFilePopAdd</prop>
+ 			<prop key="/suit/suit_file_pop_del.do">SuitFilePopDel</prop>
+ 			<prop key="/suit/suit_file_pop.do">SuitFilePop</prop>
+			<prop key="/suit/suit_owner_pop_add.do">SuitOwnerPopAdd</prop>
+ 			<prop key="/suit/suit_owner_pop_del.do">SuitOwnerPopDel</prop>
+ 			<prop key="/suit/suit_owner_pop.do">SuitOwnerPop</prop>
+ 			
+ 			<prop key="/suit/suit_suitor_pop_add.do">SuitSuitorPopAdd</prop>
+ 			<prop key="/suit/suit_suitor_pop_del.do">SuitSuitorPopDel</prop>
+ 			<prop key="/suit/suit_suitor_pop.do">SuitSuitorPop</prop>
+ 			<prop key="/suit/suit_num_change_prc.do">SuitNumChangePrc</prop>
+ 			<prop key="/suit/suit_num_change_pop.do">SuitNumChangePop</prop>
+ 			<prop key="/suit/suit_land_pop.do">SuitLandPop</prop>
+ 			<prop key="/suit/suit_land_pop_add.do">SuitLandPopAdd</prop>
+ 			<prop key="/suit/suit_land_pop_del.do">SuitLandPopDel</prop>
+ 			<prop key="/suit/suit_lawsuit_result_pop.do">SuitLawsuitResultPop</prop>
+ 			<prop key="/suit/suit_lawsuit_result_modify_pop.do">SuitLawsuitResultModifyPop</prop>
+ 			<!-- 소송정보 수정 -->
+ 			<prop key="/suit/suit_modify.do">SuitModify</prop>
+ 			<prop key="/suit/suit_modify_prc.do">SuitModifyPrc</prop>
+ 			<!-- 소송정보 등록 -->
+ 			<prop key="/suit/suit_reg_init.do">SuitRegInit</prop>
+ 			<prop key="/suit/suit_reg.do">SuitReg</prop>
+ 			<prop key="/suit/suit_reg_prc.do">SuitRegPrc</prop>
+ 			<!--  상급심 등록 -->
+ 			<prop key="/suit/suit_after_reg.do">SuitAfterReg</prop>
+ 			<prop key="/suit/suit_after_reg_prc.do">SuitAfterRegPrc</prop>
+ 			<!-- 소송정보 조회 상세보기 -->
+ 			<prop key="/suit/suit_list.do">SuitList</prop>
+ 			<prop key="/suit/suit_view.do">SuitView</prop>
+ 			<prop key="/suit/suit_list_excel.do">SuitListExcel</prop>
+ 			<!-- 소가 관리 -->
+ 			<prop key="/suit/suit_price_list.do">SuitPriceList</prop>
+ 			<prop key="/suit/suit_price_view.do">SuitPriceView</prop>
+ 			<prop key="/suit/suit_price_view_modify.do">SuitPriceViewModify</prop>
+ 			<prop key="/suit/suit_price_view_list_save.do">SuitPriceViewListSave</prop>
+ 			<prop key="/suit/suit_price_view_list_delete.do">SuitPriceViewListDelete</prop>
+ 			<!-- 소송 통계 관리 -->
+ 			<prop key="/suit/suit_anal_list.do">SuitAnalList</prop>
+ 			<prop key="/suit/suit_anal_list_excel.do">SuitAnalListExcel</prop>
+ 			
+			</props>
+ 		</property>
+ 	</bean> 	
+ 	
+ 	<bean id="urlMapping_suit" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+ 		<property name="mappings">
+ 			<props>
+ 			<!-- 팝업 -->
+ 			<prop key="/suit/suit_file_pop_add.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_file_pop_del.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_file_pop.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_owner_pop_add.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_owner_pop_del.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_owner_pop.do">suitPopupControl</prop>
+ 			 			
+ 			<prop key="/suit/suit_suitor_pop_add.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_suitor_pop_del.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_suitor_pop.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_num_change_prc.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_num_change_pop.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_land_pop.do">suitPopupControl</prop>
+ 			<prop key="/suit/suit_land_pop_add.do">suitPopupControl</prop>
+			<prop key="/suit/suit_land_pop_del.do">suitPopupControl</prop>
+			<prop key="/suit/suit_lawsuit_result_pop.do">suitPopupControl</prop>
+			<prop key="/suit/suit_lawsuit_result_modify_pop.do">suitPopupControl</prop>
+ 			<!-- 소송정보 수정 -->
+ 			<prop key="/suit/suit_modify.do">suitControl</prop>
+ 			<prop key="/suit/suit_modify_prc.do">suitControl</prop>
+ 			<!-- 소송정보 등록 -->
+ 			<prop key="/suit/suit_reg_init.do">suitControl</prop>
+ 			<prop key="/suit/suit_reg.do">suitControl</prop>
+ 			<prop key="/suit/suit_reg_prc.do">suitControl</prop>
+ 			<!--  상급심 등록 -->
+ 			<prop key="/suit/suit_after_reg.do">suitControl</prop>
+ 			<prop key="/suit/suit_after_reg_prc.do">suitControl</prop>
+			<!-- 소송정보 조회 상세보기-->
+ 			<prop key="/suit/suit_list.do">suitControl</prop>
+ 			<prop key="/suit/suit_view.do">suitControl</prop>
+ 			<prop key="/suit/suit_list_excel.do">suitControl</prop>
+ 			<!-- 소가 관리-->
+ 			<prop key="/suit/suit_price_list.do">suitPriceControl</prop>
+ 			<prop key="/suit/suit_price_view.do">suitPriceControl</prop>
+ 			<prop key="/suit/suit_price_view_modify.do">suitPriceControl</prop>
+ 			<prop key="/suit/suit_price_view_list_save.do">suitPriceControl</prop>
+ 			<prop key="/suit/suit_price_view_list_delete.do">suitPriceControl</prop>
+ 			<!-- 소송 통계 관리-->
+ 			<prop key="/suit/suit_anal_list.do">suitAnalControl</prop>
+ 			<prop key="/suit/suit_anal_list_excel.do">suitAnalControl</prop>
+ 			</props>
+ 		</property>
+ 	</bean>
+
+	<bean id="suitControl" class="main.java.suit.web.SuitControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_suit"/>
+		</property>
+		<property name="suitService" ref="suitService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+ 	<bean id="suitDao" parent="ramsJdbcDaoSupport" class="main.java.suit.dao.SuitDao"/>
+ 	<bean id="suitService" class="main.java.suit.service.SuitService"> 
+ 		<property name="suitDao" ref="suitDao"/> 
+ 	</bean>
+ 	
+ 	<bean id="suitPopupControl" class="main.java.suit.web.SuitPopupControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_suit"/>
+		</property>
+		<property name="suitPopupService" ref="suitPopupService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+ 	<bean id="suitPopupDao" parent="ramsJdbcDaoSupport" class="main.java.suit.dao.SuitPopupDao"/>
+ 	<bean id="suitPopupService" class="main.java.suit.service.SuitPopupService"> 
+ 		<property name="suitPopupDao" ref="suitPopupDao"/> 
+ 	</bean>
+ 	
+ 	
+ 	<bean id="suitPriceControl" class="main.java.suit.web.SuitPriceControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_suit"/>
+		</property>
+		<property name="suitPriceService" ref="suitPriceService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+ 	<bean id="suitPriceDao" parent="ramsJdbcDaoSupport" class="main.java.suit.dao.SuitPriceDao"/>
+ 	<bean id="suitPriceService" class="main.java.suit.service.SuitPriceService"> 
+ 		<property name="suitPriceDao" ref="suitPriceDao"/> 
+ 	</bean>
+ 	
+ 	<bean id="suitAnalControl" class="main.java.suit.web.SuitAnalControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_suit"/>
+		</property>
+		<property name="suitAnalService" ref="suitAnalService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+ 	<bean id="suitAnalDao" parent="ramsJdbcDaoSupport" class="main.java.suit.dao.SuitAnalDao"/>
+ 	<bean id="suitAnalService" class="main.java.suit.service.SuitAnalService"> 
+ 		<property name="suitAnalDao" ref="suitAnalDao"/> 
+ 	</bean>
+ 
+
+</beans>

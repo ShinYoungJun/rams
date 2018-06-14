@@ -1,0 +1,230 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<title>IMap5 GetLayerInfo Test</title>
+	<link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <style type="text/css">
+        input, select, textarea {
+            font: 0.9em Verdana, Arial, sans-serif;
+        }
+        #leftcol {
+            position: absolute;
+            top: 0;
+            left: 1em;
+            padding: 0;
+            width: 517px;
+        }
+        #map {
+            width: 512px;
+            height: 400px;
+            border: 1px solid #ccc;
+        }
+        #input {
+            width: 512px;
+        }
+     
+        #info {
+            position: relative;
+            padding: 2em 0;
+            margin-left: 540px;
+        }
+        #output {
+            font-size: 0.8em;
+            width: 100%;
+            height: 512px;
+            border: 0;
+        }
+        p {
+            margin: 0;
+            padding: 0.75em 0 0.75em 0;
+        }
+    </style>
+	<script src="../lib/Firebug/firebug.js"></script>
+    <script src="../lib/OpenLayers.js"></script>
+	<script src="../lib/log4js.js"></script>
+	<script src="../lib/OpenLayers/XCoordinate.js"></script>
+	<script src="../lib/OpenLayers/Layer/IMAP5_LayerInfo.js"></script>
+	<script type="text/javascript">
+		var map;
+		var graphic;
+		var myLogger = new Log4js.getLogger("WebStandardLog");
+		myLogger.setLevel(Log4js.Level.ALL);
+		myLogger.addAppender( new Log4js.ConsoleAppender(false) );
+		
+		var servletUrl = "http://localhost:9981/servlet/intramapswg.MapServiceV5?";
+		var getBoundUrl = servletUrl + "cmd=getallmapinfoxml";
+		
+		function init(){
+            
+			myLogger.info(getBoundUrl);
+			
+			/**
+			* 지도를 띄우기 전에 IntraMap Web 5.0 에 설정된 boundary 값을 가져와서 설정해야합니다.
+			* 지도 boundary 값을 가져오지 못하면 지도를 띄우지 못합니다.
+			*
+			*/
+			OpenLayers.loadURL(getBoundUrl, '', this, function(res) {
+				var rXml = res.responseXML;
+				var boundary;
+				var flag;
+				
+				//alert(navigator.appName.indexOf("Explorer"));
+				//if( rXml != null  && boundary) {
+				if( rXml && navigator.appName.indexOf("Explorer") == -1 ) 
+				{
+					myLogger.info("aaa");
+					boundary = rXml.getElementsByTagName("Boundary");
+					minX = parseFloat(boundary[0].getElementsByTagName("MinX")[0].firstChild.nodeValue );
+					minY = parseFloat(boundary[0].getElementsByTagName("MinY")[0].firstChild.nodeValue );
+					maxX = parseFloat(boundary[0].getElementsByTagName("MaxX")[0].firstChild.nodeValue );
+					maxY = parseFloat(boundary[0].getElementsByTagName("MaxY")[0].firstChild.nodeValue );
+				}
+				else {
+					myLogger.info("bbb");
+					// xml format으로 가져오기 실패했을 경우입니다.
+					
+					rXml = res.responseText;
+					var fi, li;
+					fi = rXml.indexOf('<Boundary>');
+					li = rXml.indexOf('</Boundary>');
+					var bnd = rXml.substring(fi+10, li);
+					
+					bnd = bnd.replace('MinX', '').replace('MaxX', '').replace('MinY', '').replace('MaxY', '');
+					bnd = bnd.replace('<>', '').replace('<>', '').replace('<>', '').replace('<>', '');
+					bnd = bnd.replace('/MinX', '').replace('/MaxX', '').replace('/MinY', '').replace('/MaxY', '');
+					
+					var bn = bnd.split('<>');
+					minX = parseFloat(bn[0]);
+					minY = parseFloat(bn[1]);
+					maxX = parseFloat(bn[2]);
+					maxY = parseFloat(bn[3]);
+
+				}
+				
+				myLogger.info("minX : " + minX + ", minY : " + minY + ", maxX : " + maxX + ", maxY : " + maxY);
+				
+				// 지도 초기화....
+				// maxResolution 값은 반드시 'auto'로 지정해야합니다.
+				map = new OpenLayers.Map('map', {maxResolution : 'auto'});
+
+				
+				graphic = new OpenLayers.Layer.IMAP5(
+					"",
+					servletUrl,
+					[],
+					[],
+					minX,
+					minY,
+					maxX,
+					maxY
+				);
+				
+				map.addLayers([graphic]);
+				
+				map.addControl(new OpenLayers.Control.MousePosition());
+				
+				map.zoomToMaxExtent();
+				
+			}, function(res) {
+				myLogger.info("initial getMapBound Failed...");
+				return;
+			});
+		
+
+		}  // end of Init();
+		
+		function onBtnGetLayerInfo()
+		{
+			OpenLayers.loadURL(getBoundUrl, '', this, function( res ){
+				var rXml = res.responseXML;
+				
+				var objLayerList;
+				var objLayerInfo;
+				
+				objLayerList = new IMap_LayerList();
+				objLayerList.Init();
+				
+				var arrMapInfo;
+				
+				var mapId;
+				var layerId;
+				var layerName;
+				var laverVisible;
+				
+				var arrlayerInfo;
+				
+				
+				//if( rXml && navigator.appName.indexOf("Explorer") == -1 )
+				if( rXml != null )
+				{
+					arrMapInfo = rXml.getElementsByTagName("MapInfo");
+					
+					for( var j = 0; j < arrMapInfo.length; j++ )
+					{
+						mapId = j;
+						
+						arrLayerInfo = arrMapInfo[j].getElementsByTagName("LayerInfo");
+						for( var k = 0; k < arrLayerInfo.length; k++ )
+						{
+							layerId 		= arrLayerInfo[k].getElementsByTagName("LayerIndex")[0].firstChild.nodeValue;
+							layerName 		= arrLayerInfo[k].getElementsByTagName("LayerName")[0].firstChild.nodeValue;
+							layerVisible 	= arrLayerInfo[k].getElementsByTagName("Visible")[0].firstChild.nodeValue;
+							
+							objLayerInfo = new IMap_LayerInfo();
+							objLayerInfo.Init(mapId, layerId, layerName, layerVisible);	
+							
+							objLayerList.AddLayer( objLayerInfo );
+						}
+						
+					}
+					
+					funcSuccess( objLayerList );
+					
+				}
+				else
+				{
+					rXml = res.responseText;
+					alert( rXml );
+				}
+			
+			}, function(){
+				funcFail();
+			});
+		}
+		
+		function funcSuccess( obj )
+		{
+			var lCount = obj.GetLayerCount();
+			
+			myLogger.info("LayerCount : " + lCount);
+			var area = document.getElementById("result");
+			var str = "";
+			for( var i = 0; i < lCount; i++ )
+			{
+				str += ("[ MapID : " + obj.GetLayer(i).GetMapId() + " ]");
+				str += ("[ LayerID : " + obj.GetLayer(i).GetLayerId() + " ]");
+				str += ("[ LayerName : " + obj.GetLayer(i).GetLayerName() + " ]");
+				str += ("[ LayerVisible : " + obj.GetLayer(i).GetVisible() + " ]");
+				str += "\n"
+			}
+			
+			area.value = str;
+			
+		}
+		
+		function funcFail()
+		{
+			alert("GetLayerInfo Failed....");
+		}
+	
+	</script>
+	<head>
+	<body onload="init();">
+	<div id="map" class="smallmap"></div>
+	GetLayerInfo Test
+	<br />
+	<input type="button" value="GetLayerInfo" onclick="onBtnGetLayerInfo();" />
+	<br />
+	<textarea id="result" rows="10" cols="100" ></textarea>
+	</body>
+</html>

@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/doro/!svn/ver/256/rams/src/main/java/reward/service
+END
+IRewardReviewService.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/doro/!svn/ver/191/rams/src/main/java/reward/service/IRewardReviewService.java
+END
+RewardAnalService.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/256/rams/src/main/java/reward/service/RewardAnalService.java
+END
+IRewardStatusService.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/88/rams/src/main/java/reward/service/IRewardStatusService.java
+END
+IRewardPopupService.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/256/rams/src/main/java/reward/service/IRewardPopupService.java
+END
+RewardService.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/210/rams/src/main/java/reward/service/RewardService.java
+END
+RewardReviewService.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/191/rams/src/main/java/reward/service/RewardReviewService.java
+END
+RewardStatusService.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/88/rams/src/main/java/reward/service/RewardStatusService.java
+END
+RewardPopupService.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/256/rams/src/main/java/reward/service/RewardPopupService.java
+END
+IRewardAnalService.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/256/rams/src/main/java/reward/service/IRewardAnalService.java
+END
+IRewardService.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/210/rams/src/main/java/reward/service/IRewardService.java
+END

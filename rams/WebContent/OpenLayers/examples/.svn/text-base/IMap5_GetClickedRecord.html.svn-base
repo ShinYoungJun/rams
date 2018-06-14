@@ -1,0 +1,357 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>클릭한 지점의 레코드 검색 예제</title>
+        
+        <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+        <link rel="stylesheet" href="style.css" type="text/css" />
+		<style type="text/css">
+		#map {
+            width: 512px;
+            height: 400px;
+            border: 1px solid #ccc;
+        }
+		</style>
+        <script src="../lib/Firebug/firebug.js"></script>
+		<script src="../lib/OpenLayers.js"></script>
+		
+		<script type="text/javascript">
+			//전역...
+			var kindOfClick = -1; // 0 : 출발지, 1 : 목적지, 2 : 경유지
+			var map;
+			var graphic;
+			var markers;
+			var vectors;
+			var servletUrl = "http://localhost:9981/kMap_base/MapServiceV5?";
+			var getBoundUrl = servletUrl + "cmd=getallmapinfoxml";	
+			// 지도 정보 가져올거...Show3D, LayerControl등 파라미터 값 조정하려구..
+			var MapList = new IMap_MapInfo();
+			MapList.Init();
+			//
+			//전역 끝.
+			
+			
+			// 지도 클릭 이벤트
+			OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
+                defaultHandlerOptions: {
+                    'single': true,
+                    'double': false,
+                    'pixelTolerance': 0,
+                    'stopSingle': false,
+                    'stopDouble': false
+                },
+
+                initialize: function(options) {
+                    this.handlerOptions = OpenLayers.Util.extend(
+                        {}, this.defaultHandlerOptions
+                    );
+                    OpenLayers.Control.prototype.initialize.apply(
+                        this, arguments
+                    ); 
+                    this.handler = new OpenLayers.Handler.Click(
+                        this, {
+                            'click': this.trigger
+                        }, this.handlerOptions
+                    );
+                }, 
+
+				trigger: function(e) {
+                    //var lonlat = map.getLonLatFromLayerPx(e.xy);
+					var lonlat = map.getLonLatFromPixel(e.xy);
+					
+					var size = new OpenLayers.Size(30,30);
+					var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+					var icon;
+					icon = new OpenLayers.Icon('http://localhost:9981/OpenLayers/examples/image/Balloon.bmp',size,offset);
+					markers.addMarker(new OpenLayers.Marker(lonlat,icon));
+							
+					
+					doGetRecord( lonlat );
+                }
+
+            });
+			
+			
+			// 지도 초기화
+            function init()
+			{
+				/**
+				* 지도를 띄우기 전에 IntraMap Web 5.0 에 설정된 boundary 값을 가져와서 설정해야합니다.
+				* 지도 boundary 값을 가져오지 못하면 지도를 띄우지 못합니다.
+				*/
+				OpenLayers.loadURL(getBoundUrl, '', this, function(res) {
+					
+					var rXml = res.responseXML;
+					var flag;
+					var minX, minY, maxX, maxY;
+					
+					var bndArr = [];
+					
+					var boundary;
+					var flag;
+					var minX, minY, maxX, maxY;
+					//if( rXml != null  && boundary) {
+					if(navigator.appName.indexOf("Explorer") != -1 ) 
+					{
+						
+						var xmlText = res.responseText;
+						var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+						xmlDoc.async="false";
+						xmlDoc.loadXML(xmlText); 
+						rXml = xmlDoc.documentElement;
+					}
+					
+					if(rXml == null)
+						alert("Error");
+					
+					boundary = rXml.getElementsByTagName("Boundary");				
+					minX = parseFloat(boundary[0].getElementsByTagName("MinX")[0].firstChild.nodeValue );
+					minY = parseFloat(boundary[0].getElementsByTagName("MinY")[0].firstChild.nodeValue );
+					maxX = parseFloat(boundary[0].getElementsByTagName("MaxX")[0].firstChild.nodeValue );
+					maxY = parseFloat(boundary[0].getElementsByTagName("MaxY")[0].firstChild.nodeValue );
+					
+					//xml읽어서 Show3D, LoadFlag, LayerControl 파라미터값을 가져옴...
+					var strMap = getMapInfo( rXml );
+					var strShow3D = strMap.split('^')[0];
+					var strLoadFlag  = strMap.split('^')[1];
+					var strLayerControl  = strMap.split('^')[2];
+					
+					// 지도 초기화....
+					// maxResolution 값은 반드시 'auto'로 지정해야합니다.
+					map = new OpenLayers.Map('map', {maxResolution : 'auto'});
+
+					
+					graphic = new OpenLayers.Layer.IMAP5(
+						"",
+						servletUrl,
+						[{'Show3D':strShow3D, 'LayerControl':strLayerControl, 'LoadFlag':strLoadFlag}],
+						[],
+						minX,
+						minY,
+						maxX,
+						maxY
+					);
+					
+					
+					map.addLayers([graphic]);
+					map.addControl(new OpenLayers.Control.MousePosition());
+					
+					// 출발지, 경유지, 목적지 선택용 마커를 위한 레이어 추가.
+					markers = new OpenLayers.Layer.Markers( "Markers" );
+					map.addLayer(markers);
+					
+					// 경로 탐색 결과를 지도위에 뿌릴 벡터 레이어 추가.
+					vectors = new OpenLayers.Layer.Vector("Vector Layer");
+					map.addLayer(vectors);
+					
+					
+					map.zoomToMaxExtent();
+					
+					var click = new OpenLayers.Control.Click();
+					map.addControl(click);
+					click.activate();
+
+				}, function() {
+					
+					alert("Map initialize Failed...");
+				});
+			}
+			
+			/*
+				function getMapInfo( objXml ) 
+				IntraMap/Web으로부터 받아온 XML content에서 <MapInfo>엘리먼트들만을 가져와서 지도 요청할때의 
+				Show3D값, LoadFlag값, LayerControl값을 생성하여 리턴함.
+			*/
+			function getMapInfo( objXml )
+			{
+				var ret = [];		//리턴값...string... -> 'Show3D^LoadFlag^LayerControl' 이런형태로 리턴할꺼임.
+				//var mapObj = {};	//map visible값 저장할거.
+				var mapObj = null;
+				
+				var MapInfo = objXml.getElementsByTagName('MapInfo');
+				var MapCnt = MapInfo.length;
+				if( MapCnt == 0 )
+					return ',';
+				
+				
+				var MapVisible;
+				for( var i = 0; i < MapCnt; i++)
+				{
+					//MapVisible = MapInfo[i].getElementsByTagName('Visible')[0].firstChild.nodeValue;
+					//mapObj = new Object();
+					//mapObj.visible = MapVisible +'';
+					//MapList.AddMap( mapObj );
+					MapList.AddMap( MapInfo[i] );
+				}
+				
+				ret.push(MapList.GetShow3D(1));
+				ret.push(MapList.GetLoadFlag());
+				ret.push(MapList.GetLayerControl());
+				
+				return ret.join('^');
+			}
+			
+			function doGetRecord( lonlat )
+			{
+				//0^1^1|950906,1951165,0,0
+				/*
+					0 : point
+					1 : line
+					2 : polygon
+					
+					타입^파트수^포인트수|x,y,z@x,y,z@~~~~~~$포인트수|x,y,z@x,y,z~~
+					
+					예)
+						포인트로 검색
+							0^1^1|950906,1951165,0,0
+						
+						영역 검색
+							2^1^4|168573,147266,0,0@168573,147366,0,0@168673,147266,0,0@168673,147366,0,0@
+						
+				*/
+				//var geoFilter = "0^1^1|" + Math.round(lonlat.lon) + "," + Math.round(lonlat.lat) + ",0,0"
+				
+				var x = Math.round(lonlat.lon);
+				var y = Math.round(lonlat.lat);
+				
+				//예) 영역값을 지정한다. 이거는 클릭한지점에서 사방 50미터 사각형 영역
+				var arrPos = [	
+								{"x": x-50, "y":y-50},
+								{"x": x-50, "y":y+50},
+								{"x": x+50, "y":y-50},
+								{"x": x+50, "y":y+50} 
+							];
+				
+				// 영역 검색할 GeoFilter 값을 만들어요.
+				var geoFilter 	= "2^1^4|" 
+								+ arrPos[0].x + "," + arrPos[0].y + ",0,0@" 
+								+ arrPos[1].x + "," + arrPos[1].y + ",0,0@" 
+								+ arrPos[2].x + "," + arrPos[2].y + ",0,0@" 
+								+ arrPos[3].x + "," + arrPos[3].y + ",0,0@" 
+				
+				alert("geoFilter : " +geoFilter);
+				
+				/*
+					param중 'GeoFilter' 항목에 포인트검색 또는 영역검색하는 문자열을 넣어야함.
+				*/
+				var param = {
+					"MapID" : document.getElementById("txtMapId").value,
+					"LayerID" : document.getElementById("txtLayerId").value,
+					"Filter" : [
+						//{"OBJREFID" : document.getElementById("txtObjRefId").value }
+						//{"OBJREFID" : 1954},
+						//{"OBJREFID" : 2239}
+					],
+					"GeoFilter" : geoFilter,
+					"ReturnFieldName" : [document.getElementById('txtObjReq').value]
+				}
+				var result = graphic.GetIMAPRecord(param, funcSuccess, funcFail);
+				
+				//graphic.FindShortPath(params, DrawPath, PathFail);
+			}
+			
+			function funcSuccess( obj ) 
+			{
+				//alert('funcSuccess');
+				var area = document.getElementById('text1');
+				//alert('1');
+				area.value = "";
+				var rCount;
+				rCount = obj.GetRecordCount();
+				var str = "NormalField \n";
+				for(var i = 0; i < rCount; i++) 
+				{
+					for(var j = 0; j < obj.GetRecord(i).GetNormalFieldCount(); j++) {
+						str += ("FieldName: " + obj.GetRecord(i).GetFieldName(j) + ", FieldValue : " + obj.GetRecord(i).GetFieldValue(j) + "\n");
+					}
+				}
+				
+				
+				area.value = str;
+				
+				var area2 = document.getElementById('text2');
+				area2.value="";
+				arrStr = [];
+				for(var z = 0; z < rCount; z++) 
+				{
+					var geoObj = obj.GetRecord(z).GetGeometryFieldSet();
+					if(!geoObj){
+						break;
+					}
+					//str += obj.GetRecord(z).RecordToWKT()[0];
+					
+					
+					// 각각의 검색되어온 WKT들을 그린다.
+					// 마지막에 그려진 WKT에 포커스가 맞춰질듯.
+					arrStr.push( obj.GetRecord(z).RecordToWKT()[0] );
+					DrawPoly( obj.GetRecord(z).RecordToWKT()[0] );
+					//alert(str);
+				}
+				//str = str.trim();
+				//area2.value = str;
+				
+				//DrawPoly(str);
+			}
+			
+			function funcFail()
+			{
+				alert("funcFail.....");	
+			}
+			
+			function DrawPoly( str )
+			{
+				var features = new OpenLayers.Format.WKT({'internalProjection': map.baseLayer.projection,'externalProjection': map.baseLayer.projection}).read(str);
+				var bounds;
+				if(features) {
+					if(features.constructor != Array) {
+						features = [features];
+					}
+					
+					//alert("features.length = " + features.length);
+					for(var i=0; i<features.length; ++i) {
+						if (!bounds) {
+							bounds = features[i].geometry.getBounds();
+						} else {
+							bounds.extend(features[i].geometry.getBounds());
+						}
+
+					}
+					vectors.addFeatures(features);
+					map.zoomToExtent(bounds);
+					var plural = (features.length > 1) ? 's' : '';
+					
+				} else {
+					alert("그리기 실패");
+				}
+				
+				
+			}
+			
+        </script>
+    </head>
+    <body onload="init()">
+        <h1 id="title">클릭한지점 레코드 검색 예제</h1>
+
+        <div id="tags">
+        </div>
+
+        <p id="shortdesc">
+            클릭한 지점의 레코드를 검색
+
+        </p>
+
+        <div id="map" class="smallmap"></div>
+    
+        <div id="docs">
+            테스트.
+        </div>
+		mapId:<input type="text" id="txtMapId" value="0" />
+		&nbsp;LayerId:<input type="text" id="txtLayerId" value="2" /><br />
+		RequestFields:<input type="text" id="txtObjReq" value="NAME^XGEOMETRY" />
+		
+		<br />
+		<textarea id="text1" cols="50" rows="5">NormalField 검색 결과</textarea><br />
+		<textarea id="text2" cols="50" rows="10">Geometry 검색결과</textarea><br />
+		
+		
+    </body>
+</html>

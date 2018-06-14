@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	    <property name="basenames">
+	        <list>
+	        	<value>/config/cityland_sql</value>
+ 				<value>/config/admin_user_sql</value>
+ 				<value>/config/board_board_sql</value>
+ 				<value>/config/board_notice_sql</value>
+ 				<value>/config/gongsa_sql</value>
+ 				<value>/config/suit_suit_sql</value>
+ 				<value>/config/suit_popup_sql</value>
+ 				<value>/config/suit_price_sql</value>
+ 				<value>/config/suit_anal_sql</value>
+ 				<value>/config/map_sql</value>
+ 				<value>/config/common_common_sql</value>
+ 				<value>/config/reward_sql</value>
+ 				
+	        </list>
+	    </property>
+	    <property name="cacheSeconds" value="5"/>
+	</bean>
+
+	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+		<constructor-arg>
+			<ref local="messageSource" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="globals" class="main.java.common.util.Globals">
+		<property name="messageSourceAccessor">
+			<ref bean="messageSourceAccessor" />
+		</property>
+	</bean>
+</beans>

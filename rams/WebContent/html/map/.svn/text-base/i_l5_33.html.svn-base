@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>무제 문서</title>
+<link href="../css/doro.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {
+	color: #0083cc;
+	font-weight: bold;
+	padding:8px 0 0 5px;
+	height:18px;
+	margin:0;
+}
+-->
+</style>
+</head>
+
+<body>
+<div id="iRst">
+	<h4 class="style1">지번:33-1</h4>
+	<table width="233" border="1" cellspacing="0" cellpadding="0" bordercolor="#bed6e1">
+	  <tr>
+		<th height="25" scope="col" class="title">지번</th>
+		<th class="title" scope="col">33-1</th>
+	  </tr>
+	  <tr>
+		<td height="25" class="cont">공시지가</td>
+		<td class="cont">81,000</td>
+	  </tr>
+	  <tr>
+		<td height="25" class="cont">면적(m2)</td>
+		<td class="cont">126</td>
+	  </tr>
+	  <tr>
+		<td height="25" class="cont">주소</td>
+		<td class="cont">1</td>
+	  </tr>
+	  <tr>
+		<td height="25" class="cont">지목</td>
+		<td class="cont">1</td>
+	  </tr>
+	  <tr>
+		<td height="25" class="cont">소유구분</td>
+		<td class="cont">1</td>
+	  </tr>
+  </table>
+  <h4 class="style1">도시계획시설</h4>
+  <table width="233" border="1" cellspacing="0" cellpadding="0" bordercolor="#bed6e1">
+	  <tr>
+		<th width="90" height="25" class="title" scope="row">주차장</th>
+		<td align="right" style="padding-right:10px"><a href="#"><img src="../images/common/btn_on.gif" alt="on" width="42" height="19" border="0" /></a></td>
+	  </tr>
+	  <tr>
+		<th scope="row" class="title" height="25">녹지</th>
+		<td align="right" style="padding-right:10px"><a href="#"><img src="../images/common/btn_on.gif" alt="on" width="42" height="19" border="0" /></a></td>
+	  </tr>
+	  <tr>
+		<th scope="row" class="title" height="25">공원</th>
+		<td align="right" style="padding-right:10px"><a href="#"><img src="../images/common/btn_off.gif" alt="on" width="42" height="19" border="0" /></a></td>
+	  </tr>
+	</table>
+  <h4 class="style1">용도지역지구</h4>
+  <table width="233" border="1" cellspacing="0" cellpadding="0" bordercolor="#bed6e1">
+	  <tr>
+		<th width="90" height="25" class="title" scope="row">개발진흥지구</th>
+		<td align="right" style="padding-right:10px"><a href="#"><img src="../images/common/btn_on.gif" alt="on" width="42" height="19" border="0" /></a></td>
+	  </tr>
+	</table>
+</div>
+</body>
+</html>

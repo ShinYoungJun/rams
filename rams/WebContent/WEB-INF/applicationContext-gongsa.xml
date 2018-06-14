@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+					   "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="methodNameResolver_gongsa" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+ 		<property name="mappings">
+ 			<props>
+ 			<prop key="/gongsa/gongsa_list.do">gongsaList</prop>
+ 			<prop key="/gongsa/gongsa_detail.do">gongsaDetail</prop>
+ 			<prop key="/gongsa/gongsa_delete.do">gongsaDelete</prop>
+ 			<prop key="/gongsa/gongsa_modify.do">gongsaModify</prop>
+ 			<prop key="/gongsa/gongsa_modify_prc.do">gongsaModifyPrc</prop>
+			</props>
+ 		</property>
+ 	</bean>
+ 	
+ 	<bean id="urlMapping_gongsa" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+ 		<property name="mappings">
+ 			<props>
+ 			<prop key="/gongsa/gongsa_list.do">GongsaControl</prop>	
+ 			<prop key="/gongsa/gongsa_detail.do">GongsaControl</prop>
+ 			<prop key="/gongsa/gongsa_delete.do">GongsaControl</prop>
+ 			<prop key="/gongsa/gongsa_modify.do">GongsaControl</prop>
+ 			<prop key="/gongsa/gongsa_modify_prc.do">GongsaControl</prop>
+ 			</props>
+ 		</property>
+ 	</bean>
+
+	<bean id="GongsaControl" class="main.java.gongsa.web.GongsaControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_gongsa"/>
+		</property>
+		<property name="gongsaService" ref="gongsaService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+
+
+ 	<bean id="gongsaDao" parent="ramsJdbcDaoSupport" class="main.java.gongsa.dao.GongsaDao"/>
+ 	  
+ 	<bean id="gongsaService" class="main.java.gongsa.service.GongsaService"> 
+ 		<property name="gongsaDao" ref="gongsaDao"/> 
+ 	</bean>
+ 
+
+</beans>

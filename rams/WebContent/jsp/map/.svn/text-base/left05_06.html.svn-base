@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>무제 문서</title>
+<link href="../css/doro.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="left">
+  <table width="260" height="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td height="5" ><img src="../images/map/l_bg1.gif" alt="."/></td>
+    </tr>
+    <tr>
+      <td height="100%" class="cont">
+	  	<table width="250" border="0" cellspacing="0" cellpadding="0">
+		  <tr>
+			<th scope="col"><img src="../images/map/l_t04.gif" alt="적지분석" width="250" height="27" /></th>
+		  </tr>
+		  <tr>
+			<td>			
+				<table width="250" border="0" cellspacing="0" cellpadding="0">
+				  <tr>
+					<th scope="col"><img src="../images/map/l_st_area2.gif" alt="보상용지대상선정" width="250" height="29" /></th>
+				  </tr>
+				  <tr>
+					<td><img src="../images/map/area2.gif" alt="영역지정설명" /></td>
+				  </tr>
+				  <tr>
+					<td height="1" bgcolor="dddddd"></td>
+				  </tr>
+			  </table>
+			</td>
+		  </tr>
+		</table>
+	  </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/jsp/common/include.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html>
+<head>
+<title>::::: 서울시 도로재산관리시스템 :::::</title>
+<link rel="stylesheet" href="/rams/css/doro.css" type="text/css" />
+<style type="text/css">
+<!--
+#sM01 {
+	position:absolute;
+	left:275px;
+	top:53px;
+	width:309px;
+	height:20px;
+	z-index:1;
+	visibility: hidden;
+	padding-top:2px;
+}
+#sM02 {
+	position:absolute;
+	left:341px;
+	top:53px;
+	width:187px;
+	height:20px;
+	z-index:1;
+	visibility: hidden;
+	padding-top:2px;
+}
+#sM03 {
+	position:absolute;
+	left:400px;
+	top:53px;
+	width:331px;
+	height:20px;
+	z-index:1;
+	visibility: hidden;
+	padding-top:2px;
+}
+#sM05 {
+	position:absolute;
+	left:495px;
+	top:53px;
+	width:365px;
+	height:20px;
+	z-index:1;
+	visibility: hidden;
+	padding-top:2px;
+}
+.style1 {color: #0083cd}
+-->
+</style>
+<script type="text/JavaScript">
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+function MM_showHideLayers() { //v6.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+
+function moveMenu(link){
+	var _mainFrm = document.getElementById("main");
+	_mainFrm.src = link;
+	iFrameResize(_mainFrm);
+}
+
+
+function iFrameResize(obj)
+{
+	var iFrm = obj;
+	var the_height = iFrm.contentWindow.document.body.scrollHeight;
+	alert(the_height);
+	iFrm.style.height = the_height;
+}
+
+
+//-->
+</script>
+
+</head>
+
+<body onload="MM_preloadImages('/rams/images/common/mm01_on.gif','/rams/images/common/mm02_on.gif','/rams/images/common/mm03_on.gif','/rams/images/common/mm04_on.gif')">
+
+	<div id="top">
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	    <tr>
+			<th height="21" align="right" scope="row"><span class="style1">관리자</span></th>
+			<td width="85" align="right">님 환영합니다. </td>
+			<td align="right" width="70"><a href="#"><img src="/rams/images/common/logout.gif" alt="로그아웃" border="0" /></a></td>
+			<td class="manage" width="95" align="right">
+				<a href="#" class="blue1">관리자</a>ㅣ
+				<a href="#" class="blue1" onclick="moveMenu('/rams/jsp/board/editor.jsp');">게시판</a>
+			</td>
+		</tr>
+	  </table>
+	  <table width="854" border="0" cellspacing="0" cellpadding="0">
+	    <tr>
+	      <th rowspan="2" scope="row" width="260" height="54"><img src="/rams/images/common/logo.gif" alt="서울시도로재산관리정보시스템" /></th>
+	      <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image2','','/rams/images/common/mm01_on.gif',1)"><img src="/rams/images/common/mm01_off.gif" alt="시유지조회" name="Image2" width="107" height="33" border="0" id="Image2" onmouseover="MM_showHideLayers('sM01','','show')" onmouseout="MM_showHideLayers('sM01','','hide')" /></a></td>
+	      <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image3','','/rams/images/common/mm02_on.gif',1)"><img src="/rams/images/common/mm02_off.gif" alt="소송정보관리" name="Image3" width="122" height="33" border="0" id="Image3" onmouseover="MM_showHideLayers('sM02','','show')" onmouseout="MM_showHideLayers('sM02','','hide')" /></a></td>
+	      <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image4','','/rams/images/common/mm03_on.gif',1)"><img src="/rams/images/common/mm03_off.gif" alt="보상용지관리" name="Image4" width="123" height="33" border="0" id="Image4" onmouseover="MM_showHideLayers('sM03','','show')" onmouseout="MM_showHideLayers('sM03','','hide')" /></a></td>
+	      <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image5','','/rams/images/common/mm04_on.gif',1)"><img src="/rams/images/common/mm04_off.gif" alt="공사대장조회" name="Image5" width="129" height="33" border="0" id="Image5" /></a></td>
+	      <td><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image6','','/rams/images/common/mm05_on.gif',1)"><img src="/rams/images/common/mm05_off.gif" alt="보상용지관리" name="Image6" width="113" height="33" border="0" id="Image4" onmouseover="MM_showHideLayers('sM05','','show')" onmouseout="MM_showHideLayers('sM05','','hide')" /></a></td>
+	    </tr>
+	    <tr>
+	      <td colspan="5" class="subMenu">&nbsp;</td>
+	    </tr>
+	  </table>
+	</div>
+	<div id="center">
+	  <table width="854" border="1" cellspacing="0" cellpadding="0">
+	  	<tr>
+		  	<td>
+		  		<iframe width="100%" height="300px" id="main" name="main" frameborder="0" scrolling="no" src="">
+		  		</iframe>
+		  	</td>
+	  	</tr>
+	  </table>
+	</div>
+
+	<div id="sM01" onmouseover="MM_showHideLayers('sM01','','show')" onmouseout="MM_showHideLayers('sM01','','hide')">
+		<a href="#" class="blue1">대부사용허가 </a>ㅣ 
+		<a href="#" class="blue1">처분재산 </a>ㅣ 
+		<a href="#" class="blue1">무단점사용 </a>ㅣ 
+		<a href="#" class="blue1">재산전용</a>
+	</div>
+	<div id="sM02" onmouseover="MM_showHideLayers('sM02','','show')" onmouseout="MM_showHideLayers('sM02','','hide')">
+		<a href="#" class="blue1">소송정보 </a>ㅣ 
+		<a href="#" class="blue1">소과관리 </a>ㅣ 
+		<a href="#" class="blue1">통계</a>
+	</div>
+	<div id="sM03" onmouseover="MM_showHideLayers('sM03','','show')" onmouseout="MM_showHideLayers('sM03','','hide')">
+		<a href="#" class="blue1">미불보상용지 </a>ㅣ 
+		<a href="#" class="blue1">보상 심의/사실조사 </a>ㅣ 
+		<a href="#" class="blue1">현황관리 </a>ㅣ 
+		<a href="#" class="blue1">통계</a>
+	</div>
+	<div id="sM05" onmouseover="MM_showHideLayers('sM05','','show')" onmouseout="MM_showHideLayers('sM05','','hide')">
+		<a href="#" class="blue1">적지분석 </a>ㅣ 
+		<a href="#" class="blue1">미불보상용지분석 </a>ㅣ 
+		<a href="#" class="blue1">소송업무지원 </a>ㅣ 
+		<a href="#" class="blue1">보상업무지원</a>
+	</div>
+
+
+</body>
+
+</html>

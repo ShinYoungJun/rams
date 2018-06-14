@@ -1,0 +1,1379 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples
+END
+wms-v13.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wms-v13.html
+END
+arcims.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/arcims.html
+END
+proxy.cgi
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/proxy.cgi
+END
+lee_example.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/lee_example.html
+END
+tilecache.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/tilecache.html
+END
+bmtTest.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/bmtTest.html
+END
+animator.js
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/animator.js
+END
+sundials.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/sundials.html
+END
+wfs-filter.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wfs-filter.html
+END
+IMap5_GetLayerInfo.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/IMap5_GetLayerInfo.html
+END
+canvas.js
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/canvas.js
+END
+split-feature.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/split-feature.html
+END
+wideshort.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/wideshort.jpg
+END
+xyz-offset.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/xyz-offset.js
+END
+mapserver_untiled.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/mapserver_untiled.html
+END
+kamap.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/kamap.html
+END
+gml-layer.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/gml-layer.html
+END
+teleportation.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/teleportation.html
+END
+xyz-esri.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/xyz-esri.html
+END
+image-layer.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/image-layer.html
+END
+panel.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/panel.html
+END
+IMap5_GetWKT.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/IMap5_GetWKT.html
+END
+xml.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/xml.html
+END
+wmts.js
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wmts.js
+END
+controls.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/controls.html
+END
+kamap.txt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/kamap.txt
+END
+georss-markers.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/georss-markers.html
+END
+transform-feature.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/transform-feature.html
+END
+google-reproject.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/google-reproject.html
+END
+bmtLogPopup.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/bmtLogPopup.html
+END
+regular-polygons.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/regular-polygons.html
+END
+IMap5_PrintPopup.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/IMap5_PrintPopup.html
+END
+topis_tile.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/topis_tile.html
+END
+boxes-vector.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/boxes-vector.html
+END
+WMSDescribeLayerParser.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/WMSDescribeLayerParser.html
+END
+filter.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/filter.html
+END
+custom-control.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/custom-control.html
+END
+strategy-bbox.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/strategy-bbox.html
+END
+graphic-name.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/graphic-name.html
+END
+lite.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/lite.html
+END
+thinlong.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/thinlong.jpg
+END
+wmts-getfeatureinfo.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wmts-getfeatureinfo.html
+END
+wfs-t.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/wfs-t.html
+END
+marker-shadow.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/marker-shadow.html
+END
+events.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/events.html
+END
+example-list.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/example-list.html
+END
+overviewmap.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/overviewmap.html
+END
+markersTextLayer.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/markersTextLayer.html
+END
+marker_shadow.png
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/marker_shadow.png
+END
+drag-feature.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/drag-feature.html
+END
+mm.html
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/mm.html
+END
+WMSPost.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/WMSPost.html
+END
+topis_getfeature_post.html
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/topis_getfeature_post.html
+END
+vector-features.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/vector-features.html
+END
+wrapDateLine.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wrapDateLine.html
+END
+style.css
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/style.css
+END
+layerswitcher.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/layerswitcher.html
+END
+getfeatureinfo-control.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/getfeatureinfo-control.html
+END
+draw-feature.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/draw-feature.html
+END
+popups.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/popups.html
+END
+mouse-position.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/mouse-position.html
+END
+projected-map.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/projected-map.html
+END
+select-feature-openpopup.html
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/select-feature-openpopup.html
+END
+filter-strategy.js
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/filter-strategy.js
+END
+topis_test.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/topis_test.html
+END
+osm.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/osm.html
+END
+wfs.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/wfs.html
+END
+wfs-states.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wfs-states.html
+END
+google-v3.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/google-v3.html
+END
+georss.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/georss.html
+END
+popupMatrix.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/popupMatrix.jpg
+END
+wfs-states.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wfs-states.js
+END
+buffer.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/buffer.html
+END
+worldwind.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/worldwind.html
+END
+custom-control-point.html
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/custom-control-point.html
+END
+yahoo.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/yahoo.html
+END
+modify-feature.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/modify-feature.html
+END
+image.zip
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/image.zip
+END
+styles-rotation.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/styles-rotation.html
+END
+doubleSetCenter.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/doubleSetCenter.html
+END
+styles-unique.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/styles-unique.html
+END
+topis_wfs_getfeature.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/topis_wfs_getfeature.html
+END
+wmts-capabilities.js
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wmts-capabilities.js
+END
+notile.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/notile.html
+END
+snap-split.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/snap-split.html
+END
+wmst.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wmst.html
+END
+xhtml.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/xhtml.html
+END
+kml-track.js
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/kml-track.js
+END
+wfs-protocol.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wfs-protocol.html
+END
+KMLParser.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/KMLParser.html
+END
+protocol-gears.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/protocol-gears.html
+END
+ve-novibrate.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/ve-novibrate.html
+END
+kml-track.kml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/kml-track.kml
+END
+editingtoolbar.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/editingtoolbar.html
+END
+getfeatureinfo.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/getfeatureinfo.html
+END
+urban.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/urban.html
+END
+wmts-getfeatureinfo.js
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wmts-getfeatureinfo.js
+END
+osm-layer.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/osm-layer.html
+END
+g3way_wfs.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/g3way_wfs.html
+END
+ordering.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/ordering.html
+END
+vector-features-with-text.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/vector-features-with-text.html
+END
+arcims-thematic.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/arcims-thematic.html
+END
+strategy-cluster-threshold.html
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/strategy-cluster-threshold.html
+END
+bmtTestGS.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/bmtTestGS.html
+END
+xyz-offset.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/xyz-offset.html
+END
+boxes.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/boxes.html
+END
+editingtoolbar-outside.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/editingtoolbar-outside.html
+END
+pan-zoom-panels.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/pan-zoom-panels.html
+END
+intersects.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/intersects.html
+END
+IMap5_PrintMap.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/IMap5_PrintMap.html
+END
+filter-strategy.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/filter-strategy.html
+END
+wmc.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wmc.html
+END
+web-mercator.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/web-mercator.html
+END
+transition.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/transition.html
+END
+wfs-filter.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wfs-filter.js
+END
+wmts.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wmts.html
+END
+mapguide.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/mapguide.html
+END
+example.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/example.html
+END
+kml-layer.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/kml-layer.html
+END
+accessible.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/accessible.html
+END
+navigation-history.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/navigation-history.html
+END
+outOfRangeMarkers.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/outOfRangeMarkers.html
+END
+mousewheel-interval.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/mousewheel-interval.html
+END
+IMap5_MapOnOff.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/IMap5_MapOnOff.html
+END
+wfs-reprojection.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wfs-reprojection.html
+END
+late-render.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/late-render.html
+END
+markerResize.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/markerResize.html
+END
+markers.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/markers.html
+END
+mapserver.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/mapserver.html
+END
+fractional-zoom.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/fractional-zoom.html
+END
+sos.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/sos.html
+END
+wfs-protocol-transactions.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wfs-protocol-transactions.html
+END
+mvs.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/mvs.html
+END
+google-v3-alloverlays.js
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/google-v3-alloverlays.js
+END
+wms.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wms.html
+END
+custom-style.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/custom-style.html
+END
+wfs-reprojection.js
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wfs-reprojection.js
+END
+georss-flickr.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/georss-flickr.html
+END
+wfs-protocol-transactions.js
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wfs-protocol-transactions.js
+END
+resize-features.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/resize-features.html
+END
+openmnnd.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/openmnnd.html
+END
+graticule.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/graticule.html
+END
+snapping.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/snapping.html
+END
+dynamic-text-layer.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/dynamic-text-layer.html
+END
+wmts-capabilities.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wmts-capabilities.html
+END
+SLDSelect.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/SLDSelect.html
+END
+kml-track.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/kml-track.html
+END
+behavior-fixed-http-gml.html
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/behavior-fixed-http-gml.html
+END
+getfeature-wfs.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/getfeature-wfs.html
+END
+IMap5_GetClickedRecord.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/IMap5_GetClickedRecord.html
+END
+animated_panning.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/animated_panning.html
+END
+highlight-feature.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/highlight-feature.html
+END
+measure.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/measure.html
+END
+fullScreen.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/fullScreen.html
+END
+gs_wfs_getfeature.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/gs_wfs_getfeature.html
+END
+styles-context.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/styles-context.html
+END
+navtoolbar.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/navtoolbar.html
+END
+select-feature.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/select-feature.html
+END
+navtoolbar-alwaysZoom.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/navtoolbar-alwaysZoom.html
+END
+all-overlays.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/all-overlays.html
+END
+canvas.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/canvas.html
+END
+navigation-control.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/navigation-control.html
+END
+IMap5_image.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/IMap5_image.html
+END
+IMap5_GetRecord.js
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/IMap5_GetRecord.js
+END
+strategy-cluster.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/strategy-cluster.html
+END
+tilecacheTest.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/tilecacheTest.html
+END
+wfs-t2.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/wfs-t2.html
+END
+all-overlays-google.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/all-overlays-google.html
+END
+spherical-mercator.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/spherical-mercator.html
+END
+wfs-snap-split.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/wfs-snap-split.html
+END
+IMap5_FindPath.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/IMap5_FindPath.html
+END
+popupMatrix.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/popupMatrix.html
+END
+style-rules.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/style-rules.html
+END
+all-overlays-google.js
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/all-overlays-google.js
+END
+google-v3-alloverlays.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/google-v3-alloverlays.html
+END
+point-track-markers.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/point-track-markers.html
+END
+georss.xml
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/georss.xml
+END
+stylemap.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/stylemap.html
+END
+web-mercator.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/web-mercator.js
+END
+zoomLevels.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/zoomLevels.html
+END
+fullScreen__.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/fullScreen__.html
+END
+style-rules.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/style-rules.js
+END
+geojson.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/geojson.html
+END
+strategy-paging.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/strategy-paging.html
+END
+yelp-georss.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/yelp-georss.xml
+END
+getfeatureinfo-popup.html
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/getfeatureinfo-popup.html
+END
+osm-google.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/osm-google.html
+END
+wms-untiled.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/wms-untiled.html
+END
+google-v3.js
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/google-v3.js
+END
+vector-formats.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/vector-formats.html
+END
+google.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/google.html
+END
+sld-parser.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/sld-parser.html
+END
+restricted-extent.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/restricted-extent.html
+END
+GetRecordTest.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/GetRecordTest.html
+END
+navtoolbar-outsidemap.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/navtoolbar-outsidemap.html
+END
+bing.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/bing.html
+END
+osm-google.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/osm-google.js
+END
+multiserver.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/multiserver.html
+END
+layerLoadMonitoring.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/layerLoadMonitoring.html
+END
+layer-opacity.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/layer-opacity.html
+END
+arcgis93rest.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/arcgis93rest.html
+END
+sld.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/sld.html
+END
+setextent.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/setextent.html
+END
+small.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/small.jpg
+END
+widelong.jpg
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/widelong.jpg
+END
+click.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/click.html
+END
+debug.html
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/debug.html
+END
+symbolizers-fill-stroke-graphic.html
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/symbolizers-fill-stroke-graphic.html
+END
+document-drag.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/document-drag.html
+END
+baseLayers.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/baseLayers.html
+END
+gs_wms_getmap.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/gs_wms_getmap.html
+END
+GMLParser.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/GMLParser.html
+END
+zoomify.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/zoomify.html
+END
+select-feature-multilayer.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/select-feature-multilayer.html
+END
+tileTest.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/tileTest.html
+END
+hover-handler.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/hover-handler.html
+END
+textfile.txt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/textfile.txt
+END
+click-handler.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/click-handler.html
+END
+browser-name.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/browser-name.html
+END
+multimap-mercator.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/multimap-mercator.html
+END
+tms.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/tms.html
+END
+attribution.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/attribution.html
+END
+sundials-spherical-mercator.html
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/sundials-spherical-mercator.html
+END
+OGCtest.html
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/OGCtest.html
+END
+Jugl.js
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/Jugl.js
+END
+outOfRangeMarkers.txt
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/outOfRangeMarkers.txt
+END
+gutter.html
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/examples/gutter.html
+END
+rotate-features.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/rotate-features.html
+END
+ve.html
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/examples/ve.html
+END

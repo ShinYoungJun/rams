@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+					   "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="methodNameResolver_reward" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+ 		<property name="mappings">
+ 			<props> 						
+			<!-- 토지소유현황  -->
+			<prop key="/reward/reward_own_list.do">RewardOwnList</prop>
+			<prop key="/reward/reward_own_pop.do">RewardOwnPopList</prop>
+ 			<!-- 통계 -->
+ 			<prop key="/reward/reward_anal_list.do">RewardAnalList</prop>
+ 			<prop key="/reward/reward_anal_list_excel.do">RewardAnalListExcel</prop>
+ 			
+ 			<prop key="/reward/reward_file_pop.do">RewardFilePop</prop>
+ 			<prop key="/reward/reward_file_pop_del.do">RewardFilePopDel</prop>
+ 			<prop key="/reward/reward_file_pop_add.do">RewardFilePopAdd</prop>
+
+ 			<prop key="/reward/reward_list.do">RewardList</prop>
+ 			<prop key="/reward/reward_list_excel.do">RewardListExcel</prop>
+ 			<prop key="/reward/reward_view.do">RewardView</prop>
+ 			
+ 			<!-- 보상현황 -->
+ 			<prop key="/reward/reward_status_list.do">RewardStatusList</prop>
+ 			<prop key="/reward/reward_status_view.do">RewardStatusView</prop>
+ 			<prop key="/reward/reward_status_modify.do">RewardStatusModify</prop>
+ 			<!-- 보상현황 excel -->
+ 			<prop key="/reward/reward_status_excel.do">RewardStatusListExcel</prop>
+ 			 			
+ 			<!-- 보상 등록/수정 -->
+ 			<prop key="/reward/reward_write.do">RewardWrite</prop>
+ 			<prop key="/reward/reward_view_mody.do">RewardViewMody</prop>
+ 			<prop key="/reward/reward_view_mody_prc.do">RewardViewUpdatePrc</prop>
+ 			<prop key="/reward/reward_area_write_prc.do">RewardAreaWritePrc</prop>
+ 			
+ 			<!-- 공시조회 팝업 -->
+ 			<prop key="/reward/pop_reward_gongsa.do">RewardGongsiList</prop>
+  			<!-- 권리권자정보보기 팝업 -->
+ 			<prop key="/reward/pop_reward_right.do">RewardRightView</prop>
+ 						
+ 			<!-- 심의 -->
+ 			<prop key="/reward/reward_review_list.do">RewardReviewList</prop>
+ 			<prop key="/reward/reward_review_write.do">RewardReviewWrite</prop>
+ 			<prop key="/reward/reward_review_write_prc.do">RewardReviewWritePrc</prop>
+ 			
+ 			<!-- 보상 토지 팝업 -->
+			<prop key="/reward/pop_reward_land.do">RewardLandPop</prop>
+			<prop key="/reward/reward_land_pop_add.do">RewardLandPopAdd</prop>
+			<prop key="/reward/reward_land_pop_del.do">RewardLandPopDel</prop>
+			
+ 			<prop key="/reward/reward_discuss_file_del.do">RewardDiscussFileDel</prop>
+
+			</props>
+ 		</property>
+ 	</bean> 	
+ 	
+ 	<bean id="urlMapping_reward" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+ 		<property name="mappings">
+ 			<props> 			
+ 			<prop key="/reward/reward_own_list.do">rewardAnalControl</prop>
+			<prop key="/reward/reward_own_pop.do">rewardPopupControl</prop>
+			
+ 			<prop key="/reward/reward_anal_list.do">rewardAnalControl</prop>
+ 			<prop key="/reward/reward_anal_list_excel.do">rewardAnalControl</prop>
+ 			
+ 			<prop key="/reward/reward_file_pop.do">rewardControl</prop>
+ 			<prop key="/reward/reward_file_pop_del.do">rewardControl</prop>
+ 			<prop key="/reward/reward_file_pop_add.do">rewardControl</prop>
+ 			
+ 			
+ 			<prop key="/reward/reward_list.do">rewardControl</prop>
+ 			<prop key="/reward/reward_list_excel.do">rewardControl</prop>
+ 			<prop key="/reward/reward_view.do">rewardControl</prop>
+ 			
+ 			<prop key="/reward/reward_status_list.do">rewardStatusControl</prop>
+ 			<prop key="/reward/reward_status_view.do">rewardStatusControl</prop>
+ 			<prop key="/reward/reward_status_modify.do">rewardStatusControl</prop>
+ 			
+ 			<prop key="/reward/reward_status_excel.do">rewardStatusControl</prop>
+ 			
+ 			<prop key="/reward/reward_write.do">rewardControl</prop>
+ 			<prop key="/reward/reward_view_mody.do">rewardControl</prop>
+ 			<prop key="/reward/reward_view_mody_prc.do">rewardControl</prop>
+ 			<prop key="/reward/reward_area_write_prc.do">rewardControl</prop>
+ 			<prop key="/reward/reward_write_prc.do">rewardControl</prop>
+ 			
+ 			<prop key="/reward/pop_reward_right.do">rewardControl</prop>
+ 			<prop key="/reward/pop_reward_gongsa.do">rewardControl</prop>
+ 			
+ 			<prop key="/reward/reward_review_list.do">rewardReviewControl</prop>
+ 			<prop key="/reward/reward_review_write.do">rewardReviewControl</prop>
+ 			<prop key="/reward/reward_review_write_prc.do">rewardReviewControl</prop>
+ 			
+			<prop key="/reward/pop_reward_land.do">rewardPopupControl</prop>
+			<prop key="/reward/reward_land_pop_add.do">rewardPopupControl</prop>
+			<prop key="/reward/reward_land_pop_del.do">rewardPopupControl</prop>
+			
+ 			<prop key="/reward/reward_discuss_file_del.do">rewardReviewControl</prop>
+ 			</props> 
+ 		</property>
+ 	</bean>
+ 	
+ 	<bean id="rewardPopupControl" class="main.java.reward.web.RewardPopupControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_reward"/>
+		</property>
+		<property name="rewardPopupService" ref="rewardPopupService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+	<bean id="rewardPopupDao" parent="ramsJdbcDaoSupport" class="main.java.reward.dao.RewardPopupDao"/>
+ 	<bean id="rewardPopupService" class="main.java.reward.service.RewardPopupService"> 
+ 		<property name="rewardPopupDao" ref="rewardPopupDao"/> 
+ 	</bean>
+ 	
+	 	
+ 	<bean id="rewardAnalControl" class="main.java.reward.web.RewardAnalControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_reward"/>
+		</property>
+		<property name="rewardAnalService" ref="rewardAnalService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+	<bean id="rewardAnalDao" parent="ramsJdbcDaoSupport" class="main.java.reward.dao.RewardAnalDao"/>
+ 	<bean id="rewardAnalService" class="main.java.reward.service.RewardAnalService"> 
+ 		<property name="rewardAnalDao" ref="rewardAnalDao"/> 
+ 	</bean>
+ 
+
+	<bean id="rewardReviewControl" class="main.java.reward.web.RewardReviewControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_reward"/>
+		</property>
+		<property name="rewardReviewService" ref="rewardReviewService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+	
+	<bean id="rewardReviewDao" parent="ramsJdbcDaoSupport" class="main.java.reward.dao.RewardReviewDao"/>
+ 	<bean id="rewardReviewService" class="main.java.reward.service.RewardReviewService"> 
+ 		<property name="rewardReviewDao" ref="rewardReviewDao"/> 
+ 	</bean>
+ 		
+ 		
+	<bean id="rewardControl" class="main.java.reward.web.RewardControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_reward"/>
+		</property>
+		<property name="rewardService" ref="rewardService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+	
+	<bean id="rewardDao" parent="ramsJdbcDaoSupport" class="main.java.reward.dao.RewardDao"/>
+ 	<bean id="rewardService" class="main.java.reward.service.RewardService"> 
+ 		<property name="rewardDao" ref="rewardDao"/> 
+ 	</bean>
+ 	
+ 	
+ 	<bean id="rewardStatusControl" class="main.java.reward.web.RewardStatusControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_reward"/>
+		</property>
+		<property name="rewardStatusService" ref="rewardStatusService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+	
+	<bean id="rewardStatusDao" parent="ramsJdbcDaoSupport" class="main.java.reward.dao.RewardStatusDao"/>
+ 	<bean id="rewardStatusService" class="main.java.reward.service.RewardStatusService"> 
+ 		<property name="rewardStatusDao" ref="rewardStatusDao"/> 
+ 	</bean>
+
+</beans>

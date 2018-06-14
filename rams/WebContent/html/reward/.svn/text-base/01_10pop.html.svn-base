@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>무제 문서</title>
+<link href="../css/doro.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="cont02">
+	  
+	  <!-- 고시목록 -->
+	  <h4><img src="../images/reward/st_list.gif" alt="고시목록" width="60" height="11" /></h4>
+	  <table width="817" border="1" cellpadding="1" cellspacing="1" bordercolor="#d3e2ea">
+		<tr>
+		  <td>
+		  	<table width="813" border="1" cellspacing="0" cellpadding="0" class="mapPopup" summary="" bordercolor="#bed6e1">
+			  <tr>
+				<th scope="col">고시번호</th>
+				<th scope="col">고시일자</th>
+				<th scope="col">고시제목</th>
+				<th scope="col">내용</th>
+				<th scope="col">고시기관</th>
+			  </tr>
+			  <tr>
+				<td class="cont"></td>
+				<td class="cont"></td>
+				<td class="cont"></td>
+				<td class="cont"></td>
+				<td class="cont"></td>
+			  </tr>
+			  <tr>
+				<td class="cont"></td>
+				<td class="cont"></td>
+				<td class="cont"></td>
+				<td class="cont"></td>
+				<td class="cont"></td>
+			  </tr>
+			</table>
+		  </td>
+		</tr>
+	  </table>
+	  
+	  
+	  <!-- 고시 상세정보 -->
+	  <h4><img src="../images/reward/sst_info3.gif" alt="고시 상세정보"/></h4>
+	  <table width="817" border="1" cellpadding="1" cellspacing="1" bordercolor="#d3e2ea">
+		<tr>
+		  <td>
+		  	<table width="813" border="1" cellspacing="0" cellpadding="1" class="mapPopup" summary="" bordercolor="#bed6e1">
+			  <tr>
+				<th width="120" scope="row">고시기관</th>
+				<td width="286" class="cont"></td>
+				<th width="120" scope="row">고시번호</th>
+				<td width="287" class="cont"></td>
+			  </tr>
+			  <tr>
+				<th width="120" scope="row">고시구분</th>
+				<td width="286" class="cont"></td>
+				<th width="120" scope="row">고시일자</th>
+				<td width="287" class="cont"></td>
+			  </tr>
+			  <tr>
+				<th width="120" scope="row">고시제목</th>
+				<td colspan="3" class="cont"></td>
+			  </tr>
+			  <tr>
+				<th width="120" scope="row">내 용</th>
+				<td colspan="3" class="cont" width="697"></td>
+			  </tr>
+			  <tr>
+				<th width="120" scope="row">비 고</th>
+				<td colspan="3" class="cont" width="697"></td>
+			  </tr>
+			  <tr>
+				<th width="120" scope="row">원본 파일</th>
+				<td colspan="3" class="backPop2" width="697">
+					<table width="688" border="1" cellspacing="0" cellpadding="0" summary="" bordercolor="#bed6e1">
+					  <tr>
+						<th scope="row" width="120">고시문</th>
+						<td class="cont">&nbsp;</td>
+					  </tr>
+					  <tr>
+						<th scope="row">토지조서</th>
+						<td class="cont">&nbsp;</td>
+					  </tr>
+					  <tr>
+						<th scope="row">물건조서</th>
+						<td class="cont">&nbsp;</td>
+					  </tr>
+					  <tr>
+						<th scope="row">도면</th>
+						<td class="cont">&nbsp;</td>
+					  </tr>
+				  </table>
+			  </tr>
+			</table>
+		  </td>
+		</tr>
+	  </table>
+</div>
+</body>
+</html>

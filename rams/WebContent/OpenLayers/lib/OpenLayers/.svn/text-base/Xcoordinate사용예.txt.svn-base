@@ -1,0 +1,11 @@
+﻿//function() 내에서..
+
+this.CenX = 100000;
+this.CenY = 200000;
+this.proj = new XCoordinate();
+		
+this.bTrans = this.proj.setProj("EPSG:2097", "EPSG:4326");
+this.proj.ConvertCoord(this.CenX, this.CenY);
+
+console.log("in initialize before cnv : " + this.CenX + ", " + this.CenY);
+console.log("in initialize after cnv : " + this.proj.toX + ", " + this.proj.toY);

@@ -1,0 +1,393 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>XGEOMETRY 지도위에 출력</title>
+    <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <style type="text/css">
+        input, select, textarea {
+            font: 0.9em Verdana, Arial, sans-serif;
+        }
+        #leftcol {
+            position: absolute;
+            top: 0;
+            left: 1em;
+            padding: 0;
+            width: 517px;
+        }
+        #map {
+            width: 512px;
+            height: 400px;
+            border: 1px solid #ccc;
+        }
+        #input {
+            width: 512px;
+        }
+     
+        #info {
+            position: relative;
+            padding: 2em 0;
+            margin-left: 540px;
+        }
+        #output {
+            font-size: 0.8em;
+            width: 100%;
+            height: 512px;
+            border: 0;
+        }
+        p {
+            margin: 0;
+            padding: 0.75em 0 0.75em 0;
+        }
+    </style>
+    <script src="../lib/Firebug/firebug.js"></script>
+    <script src="../lib/OpenLayers.js"></script>
+	<!--
+	<script src="../lib/log4js.js"></script>
+	
+	<script src="../lib/OpenLayers/XCoordinate.js"></script>
+    -->
+    <script type="text/javascript">
+/**
+*	OpenLayers의 vector-formats.html 예제 파일을 수정한겁니다.
+*	IMAP5에서 XGEOMETRY 검색결과를 WKT 포맷으로 가져와서
+*	가져온 결과를 지도위에 뿌리는 예제입니다.
+* 	
+*	WKT결과를 가져오는부분은 doGetRecord(), funcSuccess() 부분을 보시면 됩니다.
+*
+*/	
+	
+	
+	
+        var map, vectors, formats, graphic;
+		var MapList = new IMap_MapInfo();
+		MapList.Init();
+		
+		var geoStr;
+		
+		
+        function updateFormats() {
+            var in_options = {
+                'internalProjection': map.baseLayer.projection,
+                'externalProjection': new OpenLayers.Projection(OpenLayers.Util.getElement("inproj").value)
+            };   
+            var out_options = {
+                'internalProjection': map.baseLayer.projection,
+                'externalProjection': new OpenLayers.Projection(OpenLayers.Util.getElement("outproj").value)
+            };
+            var gmlOptions = {
+                featureType: "feature",
+                featureNS: "http://example.com/feature"
+            };
+            var gmlOptionsIn = OpenLayers.Util.extend(
+                OpenLayers.Util.extend({}, gmlOptions),
+                in_options
+            );
+            var gmlOptionsOut = OpenLayers.Util.extend(
+                OpenLayers.Util.extend({}, gmlOptions),
+                out_options
+            );
+            formats = {
+              'in': {
+                wkt: new OpenLayers.Format.WKT(in_options)
+              }, 
+              'out': {
+                wkt: new OpenLayers.Format.WKT(out_options)
+              } 
+            };
+        }
+		
+		
+        function init(){
+            var servletUrl = "http://localhost:9981/kMap_base/MapServiceV5?";
+			var getBoundUrl = servletUrl + "cmd=getallmapinfoxml";
+			
+			/**
+			* 지도를 띄우기 전에 IntraMap Web 5.0 에 설정된 boundary 값을 가져와서 설정해야합니다.
+			* 지도 boundary 값을 가져오지 못하면 지도를 띄우지 못합니다.
+			*
+			*/
+			OpenLayers.loadURL(getBoundUrl, '', this, function(res) {
+				var rXml = res.responseXML;
+				var boundary;
+				var minX, minY, maxX, maxY;
+				var bndArr = [];
+				var boundary;
+				var minX, minY, maxX, maxY;
+				
+				if(navigator.appName.indexOf("Explorer") != -1 ) 
+				{
+					var xmlText = res.responseText;
+					var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+					xmlDoc.async="false";
+					xmlDoc.loadXML(xmlText); 
+					rXml = xmlDoc.documentElement;
+				}
+				
+				if(rXml == null)
+					alert("Error");
+				
+				boundary = rXml.getElementsByTagName("Boundary");				
+				minX = parseFloat(boundary[0].getElementsByTagName("MinX")[0].firstChild.nodeValue );
+				minY = parseFloat(boundary[0].getElementsByTagName("MinY")[0].firstChild.nodeValue );
+				maxX = parseFloat(boundary[0].getElementsByTagName("MaxX")[0].firstChild.nodeValue );
+				maxY = parseFloat(boundary[0].getElementsByTagName("MaxY")[0].firstChild.nodeValue );
+				
+				
+				//xml읽어서 Show3D, LoadFlag, LayerControl 파라미터값을 가져옴.
+				var strMap = getMapInfo( rXml );
+				var strShow3D = strMap.split('^')[0];
+				var strLoadFlag	= strMap.split('^')[1];
+				var strLayerControl	= strMap.split('^')[2];
+				
+				// 지도 초기화, maxResolution 값은 반드시 'auto'로 지정해야합니다.
+				// 지도가 위치할 html의 <div> 태그의 id가 'map'인 경우임.
+				map = new OpenLayers.Map('map', {maxResolution : 'auto'});
+
+				graphic = new OpenLayers.Layer.IMAP5(
+					"",
+					servletUrl,
+					[{'Show3D':strShow3D, 'LayerControl':strLayerControl, 'LoadFlag':strLoadFlag}],
+					[],
+					minX,
+					minY,
+					maxX,
+					maxY
+				);
+				
+				vectors = new OpenLayers.Layer.Vector("Vector Layer");
+				
+				
+				
+				map.addLayers([graphic, vectors]);
+				
+				map.addControl(new OpenLayers.Control.MousePosition());
+				//map.addControl(new OpenLayers.Control.EditingToolbar(vectors));
+
+				
+				var options = {
+					hover: true,
+					onSelect: serialize
+				};
+				var select = new OpenLayers.Control.SelectFeature(vectors, options);
+				map.addControl(select);
+				select.activate();
+				
+				updateFormats();
+
+				//map.setCenter(new OpenLayers.LonLat(0, 0), 1);
+				
+				
+				map.zoomToMaxExtent();
+				//map.zoomTo(3);
+				
+				//map.events.register("mousemove", map, function(e) { 
+				//	var position = this.events.getMousePosition(e);
+				//	OpenLayers.Util.getElement("mousePos").innerHTML = position;
+				//});
+			
+			
+			}, function(res) {
+				return;
+			});
+		
+
+		}
+
+		/*
+			function getMapInfo( objXml ) 
+			IntraMap/Web으로부터 받아온 XML content에서 <MapInfo>엘리먼트들만을 가져와서 지도 요청할때의 
+			Show3D값, LoadFlag값, LayerControl값을 생성하여 리턴함.
+		*/
+		function getMapInfo( objXml )
+		{
+			var ret = [];		//리턴값...string... -> 'Show3D^LoadFlag^LayerControl' 이런형태로 리턴할꺼임.
+			//var mapObj = {};	//map visible값 저장할거.
+			var mapObj = null;
+			
+			var MapInfo = objXml.getElementsByTagName('MapInfo');
+			var MapCnt = MapInfo.length;
+			if( MapCnt == 0 )
+				return ',';
+			
+			
+			var MapVisible;
+			for( var i = 0; i < MapCnt; i++)
+			{
+				MapVisible = MapInfo[i].getElementsByTagName('Visible')[0].firstChild.nodeValue;
+				mapObj = new Object();
+				mapObj.visible = MapVisible +'';
+				MapList.AddMap( mapObj );
+			}
+			
+			ret.push(MapList.GetShow3D(1));
+			ret.push(MapList.GetLoadFlag());
+			ret.push(MapList.GetLayerControl());
+			
+			return ret.join('^');
+		}
+		
+		
+        function serialize(feature) {
+            var type = document.getElementById("formatType").value;
+            // second argument for pretty printing (geojson only)
+            var pretty = document.getElementById("prettyPrint").checked;
+            var str = formats['out'][type].write(feature, pretty);
+            // not a good idea in general, just for this demo
+            str = str.replace(/,/g, ', ');
+            document.getElementById('output').value = str;
+        }
+
+        function deserialize() {
+            var element = document.getElementById('text');
+            var type = document.getElementById("formatType").value;
+			//alert(element.innerHTML);
+            //var features = formats['in'][type].read(element.innerHTML);
+			var features = formats['in'][type].read(element.value);
+			//alert(geoStr);
+            var bounds;
+            if(features) {
+                if(features.constructor != Array) {
+                    features = [features];
+                }
+                for(var i=0; i<features.length; ++i) {
+                    if (!bounds) {
+                        bounds = features[i].geometry.getBounds();
+                    } else {
+                        bounds.extend(features[i].geometry.getBounds());
+                    }
+
+                }
+                vectors.addFeatures(features);
+                map.zoomToExtent(bounds);
+                var plural = (features.length > 1) ? 's' : '';
+                element.value = features.length + ' feature' + plural + ' added'
+            } else {
+                element.value = 'Bad input :' + element.value;
+            }
+        }
+
+        // preload images
+        (function() {
+            var roots = ["draw_point", "draw_line", "draw_polygon", "pan"];
+            var onImages = [];
+            var offImages = [];
+            for(var i=0; i<roots.length; ++i) {
+                onImages[i] = new Image();
+                onImages[i].src = "../theme/default/img/" + roots[i] + "_on.png";
+                offImages[i] = new Image();
+                offImages[i].src = "../theme/default/img/" + roots[i] + "_on.png";
+            }
+        })();
+		
+		/**
+		 * doGetRecord() : 지도서버에서 레코드 검색.
+		 * IntraMapWeb 5.0에서 사용하는 Xmap 중 xdb가 존재하는 레이어에서만 레코드를 검색할 수 있습니다.
+		 */
+		function doGetRecord() {
+			//alert(GetRecord);
+			alert(document.getElementById("txtObjRefId").value);
+			var param = {
+				"MapID" : document.getElementById("txtMapId").value,
+				"LayerID" : document.getElementById("txtLayerId").value,
+				"Filter" : [
+					{"OBJREFID" : document.getElementById("txtObjRefId").value }
+					//{"OBJREFID" : 1954},
+					//{"OBJREFID" : 2239}
+				],
+				"GeoFilter" : "",
+				"ReturnFieldName" : ["XGEOMETRY"]
+			}
+			var result = graphic.GetIMAPRecord(param, funcSuccess, funcFail);
+			
+			return;
+		}
+		
+		// GetRecord() 실행한 후 받은 데이터를 파싱한 객체를 받는 콜백함수 example.
+		function funcSuccess(obj)
+		{
+			var rCount;
+			rCount = obj.GetRecordCount();
+			
+			var area = document.getElementById("text");
+			area.value = "";
+			var str;// = "NormalField <br>";
+			
+			str = "";
+			for(var z = 0; z < rCount; z++) 
+			{
+				var geoObj = obj.GetRecord(z).GetGeometryFieldSet();
+				if(!geoObj){
+					break;
+				}
+				str += obj.GetRecord(z).RecordToWKT()[0];
+				//alert(str);
+			}
+			str = str.trim();
+			area.value = str;
+			//geoStr = str;
+			
+			
+		}
+		
+		
+		// GetRecord() 실패시...
+		function funcFail(obj)
+		{
+			alert("failed callback...->" + obj);
+		}
+
+    </script>
+  </head>
+  <body onload="init()">
+    <div id="leftcol">
+        <h1 id="title">IMap5 GetRecord검색결과 지도에 그리기 예제</h1>
+
+        <div id="tags">
+        </div>
+        <p id="shortdesc">
+            xbd에서 XGEOMETRY검색 결과를 지도위에 그리는 예제입니다.
+        </p>
+
+        <div id="map" class="smallmap"></div>
+        <div id="input">
+            <p>IntraMap 웹서버로부터 레코드 검색하는 예제 입니다. 예로..ObjRefId에 1091, 1954, 2239중 하나를 넣으시고,
+		'get Record' 버튼 클릭 후 GEOMETRY 검색 결과가 나오면 'add feature'를 클릭하심 되요</p>
+            <label for="formatType">Format</label>
+            <select name="formatType" id="formatType">
+                <option value="wkt" selected="selected">Well-Known Text (WKT)</option>
+            </select>
+            &nbsp;
+            <label for="prettyPrint">Pretty print</label>
+            <input id="prettyPrint" type="checkbox"
+                   name="prettyPrint" value="1" />
+            <br />
+            Input Projection: <select id="inproj" onchange='updateFormats()'>
+              <option value="EPSG:4326" selected="selected">EPSG:4326</option>
+              <option value="EPSG:900913">Spherical Mercator</option>
+            </select> <br /> 
+            Output Projection: <select id="outproj" onchange='updateFormats()'>
+              <option value="EPSG:4326" selected="selected">EPSG:4326</option>
+              <option value="EPSG:900913">Spherical Mercator</option>
+            </select> 
+            <br /> 
+			mapId:<input type="text" id="txtMapId" value="0" />
+			&nbsp;LayerId:<input type="text" id="txtLayerId" value="2" /><br />
+			ObjRefId:<input type="text" id="txtObjRefId" value="1954" />
+			<br />
+            <textarea id="text">GetRecord 검색 결과....</textarea>
+            <br />
+			<input type="button" value="get Record" onclick="doGetRecord();" /> <br />
+            <input type="button" value="add feature" onclick="deserialize();" />
+        </div>
+
+        <div id="docs">
+        </div>
+
+    </div>
+    <div id="info">
+        <p>WKT 텍스트를 보실 수 있어요.</p>
+        <textarea id="output"></textarea>
+    </div>
+
+  </body>
+</html>

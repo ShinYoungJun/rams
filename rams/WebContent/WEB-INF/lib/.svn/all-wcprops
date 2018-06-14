@@ -1,0 +1,293 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib
+END
+axis.jar
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/axis.jar
+END
+wsdl4j-1.5.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/wsdl4j-1.5.1.jar
+END
+spring-webmvc-portlet.jar
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-webmvc-portlet.jar
+END
+residentCheck.jar
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/residentCheck.jar
+END
+libgpkiapi_jni.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/libgpkiapi_jni.jar
+END
+jasper-compiler-jdt.jar
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/jasper-compiler-jdt.jar
+END
+jstl.jar
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/jstl.jar
+END
+commons-discovery-0.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/commons-discovery-0.2.jar
+END
+naming-factory.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/naming-factory.jar
+END
+sapjco.jar
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/sapjco.jar
+END
+ldap.jar
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/ldap.jar
+END
+commons-io-1.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/commons-io-1.4.jar
+END
+Rex_class.jar
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/Rex_class.jar
+END
+naming-factory-dbcp.jar
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/naming-factory-dbcp.jar
+END
+jaxrpc.jar
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/jaxrpc.jar
+END
+spring-core.jar
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-core.jar
+END
+jdom.jar
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/jdom.jar
+END
+commons-fileupload-1.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/commons-fileupload-1.2.1.jar
+END
+commons-lang.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/commons-lang.jar
+END
+servlet-api.jar
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/servlet-api.jar
+END
+commons-fileupload.jar
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/commons-fileupload.jar
+END
+spring-orm.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-orm.jar
+END
+standard.jar
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/standard.jar
+END
+spring-jdbc.jar
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-jdbc.jar
+END
+jasper-runtime.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/jasper-runtime.jar
+END
+commons-el.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/commons-el.jar
+END
+spring-web.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-web.jar
+END
+saaj.jar
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/saaj.jar
+END
+spring-aop.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-aop.jar
+END
+spring-test.jar
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-test.jar
+END
+webserviceutils.jar
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/webserviceutils.jar
+END
+naming-resources.jar
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/naming-resources.jar
+END
+mail.jar
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/mail.jar
+END
+spring-webmvc.jar
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-webmvc.jar
+END
+spring-context.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-context.jar
+END
+spring-webmvc-struts.jar
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-webmvc-struts.jar
+END
+spring-beans.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-beans.jar
+END
+rexpert.jar
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/rexpert.jar
+END
+json-lib-2.3-jdk15.jar
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/json-lib-2.3-jdk15.jar
+END
+spring-jms.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-jms.jar
+END
+spring-tx.jar
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-tx.jar
+END
+jasper-compiler.jar
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/jasper-compiler.jar
+END
+commons-logging-1.0.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/commons-logging-1.0.4.jar
+END
+spring-context-support.jar
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring-context-support.jar
+END
+commons-logging.jar
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/commons-logging.jar
+END
+activation.jar
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/activation.jar
+END
+spring.jar
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/spring.jar
+END
+jsp-api.jar
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/lib/jsp-api.jar
+END

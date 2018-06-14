@@ -1,0 +1,570 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<title>IntraMap/Web 6.0 GS 인증</title>
+    <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+	<style type="text/css">
+		#map {
+			width : 512px;
+			height : 400px;
+		}
+		
+		table, td {
+			border : solid 1px #0000ff;
+			vertical-align : top;
+		}
+	</style>
+    <script src="../lib/OpenLayers.js"></script>
+    <script type="text/javascript">
+		(function(){
+			//Proj4js.defs["SR-ORG:6640"] = "+title=GRS80 Korea TM +proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs ";
+			Proj4js.defs["SR-ORG:6640"] = "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs";
+		})();
+	
+	
+		var servletUrl = "http://localhost:9981/IntraMapGS/MapService";
+		//var servletUrl = "http://30.30.30.71:9981/kMap/MapService";
+        var lon = 5;
+        var lat = 40;
+        var zoom = 5;
+        var map, layer;
+		var mode;					//컨트롤 모드
+		var measureControls; 	//측정 컨트롤
+		var buffer_wfs; 			//도형그릴 벡터 레이어
+		var measure_wfs;		//측정 벡터 레이어 
+		var marker; 				//위치표시-깃발
+		var nav;						//이전, 다음
+		//var mPopup;
+		var selectedLayer = [];		// 레코드 검색용
+		var logPopup;
+		var tileLayer;
+		
+		// checked : GetMap 요청 레이어 목록 만들때..
+		// qCheck : GetFeatureInfo 요청 레이어 목록 만들때..
+		/*
+		var arrLayers = [
+			{"name":"Background_SEOUL1", "checked":"true", "qCheck":"false"},
+			{"name":"POI_ParkingLot", "checked":"true", "qCheck":"false"},
+		];
+		*/
+		
+		var arrLayers = new Array();
+		/*
+		arrLayers[0] = new Object();
+		arrLayers[0].name = "Background_SEOUL1";
+		arrLayers[0].checked = true;
+		arrLayers[0].qCheck = false;
+		
+		arrLayers[0] = {};
+		arrLayers[0].name = "POI_ParkingLot";
+		arrLayers[0].checked = true;
+		arrLayers[0].qCheck = false;
+		
+		arrLayers[1] = {};
+		arrLayers[1].name = "STNL_LINK_CAR_LV1";
+		arrLayers[1].checked = true;
+		arrLayers[1].qCheck = false;
+		*/
+		arrLayers[0] = {};
+		arrLayers[0].name = "snam";
+		arrLayers[0].checked = true;
+		arrLayers[0].qCheck = false;
+		
+		arrLayers[1] = {};
+		arrLayers[1].name = "POI_ParkingLot";
+		arrLayers[1].checked = true;
+		arrLayers[1].qCheck = false;
+		
+		arrLayers[2] = {};
+		arrLayers[2].name = "STNL_LINK_CAR_LV1";
+		arrLayers[2].checked = true;
+		arrLayers[2].qCheck = false;
+		
+		myStyles2 = new OpenLayers.StyleMap({ //쿼리도형
+			"default": new OpenLayers.Style({
+				strokeColor: "#F66214",
+				fillColor: "#F88513",
+				strokeWidth: 2,
+				strokeOpacity: 1,
+				fillOpacity: 0.7,
+				pointRadius: 5
+			})
+		});
+		
+		myStyles4 = new OpenLayers.StyleMap({ //거리,면적측정
+			"default": new OpenLayers.Style({
+				strokeColor: "#30C0FF",
+				fillColor: "#30C0FF",
+				strokeWidth: 2,
+				strokeOpacity: 1,
+				fillOpacity: 0.5,
+				pointRadius: 5
+			})
+		});
+		
+		
+		//전체보기 
+		function Fit() { map.zoomToMaxExtent(); } 
+		//지도 확대
+		function ZoomIn() { zoomlevel = map.getZoom(); map.zoomIn(); }
+		//지도 축소
+		function ZoomOut() { zoomlevel = map.getZoom(); map.zoomOut(); }
+		//뒤로 
+		function Prev() { nav.previousTrigger(); }
+		//앞으로 
+		function Next() { nav.nextTrigger(); }
+		//거리재기 클릭 시
+		function distance() {
+			//if(maptool08.status=="push") {
+				mode = "distance";
+				toggleControl(measureControls["line"]);
+			//} else {
+			//	mode = "move";
+			//	toggleControl();
+			//}
+			//maptool09.defBtn();
+			//maptool17.defBtn();
+		}
+		//면적재기 클릭 시
+		function area() {
+			//if(maptool09.status=="push") {
+				mode = "area";
+				toggleControl(measureControls["polygon"]);
+			//} else {
+			//	mode = "move";
+			//	toggleControl();
+			//}
+			//maptool17.defBtn();
+			//maptool08.defBtn();
+		}
+		//컨트롤 토글링
+		function toggleControl(control) {
+			//mPopup.hStyle().display = "none";
+			if(mode == "infoLoc") {
+				if(click != null) click.activate();
+			} else {
+				if(click != null) click.deactivate();
+			}
+			if(control != null) {
+				control.activate();
+			} else {
+				for(key in measureControls) {
+					var c = measureControls[key];
+					c.deactivate();
+				}
+			}
+		}
+		
+		
+		
+		function SetControlEventHandle()
+		{
+			var oFit = document.getElementById('btnFit');
+			var oIn = document.getElementById('btnZoomIn');
+			var oOut = document.getElementById('btnZoomOut');
+			var oPrev = document.getElementById('btnPrev');
+			var oNext = document.getElementById('btnNext');
+			//var oDis = document.getElementById('btnDistance');
+			//var oArea = document.getElementById('btnArea');
+			var oImageFormat = document.getElementById('getMapFormat');
+			
+			if(oFit) 	oFit.onclick = Fit;
+			if(oIn)  	oIn.onclick = ZoomIn;
+			if(oOut) 	oOut.onclick = ZoomOut;
+			if(oPrev) 	oPrev.onclick = Prev;
+			if(oNext) 	oNext.onclick = Next;
+			//if(oDis)	oDis.onclick = distance;
+			//if(oArea)	oArea.onclick = area;
+			if(oImageFormat) oImageFormat.onchange = onSelectImageFormat;
+			
+		}
+		
+		
+        function init(){
+			var options = { 
+				projection: new OpenLayers.Projection("SR-ORG:6640"), //EPSG:2097
+				displayProjection: new OpenLayers.Projection("SR-ORG:6640"),
+				units: "m",
+				//maxResolution : "auto",
+				maxResolution : 1024 * 2,
+				
+				//POI_ParkingLot
+				//maxExtent:  new OpenLayers.Bounds( 182529.175,437956.866,215035.319,465623.683 ),
+				
+				//STNL_LINK_CAR_LV1
+				//maxExtent:  new OpenLayers.Bounds( 182017.707,413417.376,235322.520,466004.201 ),
+				
+				maxExtent : new OpenLayers.Bounds( -30000,-60000,1000000, 1000000 ),
+				//maxExtent : new OpenLayers.Bounds(-898192.6797, -256153.1648, 1460355.4161, 1132644.6538),
+				
+				
+				
+				
+				numZoomLevels : 14,
+				
+				//scales: [216000, 80000, 40000, 12000, 7000, 3372, 1686, 843],
+				controls: [
+					new OpenLayers.Control.PanZoomBar(),
+					new OpenLayers.Control.Scale(),
+					new OpenLayers.Control.Navigation(),
+					new OpenLayers.Control.MousePosition()
+				]
+			 };
+		
+            map = new OpenLayers.Map( 'map' , options );
+            
+			
+			//tile 레이어 추가
+			tileLayer = new OpenLayers.Layer.TMS("TMS Layer",
+                ["http://30.30.30.71/tile"],
+                "basic",
+                {}
+			);
+			
+			/*
+			tileLayer.serverResolutions = [	
+				0.0000858306884765625,
+				0.000171661376953125, 
+				0.00034332275390625, 
+				0.0006866455078125, 
+				0.001373291015625, 
+				0.00274658203125, 
+				0.0054931640625, 
+				0.010986328125, 
+				0.02197265625, 
+				0.0439453125, 
+				0.087890625, 
+				0.17578125, 
+				0.3515625, 
+				0.703125 
+			];
+			*/	
+				
+			
+			tileLayer.setIsBaseLayer(true);
+			tileLayer.tileOrigin = new OpenLayers.LonLat(-30000, -60000);
+			//tileLayer.maxExtent = new OpenLayers.Bounds( -30000,-60000,1000000, 1000000 );
+			
+			//SR-ORG:6640 bound
+			//tileLayer.maxExtent = new OpenLayers.Bounds(-898192.6797, -256153.1648, 1460355.4161, 1132644.6538);
+			//tileLayer.displayOutsideMaxExtent = true;
+			map.addLayer(tileLayer);
+			
+			layer = new OpenLayers.Layer.WMS( "IntraMap WMS",
+                    servletUrl, 
+					//{layers: arrLayers.join(',') , format: 'image/png'},
+					{
+						layers: getSelectedLayer() , 
+						format: getSelectedValue('getMapFormat'), 
+						transparent:'true'
+						//,opacity:0.3
+						
+					},
+					{
+						singleTile: true,
+						buffer : 0
+						
+					}
+			);
+			layer.setIsBaseLayer(false); 
+			//layer.maxExtent = new OpenLayers.Bounds(182015.555,413408.106,235326.750,466000.557);
+			//layer.maxExtent = new OpenLayers.Bounds(-898192.6797, -256153.1648, 1460355.4161, 1132644.6538);
+			//layer.maxExtent = new OpenLayers.Bounds(935058.718,1936519.948,972095.836,1966845.354);
+			map.addLayer(layer);
+			
+			
+			buffer_wfs = new OpenLayers.Layer.Vector("buffer Features", {styleMap:myStyles2});
+			markers = new OpenLayers.Layer.Markers( "Markers" );
+			map.addLayers([ buffer_wfs, markers ]);
+			
+			
+					
+					
+					
+		
+            //map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+			map.zoomToMaxExtent();
+			//map.zoomTo(13);
+            map.addControl( new OpenLayers.Control.LayerSwitcher() );
+			
+			
+			
+			
+			
+			// 클릭 이벤트 등록
+			map.events.register('click', map, function (e) {
+					OpenLayers.Util.getElement('recordresult').innerHTML = "Loading... please wait...";
+					var pos = map.getLonLatFromPixel(e.xy);
+					var url =  layer.getFullRequestString({
+									REQUEST: "GetFeatureInfo",
+									EXCEPTIONS: "application/vnd.ogc.se_xml",
+									BBOX: layer.map.getExtent().toBBOX(),
+									X: e.xy.x,  //pos.lon,
+									Y: e.xy.y,  //pos.lat,
+									INFO_FORMAT: getSelectedValue('getFeatureInfoFormat'), //'text/html',
+									QUERY_LAYERS: getSelectedLayer(),//getQueryLayers(),
+									WIDTH: layer.map.size.w,
+									HEIGHT: layer.map.size.h});
+					alert(url);
+					OpenLayers.loadURL(url, '', this, setResult);
+					OpenLayers.Event.stop(e);
+					
+					if( logPopup )
+						logPopup.addLog("GetFeatureInfo : " + url);
+			  });
+			
+			
+			
+			  
+			//뒤로, 앞으로
+			nav = new OpenLayers.Control.NavigationHistory();
+			map.addControl(nav);
+			
+			
+			// 페이지내 button 들에 이벤트 핸들러 할당.
+			SetControlEventHandle();
+			
+			//------레이어 정보 구성.
+			setLayerInfo( "layerinfo", arrLayers , onChkClick );
+			//setLayerInfo( "targetlayer", arrLayers , onChkClick2 );
+			//setTargetLayer();
+			
+			
+			logPopup = window.open("bmtLogPopup.html", "", "width=800,height=600,scrollbars=yes");
+		}
+		
+		
+		// GetFeatureInfo 연산 결과
+		function setResult( response )
+		{
+			document.getElementById('recordresult').innerHTML = "";
+		    if( !response.responseXML )
+			{
+				var txt = response.responseText;
+				var txtElem = document.createTextNode(txt);
+				document.getElementById('recordresult').appendChild(txtElem);
+			}
+			else 
+			{
+				var xml = response.responseXML;
+				//alert(xml);
+				//var text = xml.getElementsByTagName("FIELDS")[0].getAttribute("JUSO");
+				//alert(text);
+				var arrFields = xml.getElementsByTagName("FIELDS");
+				var text = "";
+				for( var i = 0; i < arrFields.length; i++ ) {
+					text += ("[Layer : " + i + "]<br />");
+					var attrs = arrFields[i].attributes;
+					for( var j = 0; j < attrs.length; j++ ) {
+						text += ("&nbsp;&nbsp;&nbsp;&nbsp;" + attrs[j].name + " -> " + attrs[j].value + "<br />");
+					}
+				}
+				document.getElementById('recordresult').innerHTML = text;
+				//OpenLayers.Util.getElement('recordresult').innerHTML = response.responseText;
+			}
+		}
+		
+		//GetMap 연산 요청하는 레이어 목록.
+		function getSelectedLayer()
+		{
+			var rStr = [];
+			for( var i = 0; i < arrLayers.length; i++)
+			{
+				//if(arrLayers[i].checked) 
+				//{
+					rStr.push(arrLayers[i].name);
+				//}
+			}
+			
+			//alert(rStr.join(','));
+			return rStr.join(',');
+		}
+		
+		function setLayerInfo( id, arr, callback )
+		{
+			//if( !arr ) return;
+			//alert(id);
+			var r = document.getElementById( id );
+			
+			var divElem;
+			var chkElem;
+			var txtElem;
+			var tmp = [];
+			
+			for( var i = 0; i < arr.length; i++) 
+			{
+				divElem = document.createElement('div');
+				chkElem = document.createElement('input');
+				chkElem.type = 'checkbox';
+				
+				//chkElem.checked = arr[i].checked;
+				chkElem.onclick = callback;
+				
+				chkElem.name = arr[i].name;
+				divElem.appendChild(chkElem);
+				
+				txtElem = document.createTextNode(arr[i].name);
+				divElem.appendChild(txtElem);
+				
+				r.appendChild(divElem);
+				
+				if ( id == 'layerinfo' )
+					chkElem.checked = arr[i].checked;
+				else
+					chkElem.checked = arr[i].qCheck;
+			}
+			
+			
+		}
+		
+		function onSelectImageFormat()
+		{
+			var newParam = {'format' : getSelectedValue('getMapFormat') };
+			
+			layer.mergeNewParams( newParam );
+			var tmpBnd = layer.getExtent();
+			logPopup.addLog( "GetMap : " + layer.getURL(tmpBnd) );
+		}
+		
+		// GetMap 레이어 목록 선택시 재요청하는거...
+		function onChkClick()
+		{
+			//alert(this.name);
+			
+			for( var i = 0; i < arrLayers.length; i++ )
+			{
+				if( arrLayers[i].name == this.name ) {
+					arrLayers[i].checked = this.checked;
+					break;
+				}
+			}
+			
+			var newParams = {'layers' : getSelectedLayer(), 'format' : getSelectedValue('getMapFormat') };
+			layer.mergeNewParams( newParams );
+			//layer.redraw();
+			
+			var tmpBnd = layer.getExtent();
+			logPopup.addLog( "GetMap : " + layer.getURL(tmpBnd) );
+		}
+		
+		// GetFeatureInfo 연산할 대상 레이어 목록.
+		function getQueryLayers()
+		{
+			var ret = [];
+			for( var i = 0; i < arrLayers.length; i++ )
+			{
+				if( arrLayers[i].qCheck )
+					ret.push(arrLayers[i].name);
+			}
+			
+			return ret.join(',');
+		}
+		
+		// GetFeatureInfo연산에 필요한 레이어 선택하기위한 체크박스 클릭시.
+		function onChkClick2()
+		{
+			//if( this.checked ){
+			//	if( selectedLayer.indexOf( this.name ) == -1 )
+			//		selectedLayer.push(this.name);
+			//}
+			for( var i = 0; i < arrLayers.length; i++ )
+			{
+				if( arrLayers[i].name == this.name )
+				{
+					arrLayers[i].qCheck = this.checked;
+					break;
+				}
+				
+				//if( arrLayers[i].qCheck )
+				//	selectedLayer.push(this.name);
+			}
+		}
+		
+		// 콤보박스에서 선택한 값 리턴.
+		function getSelectedValue( id )
+		{
+			if( typeof id != "string" )
+				return null; 
+				
+			var o = document.getElementById(id);
+			if( o )
+				return o.value;
+			else 
+				return null;
+		
+		}
+		
+		
+    </script>
+  </head>
+  <body onload="init()">
+    <h1 id="title">IntraMap/Web 6.0 GS인증</h1>
+
+    <div id="tags">
+    </div>
+    <p id="shortdesc">
+        GS인증 테스트 페이지 입니다.
+    </p>
+	
+	<table width="900">
+		<tr>
+			<td>
+				<div id="map" class="smallmap"></div><br/>
+				<input type="button" value="전체보기" id="btnFit" />
+				<input type="button" value="확대" id="btnZoomIn" />
+				<input type="button" value="축소" id="btnZoomOut" />
+				<input type="button" value="이전" id="btnPrev" />
+				<input type="button" value="다음" id="btnNext" />
+				<br />
+				
+				GetMap&nbsp;&nbsp;Image Format : 
+				<select id="getMapFormat">
+					<option value="image/png" selected>image/png</option>
+					<option value="image/jpeg">image/jpeg</option>
+					<option value="image/gif">image/gif</option>
+				</select>
+				<br />
+				GetFeatureInfo&nbsp;&nbsp;Result Format : 
+				<select id="getFeatureInfoFormat">
+					<option value="text/html" selected>text/html</option>
+					<option value="text/xml">text/xml</option>
+					<option value="text/plain">text/plain</option>
+					<option value="application/vnd.ogc.gml">application/vnd.ogc.gml</option>
+				</select>
+				<br />
+			</td>
+			<td>
+				<div id="layerinfo">
+				
+				레이어&nbsp;On&nbsp;/&nbsp;Off
+				</div>
+			</td>
+			<!--
+			<td>
+				<div id="targetlayer">
+				
+				대상&nbsp;레이어&nbsp;선택<br />
+				</div>
+				
+			</td>
+			-->
+		</tr>
+		<tr>
+			<td colspan="2">
+				GetFeatureInfo 결과<br />
+			</td>
+		<tr>
+		<tr>
+			<td colspan="2">
+				<div id="recordresult">
+				</div>
+			</td>
+		<tr>
+	</table>
+	
+  </body>
+</html>
+
+
+
+

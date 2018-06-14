@@ -1,0 +1,356 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>IMap5 지도 출력 예제</title>
+        
+        <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+        <link rel="stylesheet" href="style.css" type="text/css" />
+		<style type="text/css">
+		#map {
+            width: 512px;
+            height: 400px;
+            border: 1px solid #ccc;
+        }
+		</style>
+        <script src="../lib/Firebug/firebug.js"></script>
+		<script src="../lib/OpenLayers.js"></script>
+		<script src="../lib/log4js.js"></script>
+		
+		<script type="text/javascript">
+			//전역...
+			var kindOfClick = -1; // 0 : 출발지, 1 : 목적지, 2 : 경유지
+			var map;
+			var graphic;
+			var markers;
+			var vectors;
+			//전역 끝.
+			
+			var myLogger = new Log4js.getLogger("WebStandardLog");
+			myLogger.setLevel(Log4js.Level.ALL);
+			myLogger.addAppender( new Log4js.ConsoleAppender(false) );
+			
+			function updateFormats() {
+				var in_options = {
+					'internalProjection': map.baseLayer.projection,
+					'externalProjection': map.baseLayer.projection
+				};   
+				var out_options = {
+					'internalProjection': map.baseLayer.projection,
+					'externalProjection': map.baseLayer.projection
+				};
+				var gmlOptions = {
+					featureType: "feature",
+					featureNS: "http://example.com/feature"
+				};
+				var gmlOptionsIn = OpenLayers.Util.extend(
+					OpenLayers.Util.extend({}, gmlOptions),
+					in_options
+				);
+				var gmlOptionsOut = OpenLayers.Util.extend(
+					OpenLayers.Util.extend({}, gmlOptions),
+					out_options
+				);
+				formats = {
+				  'in': {
+					wkt: new OpenLayers.Format.WKT(in_options)
+				  }, 
+				  'out': {
+					wkt: new OpenLayers.Format.WKT(out_options)
+				  } 
+				};
+			}
+			
+			// 지도 클릭 이벤트
+			OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
+                defaultHandlerOptions: {
+                    'single': true,
+                    'double': false,
+                    'pixelTolerance': 0,
+                    'stopSingle': false,
+                    'stopDouble': false
+                },
+
+                initialize: function(options) {
+                    this.handlerOptions = OpenLayers.Util.extend(
+                        {}, this.defaultHandlerOptions
+                    );
+                    OpenLayers.Control.prototype.initialize.apply(
+                        this, arguments
+                    ); 
+                    this.handler = new OpenLayers.Handler.Click(
+                        this, {
+                            'click': this.trigger
+                        }, this.handlerOptions
+                    );
+                }, 
+
+				trigger: function(e) {
+                    //var lonlat = map.getLonLatFromLayerPx(e.xy);
+					var lonlat = map.getLonLatFromViewPortPx(e.xy);
+					myLogger.info(lonlat + ", " + e.xy);
+					var size = new OpenLayers.Size(30,30);
+					var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+					var icon;
+					
+					
+					switch( kindOfClick )
+					{
+						case -1:
+						alert("You clicked near " + lonlat.lat + " N, " +
+												  + lonlat.lon + " E");
+						break;
+						case 0: //출발지
+							alert('출발지를 선택하였습니다.');
+							icon = new OpenLayers.Icon('http://localhost:9981/OpenLayers/examples/image/Balloon.bmp',size,offset);
+							markers.addMarker(new OpenLayers.Marker(lonlat,icon));
+							document.getElementById("txtStart").innerHTML = (lonlat.lon + "," + lonlat.lat);
+						break;
+						case 1:	//목적지
+							alert('목적지를 선택하였습니다.');
+							icon = new OpenLayers.Icon('http://localhost:9981/OpenLayers/examples/image/Shamrock.bmp',size,offset);
+							markers.addMarker(new OpenLayers.Marker(lonlat,icon));
+							document.getElementById("txtEnd").innerHTML = (lonlat.lon + "," + lonlat.lat);
+						break;
+						case 2: //경유지
+							alert('경유지를 선택하였습니다.');
+							icon = new OpenLayers.Icon('http://localhost:9981/OpenLayers/examples/image/Leaf.bmp',size,offset);
+							markers.addMarker(new OpenLayers.Marker(lonlat,icon));
+							document.getElementById("txtThrough").innerHTML = (lonlat.lon + "," + lonlat.lat);
+						break;
+						
+						default : break;
+					}
+					
+					kindOfClick = -1;
+					
+                }
+
+            });
+			
+			
+			// 지도 초기화
+            function init()
+			{
+				var servletUrl = "http://localhost:9981/servlet/intramapswg.MapServiceV5?";
+				var getBoundUrl = servletUrl + "cmd=getallmapinfoxml";
+				
+				/**
+				* 지도를 띄우기 전에 IntraMap Web 5.0 에 설정된 boundary 값을 가져와서 설정해야합니다.
+				* 지도 boundary 값을 가져오지 못하면 지도를 띄우지 못합니다.
+				*
+				*/
+				OpenLayers.loadURL(getBoundUrl, '', this, function(res) {
+					
+					var rXml = res.responseXML;
+					var boundary;
+					var flag;
+					
+					if( rXml && navigator.appName.indexOf("Explorer") == -1 ) 
+					{
+						boundary = rXml.getElementsByTagName("Boundary");
+						minX = parseFloat(boundary[0].getElementsByTagName("MinX")[0].firstChild.nodeValue );
+						minY = parseFloat(boundary[0].getElementsByTagName("MinY")[0].firstChild.nodeValue );
+						maxX = parseFloat(boundary[0].getElementsByTagName("MaxX")[0].firstChild.nodeValue );
+						maxY = parseFloat(boundary[0].getElementsByTagName("MaxY")[0].firstChild.nodeValue );
+					}
+					else {
+						// xml format으로 가져오기 실패했을 경우입니다.
+						
+						rXml = res.responseText;
+						var fi, li;
+						fi = rXml.indexOf('<Boundary>');
+						li = rXml.indexOf('</Boundary>');
+						var bnd = rXml.substring(fi+10, li);
+						
+						bnd = bnd.replace('MinX', '').replace('MaxX', '').replace('MinY', '').replace('MaxY', '');
+						bnd = bnd.replace('<>', '').replace('<>', '').replace('<>', '').replace('<>', '');
+						bnd = bnd.replace('/MinX', '').replace('/MaxX', '').replace('/MinY', '').replace('/MaxY', '');
+						
+						var bn = bnd.split('<>');
+						minX = parseFloat(bn[0]);
+						minY = parseFloat(bn[1]);
+						maxX = parseFloat(bn[2]);
+						maxY = parseFloat(bn[3]);
+
+					}
+					
+					myLogger.info("minX : " + minX + ", minY : " + minY + ", maxX : " + maxX + ", maxY : " + maxY);
+					// 지도 초기화....
+					// maxResolution 값은 반드시 'auto'로 지정해야합니다.
+					map = new OpenLayers.Map('map', {maxResolution : 'auto'});
+
+					
+					graphic = new OpenLayers.Layer.IMAP5(
+						"",
+						servletUrl,
+						[],
+						[],
+						minX,
+						minY,
+						maxX,
+						maxY
+					);
+					
+					
+					map.addLayers([graphic]);
+					map.addControl(new OpenLayers.Control.MousePosition());
+					
+					// 출발지, 경유지, 목적지 선택용 마커를 위한 레이어 추가.
+					markers = new OpenLayers.Layer.Markers( "Markers" );
+					map.addLayer(markers);
+					
+					// 경로 탐색 결과를 지도위에 뿌릴 벡터 레이어 추가.
+					vectors = new OpenLayers.Layer.Vector("Vector Layer");
+					map.addLayer(vectors);
+					
+					updateFormats();
+					
+					map.zoomToMaxExtent();
+					
+					var click = new OpenLayers.Control.Click();
+					map.addControl(click);
+					click.activate();
+
+				}, function() {
+					//myLogger.info("XML load Failed");
+					
+					alert("Map initialize Failed...");
+				});
+				
+				
+			}
+			
+			function onBtnStart()
+			{
+				kindOfClick = 0;
+			}
+			
+			function onBtnEnd()
+			{
+				kindOfClick = 1;
+			}
+			
+			function onBtnThrough()
+			{
+				kindOfClick = 2;
+			}
+			
+			function doFindPath()
+			{
+				if( document.getElementById('txtStart').innerHTML == "0,0" ||
+					document.getElementById('txtEnd').innerHTML == "0,0")
+				{
+					alert("출발지 또는 목적지를 선택하세용.");
+					return;
+				}
+			
+				var params = {
+					"sx" : parseFloat(document.getElementById('txtStart').innerHTML.split(',')[0]),
+					"sy" : parseFloat(document.getElementById('txtStart').innerHTML.split(',')[1]),
+					"ex" : parseFloat(document.getElementById('txtEnd').innerHTML.split(',')[0]),
+					"ey" : parseFloat(document.getElementById('txtEnd').innerHTML.split(',')[1]),
+					"mx" : parseFloat(document.getElementById('txtThrough').innerHTML.split(',')[0]),
+					"my" : parseFloat(document.getElementById('txtThrough').innerHTML.split(',')[1])
+				};
+				
+				graphic.FindShortPath(params, DrawPath, PathFail);
+			}
+			
+			//경로탐색 성공시 결과 받을 콜백 함수.
+			function DrawPath( obj )
+			{
+				var val = obj.AllToWKT();
+				var type = "wkt";
+				var features = formats['in'][type].read(val);
+				var bounds;
+				if(features) {
+					if(features.constructor != Array) {
+						features = [features];
+					}
+					for(var i=0; i<features.length; ++i) {
+						if (!bounds) {
+							bounds = features[i].geometry.getBounds();
+						} else {
+							bounds.extend(features[i].geometry.getBounds());
+						}
+
+					}
+					vectors.addFeatures(features);
+					map.zoomToExtent(bounds);
+					var plural = (features.length > 1) ? 's' : '';
+					
+				} else {
+					alert("경로 그리기 실패");
+				}
+				
+				
+			}
+			
+			function PathFail()
+			{
+				alert("fail");
+			}
+			
+			function onBtnClearMarker()
+			{
+				markers.clearMarkers();
+			}
+			
+			function onBtnShow3D()
+			{
+				//var i = graphic.DEFAULT_PARAMS.Show3D;
+				graphic.params.Show3D ^= 1; 
+				myLogger.info("graphic.DEFAULT_PARAMS.Show3D : " + graphic.params.Show3D);
+			}
+			
+			function onBtnPrintMap()
+			{
+				var oj = window.open("./IMap5_PrintPopup.html", "", "width=600px, height=550px, resizable");
+				
+				oj.onload = function()
+				{
+					myLogger.info("PopUp OnLoad.");
+					var curBound = graphic.map.getExtent();
+					oj.SetParam(curBound, graphic.getURL(curBound), vectors, markers);
+					oj.MapInit();
+				}
+				
+			}
+			
+        </script>
+    </head>
+    <body onload="init();">
+        <h1 id="title">지도 인쇄</h1>
+
+        <div id="tags">
+        </div>
+
+        <p id="shortdesc">
+            클릭한 지점을 경유하는 경로탐색 예제 페이지입니다.
+
+        </p>
+
+        <div id="map" class="smallmap"></div>
+    
+        <div id="docs">
+            테스트.
+        </div>
+		<input type="button" value="지도 출력" onclick="onBtnPrintMap();" />
+		<input type="button" value="마커 지우기" id="btnClearMarker" onclick="onBtnClearMarker()" />
+		<input type="button" value="입체 지도" id="btnShow3D" onclick="onBtnShow3D()" />
+		<br />
+		
+		<input type="button" value="출발지선택" id="btnStart" onclick="onBtnStart()"/>
+		출발지:
+		<div id="txtStart">0,0</div>
+		<br />
+		<input type="button" value="목적지선택" id="btnEnd" onclick="onBtnEnd()" />
+		목적지:
+		<div id="txtEnd">0,0</div>
+		<br />
+		<input type="button" value="경유지선택" id="btnThrough" onclick="onBtnThrough()"/>
+		경유지:
+		<div id="txtThrough">0,0</div>
+		<br />
+		<input type="button" value="경로탐색!!" onclick="doFindPath();" />
+    </body>
+</html>

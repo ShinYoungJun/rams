@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/doro/!svn/ver/188/rams/src/main/java/suit/dao
+END
+ISuitDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/180/rams/src/main/java/suit/dao/ISuitDao.java
+END
+ISuitPriceDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/148/rams/src/main/java/suit/dao/ISuitPriceDao.java
+END
+SuitAnalDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/149/rams/src/main/java/suit/dao/SuitAnalDao.java
+END
+ISuitPopupDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/188/rams/src/main/java/suit/dao/ISuitPopupDao.java
+END
+SuitDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/doro/!svn/ver/186/rams/src/main/java/suit/dao/SuitDao.java
+END
+SuitPriceDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/149/rams/src/main/java/suit/dao/SuitPriceDao.java
+END
+SuitPopupDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/188/rams/src/main/java/suit/dao/SuitPopupDao.java
+END
+ISuitAnalDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/149/rams/src/main/java/suit/dao/ISuitAnalDao.java
+END

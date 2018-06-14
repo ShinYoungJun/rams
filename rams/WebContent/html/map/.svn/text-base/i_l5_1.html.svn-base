@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>무제 문서</title>
+<link href="../css/doro.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="iRst">
+	<table width="250" border="1" cellspacing="0" cellpadding="0" bordercolor="#bed6e1">
+	  <tr>
+		<th height="25" scope="col" class="title">구명</th>
+		<th class="title" scope="col">동명</th>
+		<th class="title" scope="col">지번</th>
+		<th class="title" scope="col">지목</th>
+	  </tr>
+	  <tr>
+		<td height="25" class="cont">동작구</td>
+		<td class="cont">대방동</td>
+		<td class="cont">33-1</td>
+		<td class="cont">임</td>
+	  </tr>
+	  <tr>
+		<td height="25" class="cont">동작구</td>
+		<td class="cont">대방동</td>
+		<td class="cont">10-1</td>
+		<td class="cont">대</td>
+	  </tr>
+	  <tr>
+		<td height="25" class="cont">동작구</td>
+		<td class="cont">대방동</td>
+		<td class="cont">11-1</td>
+		<td class="cont">임</td>
+	  </tr>
+	  <tr>
+		<td height="25" class="cont">동작구</td>
+		<td class="cont">대방동</td>
+		<td class="cont">33-1</td>
+		<td class="cont">임</td>
+	  </tr>
+  </table>
+</div>
+</body>
+</html>

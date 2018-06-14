@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+					   "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="methodNameResolver_cityland" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+ 		<property name="mappings">
+ 			<props>
+ 			<prop key="/cityland/permiss_list.do">PermissList</prop>
+ 			<prop key="/cityland/dis_list.do">DisList</prop>
+			<prop key="/cityland/moodan_list.do">MoodanList</prop>
+			<prop key="/cityland/base_list.do">BaseList</prop>
+			<prop key="/cityland/history_list.do">HistoryList</prop>
+			<prop key="/cityland/get_history_list.do">GetHistoryList</prop>			
+			</props>
+ 		</property>
+ 	</bean> 	
+ 	
+ 	<bean id="urlMapping_cityland" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+ 		<property name="mappings">
+ 			<props>
+ 			 <prop key="/cityland/permiss_list.do">citylandControl</prop>
+ 			 <prop key="/cityland/dis_list.do">citylandControl</prop>
+ 			 <prop key="/cityland/moodan_list.do">citylandControl</prop>
+ 			 <prop key="/cityland/base_list.do">citylandControl</prop>
+ 			 <prop key="/cityland/history_list.do">citylandControl</prop>
+ 			 <prop key="/cityland/get_history_list.do">citylandControl</prop>	
+ 			</props>
+ 		</property>
+ 	</bean>
+
+	<bean id="citylandControl" class="main.java.cityland.web.CitylandControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_cityland"/>
+		</property>
+		<property name="citylandService" ref="citylandService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+
+ 	<bean id="citylandDao" parent="ramsJdbcDaoSupport" class="main.java.cityland.dao.CitylandDao"/>
+ 	<bean id="citylandService" class="main.java.cityland.service.CitylandService"> 
+ 		<property name="citylandDao" ref="citylandDao"/> 
+ 	</bean>
+ 
+
+</beans>

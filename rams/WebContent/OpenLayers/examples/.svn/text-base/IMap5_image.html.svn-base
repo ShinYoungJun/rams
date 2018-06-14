@@ -1,0 +1,61 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>OpenLayers Image Layer Example</title>
+    <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <style type="text/css">
+        p.caption {
+            width: 512px;
+        }
+    </style>
+	<script src="../lib/OpenLayers/XCoordinate.js"></script>
+    <script src="../lib/Firebug/firebug.js"></script>
+    <script src="../lib/OpenLayers.js"></script>
+    <script type="text/javascript">
+        var map;
+        function init(){
+            map = new OpenLayers.Map('map', {maxResolution : 'auto'});
+
+			
+			var graphic = new OpenLayers.Layer.IMAP5(
+				"",
+                'http://30.30.30.14:8080/kMap_base/MapServiceV5?',
+				[],
+				[]
+            );
+			
+			
+			map.addControl(new OpenLayers.Control.MousePosition());
+			
+			
+            map.addLayers([graphic]);
+			
+            map.zoomToMaxExtent();
+			
+			map.events.register("mousemove", map, function(e) { 
+                var position = this.events.getMousePosition(e);
+                OpenLayers.Util.getElement("mousePos").innerHTML = position;
+            });
+        }
+    </script>
+  </head>
+  <body onload="init()">
+    <h1 id="title">Image Layer Example</h1>
+
+    <div id="tags"></div>
+
+    <p id="shortdesc">
+        Demonstrate a single non-tiled image as a selectable base layer.
+    </p>
+
+    <div id="map" class="smallmap"></div>
+
+    <div id="docs">
+        <p class="caption">
+            IMAP5 test.
+        </p>
+    </div>
+	<div id="mousePos">
+	
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+                       "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="methodNameResolver_map" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+ 		<property name="mappings">
+ 			<props>
+			<prop key="/map/map.do">Map</prop>
+			<prop key="/map/juckjianalysis.do">JuckjiAnalysis</prop>
+			<prop key="/map/juckjianalysisres.do">JuckjiAnalysisRes</prop>					
+			<prop key="/map/get_dong_list.do">GetDongList</prop>
+			<prop key="/map/juckjianalysisdetail.do">JuckjiAnalysisDetail</prop>
+			<prop key="/map/juckjianalysissearch.do">JuckjiAnalysisSearch</prop>			
+			<prop key="/map/juckjianalysisdetailview.do">JuckjiAnalysisDetailView</prop>
+			<prop key="/map/juckjianalysisdetailframe1.do">JuckjiAnalysisDetailFrame1</prop>
+			<prop key="/map/suitbiz.do">SuitBusinessMain</prop>
+			<prop key="/map/suitbizres.do">SuitBusinessRes</prop>
+			<prop key="/map/suitbizdetail.do">SuitBusinessDetail</prop>			
+			<prop key="/map/suitbizdetail1.do">SuitBusinessTab1</prop>
+			<prop key="/map/suitbizdetail2.do">SuitBusinessTab2</prop>
+			<prop key="/map/suitbizdetail3.do">SuitBusinessTab3</prop>
+			<prop key="/map/unreward.do">UnRewardMain</prop>			
+			<prop key="/map/unrewarddetail.do">UnRewardDetail</prop>		
+			<prop key="/map/reward.do">RewardMain</prop>
+			<prop key="/map/rewardview.do">RewardDetailView</prop>
+			<prop key="/map/rewardexcel.do">RewardExcelView</prop>
+			<prop key="/map/getunrewardlist.do">GetUnRewardList</prop>	
+			<prop key="/map/gosuitview.do">MapSuitView</prop>			
+			
+			</props>
+ 		</property>
+ 	</bean> 	
+ 	<bean id="urlMapping_map" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+ 		<property name="mappings">
+ 			<props>
+			<prop key="/map/map.do">mapControl</prop>
+			<prop key="/map/juckjianalysis.do">mapControl</prop>
+			<prop key="/map/juckjianalysisres.do">mapControl</prop>	
+			<prop key="/map/get_dong_list.do">mapControl</prop>
+			<prop key="/map/juckjianalysisdetail.do">mapControl</prop>
+			<prop key="/map/juckjianalysissearch.do">mapControl</prop>
+			<prop key="/map/juckjianalysisdetailview.do">mapControl</prop>
+			<prop key="/map/juckjianalysisdetailframe1.do">mapControl</prop>
+			<prop key="/map/suitbiz.do">mapControl</prop>
+			<prop key="/map/suitbizres.do">mapControl</prop>
+			<prop key="/map/suitbizdetail.do">mapControl</prop>
+			<prop key="/map/suitbizdetail1.do">mapControl</prop>
+			<prop key="/map/suitbizdetail2.do">mapControl</prop>
+			<prop key="/map/suitbizdetail3.do">mapControl</prop>
+			<prop key="/map/unreward.do">mapControl</prop>			
+			<prop key="/map/unrewarddetail.do">mapControl</prop>
+			<prop key="/map/reward.do">mapControl</prop>
+			<prop key="/map/rewardview.do">mapControl</prop>	
+			<prop key="/map/rewardexcel.do">mapControl</prop>
+			<prop key="/map/getunrewardlist.do">mapControl</prop>
+			<prop key="/map/gosuitview.do">mapControl</prop>
+ 			</props>
+ 		</property>
+ 	</bean>
+	<bean id="mapControl" class="main.java.map.web.MapControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_map"/>
+		</property>
+		<property name="mapService" ref="mapService"/>	
+		<property name="suitService" ref="suitService"/>	
+	</bean>
+	
+	<bean id="suitDao" parent="ramsJdbcDaoSupport" class="main.java.suit.dao.SuitDao"/>
+ 	<bean id="suitService" class="main.java.suit.service.SuitService"> 
+ 		<property name="suitDao" ref="suitDao"/> 
+ 	</bean>
+	
+	<bean id="mapDao" parent="ramsJdbcDaoSupport" class="main.java.map.dao.MapDao"/>
+ 	  
+ 	<bean id="mapService" class="main.java.map.service.MapService"> 
+ 		<property name="mapDao" ref="mapDao"/> 
+ 	</bean>
+</beans>

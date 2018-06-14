@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/doro/!svn/ver/74/rams/src/main/java/board/dao
+END
+IBoardDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/src/main/java/board/dao/IBoardDao.java
+END
+NoticeDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/src/main/java/board/dao/NoticeDao.java
+END
+BoardDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/74/rams/src/main/java/board/dao/BoardDao.java
+END
+INoticeDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/src/main/java/board/dao/INoticeDao.java
+END

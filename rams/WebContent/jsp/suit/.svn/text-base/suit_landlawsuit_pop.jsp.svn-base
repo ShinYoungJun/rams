@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>무제 문서</title>
+<link href="../css/doro.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="cont02">
+	  <h3><img src="../images/suit/st_srch.gif" alt="대상 토지 목록 조회"/></h3>
+	  
+	  <!-- 기본사항 -->
+	  <table width="817" border="1" cellpadding="1" cellspacing="1" bordercolor="#d3e2ea">
+		<tr>
+		  <td>
+		  	<table width="813" border="1" cellspacing="0" cellpadding="0" class="mapPopup" summary="" bordercolor="#bed6e1">
+			  <tr>
+				<th width="100" scope="col">지번</th>
+				<th width="60" scope="col">구분</th>
+				<th width="60" scope="col">성명</th>
+				<th width="150" scope="col">주민번호/사업자등록번호</th>
+				<th scope="col">주소</th>
+				<th width="120" scope="col">연락처</th>
+				<th width="120" scope="col">공사정보</th>
+			  </tr>
+			  <tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			  </tr>
+			  <tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			  </tr>
+			</table>
+
+		  </td>
+		</tr>
+	  </table>
+	  <table width="817" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		  <td height="34" align="right"><a href="#"><img src="../images/common/btn_modify.gif" alt="수정" width="62" height="19" border="0" /></a></td>
+		  <td width="70" align="right"><a href="#"><img src="../images/common/btn_cancel.gif" alt="취소" width="62" height="19" border="0" /></a></td>
+		</tr>
+	  </table>
+</div>
+
+</body>
+</html>

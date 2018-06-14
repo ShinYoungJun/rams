@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/doro/!svn/ver/243/rams/src/main/java/admin/dao
+END
+UserRegDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/242/rams/src/main/java/admin/dao/UserRegDao.java
+END
+UserDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/243/rams/src/main/java/admin/dao/UserDao.java
+END
+IUserRegDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/241/rams/src/main/java/admin/dao/IUserRegDao.java
+END
+IUserDao.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/243/rams/src/main/java/admin/dao/IUserDao.java
+END

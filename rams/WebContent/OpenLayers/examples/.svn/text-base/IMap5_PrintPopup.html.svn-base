@@ -1,0 +1,170 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+      <title>OpenLayers Image Layer Example</title>
+    <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <style type="text/css">
+        input, select, textarea {
+            font: 0.9em Verdana, Arial, sans-serif;
+        }
+        #leftcol {
+            position: absolute;
+            top: 0;
+            left: 1em;
+            padding: 0;
+            width: 517px;
+        }
+        #map {
+            width: 512px;
+            height: 400px;
+            border: 1px solid #ccc;
+        }
+        #input {
+            width: 512px;
+        }
+     
+        #info {
+            position: relative;
+            padding: 2em 0;
+            margin-left: 540px;
+        }
+        #output {
+            font-size: 0.8em;
+            width: 100%;
+            height: 512px;
+            border: 0;
+        }
+        p {
+            margin: 0;
+            padding: 0.75em 0 0.75em 0;
+        }
+		#btnPrint {
+			display : "block";
+		}
+    </style>
+    <script src="../lib/Firebug/firebug.js"></script>
+    <script src="../lib/OpenLayers.js"></script>
+	<script src="../lib/log4js.js"></script>
+	<!--<script src="../lib/OpenLayers/XCoordinate.js"></script>-->
+    <script type="text/javascript">
+        var map;
+		var vectors;
+		var markers;
+		var imgUrl;
+		var imgBound;
+		var imgArrVector;
+		var imgArrMarker;
+		
+		var myLogger = new Log4js.getLogger("pop");
+		myLogger.setLevel(Log4js.Level.ALL);
+		myLogger.addAppender( new Log4js.ConsoleAppender(false) );
+		
+		
+		function SetParam(bound, url, arrVector, arrMarker)
+		{
+			//alert('aaa');
+			imgUrl = url;
+			imgBound = bound;
+			
+			myLogger.info("url: " + imgUrl);
+			myLogger.info("bound: " + imgBound);
+			
+			imgArrVector = null;
+			if(arrVector)
+				imgArrVector = arrVector.features;
+	
+			imgArrMarker = null;
+			if(arrMarker)
+				imgArrMarker = arrMarker.markers;
+			
+			
+		}
+		
+		
+        function MapInit(){
+            map = new OpenLayers.Map('map');
+
+            var options = {numZoomLevels: 1};
+
+			
+			
+            var graphic = new OpenLayers.Layer.Image(
+                '',
+                //'http://localhost:9981/servlet/intramapswg.MapServiceV5?cmd=DrawMapAjax&ImageType=1&LayerControl=null&Show3D=0&LoadColor=null&LoadFlag=null&Width=512&Height=400&CenX=947841.21804375&CenY=1963003.5397311&ZoomValue=94.42258124999994',
+                //new OpenLayers.Bounds(923669.03724375, 1944119.0234811, 972013.39884375, 1981888.0559811),
+                imgUrl,
+				imgBound,
+				new OpenLayers.Size(512, 400),
+                options
+            );
+            
+            graphic.events.on({
+                loadstart: function() {
+                    OpenLayers.Console.log("loadstart");
+                },
+                loadend: function() {
+                    OpenLayers.Console.log("loadend");
+                }
+            });
+
+            map.addLayers([graphic]);
+			markers = new OpenLayers.Layer.Markers( "Markers" );
+			map.addLayer(markers);
+			vectors = new OpenLayers.Layer.Vector("Vector Layer");
+			map.addLayer(vectors);
+			
+			var icon;
+			var iconLonLat;
+			var tmpIcon;
+			if(imgArrMarker)
+			{
+				for( var i = 0; i < imgArrMarker.length; i++)
+				{
+					tmpIcon = imgArrMarker[i].icon;
+					//icon = new OpenLayers.Icon('http://localhost:9981/OpenLayers/examples/image/Balloon.bmp',size,offset);
+					icon = new OpenLayers.Icon(tmpIcon.url, tmpIcon.size, tmpIcon.offset);
+					iconLonLat = imgArrMarker[i].lonlat;
+					//myLogger.info(iconLonLat + ", " + icon);
+					markers.addMarker(new OpenLayers.Marker(iconLonLat, icon));
+				}
+			}
+			
+			if(imgArrVector)
+			{
+				for( var j = 0; j < imgArrVector.length; j++)
+					vectors.addFeatures(imgArrVector[j]);
+			}
+			
+            map.zoomToMaxExtent();
+			
+			//window.print();
+        }
+		
+		function onBtnPrint()
+		{
+			var btn = document.getElementById('btnPrint');
+			if(btn)
+				btn.style.display = "none";
+			
+			window.print();
+			
+			if(btn) {
+				setTimeout(function(){
+					btn.style.display = "block";
+				}, 5000);
+			}
+		}
+		
+    </script>
+  </head>
+  <body>
+	<div id="printContent">
+    <h1 id="title">Map Print</h1>
+
+    <div id="map" class="smallmap"></div>
+	</div>
+	<!-- -->
+	<input type="button" value="ÀÎ¼â" onclick="onBtnPrint();" id="btnPrint"/>
+    <!-- -->
+  </body>
+</html>

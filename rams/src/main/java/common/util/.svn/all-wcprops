@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/doro/!svn/ver/250/rams/src/main/java/common/util
+END
+FileUploadUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/122/rams/src/main/java/common/util/FileUploadUtil.java
+END
+SiteUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/src/main/java/common/util/SiteUtil.java
+END
+Globals.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/250/rams/src/main/java/common/util/Globals.java
+END
+StringUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/184/rams/src/main/java/common/util/StringUtil.java
+END
+BoardUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/74/rams/src/main/java/common/util/BoardUtil.java
+END
+StringArray.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/74/rams/src/main/java/common/util/StringArray.java
+END
+UUID.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/doro/!svn/ver/74/rams/src/main/java/common/util/UUID.java
+END
+EncodingFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/74/rams/src/main/java/common/util/EncodingFilter.java
+END

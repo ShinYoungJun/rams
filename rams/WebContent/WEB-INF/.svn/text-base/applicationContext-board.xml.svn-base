@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+					   "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="methodNameResolver_board" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+ 		<property name="mappings">
+ 			<props>
+ 			<prop key="/board/board_list.do">boardList</prop>
+ 			<prop key="/board/board_write.do">boardWrite</prop>
+ 			<prop key="/board/board_write_prc.do">boardWritePrc</prop>
+ 			<prop key="/board/board_view.do">boardView</prop>
+ 			<prop key="/board/board_delete.do">boardDelete</prop>
+ 			
+ 			<prop key="/board/notice_list.do">noticeList</prop>
+ 			<prop key="/board/notice_write.do">noticeWrite</prop>
+ 			<prop key="/board/notice_write_prc.do">noticeWritePrc</prop>
+ 			<prop key="/board/notice_view.do">noticeView</prop>
+ 			<prop key="/board/notice_delete.do">noticeDelete</prop>
+			</props>
+ 		</property>
+ 	</bean>
+ 	
+ 	<bean id="urlMapping_board" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+ 		<property name="mappings">
+ 			<props>
+ 			<prop key="/board/board_list.do">boardControl</prop>
+ 			<prop key="/board/board_write.do">boardControl</prop>
+ 			<prop key="/board/board_write_prc.do">boardControl</prop>
+ 			<prop key="/board/board_view.do">boardControl</prop>
+ 			<prop key="/board/board_delete.do">boardControl</prop>
+ 			
+ 			<prop key="/board/notice_list.do">noticeControl</prop>
+ 			<prop key="/board/notice_write.do">noticeControl</prop>
+ 			<prop key="/board/notice_write_prc.do">noticeControl</prop>
+ 			<prop key="/board/notice_view.do">noticeControl</prop>
+ 			<prop key="/board/notice_delete.do">noticeControl</prop>
+ 			</props>
+ 		</property>
+ 	</bean>
+
+	<bean id="boardControl" class="main.java.board.web.BoardControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_board"/>
+		</property>
+		<property name="boardService" ref="boardService"/>
+	</bean>
+
+
+ 	<bean id="boardDao" parent="ramsJdbcDaoSupport" class="main.java.board.dao.BoardDao"/>
+ 	  
+ 	<bean id="boardService" class="main.java.board.service.BoardService"> 
+ 		<property name="boardDao" ref="boardDao"/> 
+ 	</bean>
+ 	
+ 	<bean id="noticeControl" class="main.java.board.web.NoticeControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_board"/>
+		</property>
+		<property name="noticeService" ref="noticeService"/>
+	</bean>
+
+
+ 	<bean id="noticeDao" parent="ramsJdbcDaoSupport" class="main.java.board.dao.NoticeDao"/>
+ 	  
+ 	<bean id="noticeService" class="main.java.board.service.NoticeService"> 
+ 		<property name="noticeDao" ref="noticeDao"/> 
+ 	</bean>
+ 
+
+</beans>

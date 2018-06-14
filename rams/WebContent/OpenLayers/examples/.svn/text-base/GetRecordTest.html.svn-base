@@ -1,0 +1,232 @@
+﻿<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <style type="text/css">
+        p.caption {
+            width: 512px;
+        }
+		#map {
+			width: 700px;
+			height: 500px;
+		}
+    </style>
+	<script src="../lib/Firebug/firebug.js"></script>
+    <script src="../lib/OpenLayers.js"></script>
+	
+<!--
+	
+	<script type="text/javascript" src="./IMap5_GetRecord.js"></script>
+-->
+
+
+<script type="text/javascript">
+	var map;
+	var graphic;
+	var MapList = new IMap_MapInfo();
+	MapList.Init();
+	
+	function init()
+	{
+		//var servletUrl = "http://20.20.20.26:9981/servlet/intramapswg.MapServiceV5?";
+		var servletUrl = "http://localhost:9981/kMap_base/MapServiceV5?";
+		//var servletUrl = "http://123.140.221.198:9981/servlet/intramapswg.MapServiceV5?";
+		//var servletUrl = "http://123.140.221.198:9981/kMap_base/MapServiceV5?";
+		var getBoundUrl = servletUrl + "cmd=getallmapinfoxml";
+		
+		/**
+		* 지도를 띄우기 전에 IntraMap Web 5.0 에 설정된 boundary 값을 가져와서 설정해야합니다.
+		* 지도 boundary 값을 가져오지 못하면 지도를 띄우지 못합니다.
+		*
+		*/
+		OpenLayers.loadURL(getBoundUrl, '', this, function(res) {
+			var rXml = res.responseXML;
+			var boundary;
+			var flag;
+			
+			//if( rXml != null  && boundary) {
+			if(navigator.appName.indexOf("Explorer") != -1 ) 
+			{
+				
+				var xmlText = res.responseText;
+				var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+				xmlDoc.async="false";
+				xmlDoc.loadXML(xmlText); 
+				rXml = xmlDoc.documentElement;
+			}
+			
+			if(rXml == null)
+				alert("Error");
+			
+			boundary = rXml.getElementsByTagName("Boundary");				
+			minX = parseFloat(boundary[0].getElementsByTagName("MinX")[0].firstChild.nodeValue );
+			minY = parseFloat(boundary[0].getElementsByTagName("MinY")[0].firstChild.nodeValue );
+			maxX = parseFloat(boundary[0].getElementsByTagName("MaxX")[0].firstChild.nodeValue );
+			maxY = parseFloat(boundary[0].getElementsByTagName("MaxY")[0].firstChild.nodeValue );
+					
+			var strMap = getMapInfo( rXml );
+			var strShow3D = strMap.split('^')[0];
+			var strLoadFlag  = strMap.split('^')[1];
+			var strLayerControl  = strMap.split('^')[2];
+			
+			// 지도 초기화....
+			// maxResolution 값은 반드시 'auto'로 지정해야합니다.
+			map = new OpenLayers.Map('map', {maxResolution : 'auto'});
+
+			
+			graphic = new OpenLayers.Layer.IMAP5(
+				"",
+				servletUrl,
+				[{'Show3D':strShow3D, 'LayerControl':strLayerControl, 'LoadFlag':strLoadFlag}],
+				[],
+				minX,
+				minY,
+				maxX,
+				maxY
+			);
+			
+			
+			map.addControl(new OpenLayers.Control.MousePosition());
+			
+			
+			map.addLayers([graphic]);
+			
+			map.zoomToMaxExtent();
+			map.zoomTo(3);
+			
+			/*
+			map.events.register("mousemove", map, function(e) { 
+				var position = this.events.getMousePosition(e);
+				OpenLayers.Util.getElement("mousePos").innerHTML = position;
+			});
+			*/
+		
+		}, function(res) {
+			return;
+		});
+	}
+	
+	function getMapInfo( objXml )
+	{
+		var ret = [];		//리턴값...string... -> 'Show3D^LoadFlag^LayerControl' 이런형태로 리턴할꺼임.
+		//var mapObj = {};	//map visible값 저장할거.
+		var mapObj = null;
+		
+		var MapInfo = objXml.getElementsByTagName('MapInfo');
+		var MapCnt = MapInfo.length;
+		if( MapCnt == 0 )
+			return ',';
+		
+		
+		var MapVisible;
+		for( var i = 0; i < MapCnt; i++)
+		{
+			MapVisible = MapInfo[i].getElementsByTagName('Visible')[0].firstChild.nodeValue;
+			mapObj = new Object();
+			mapObj.visible = MapVisible +'';
+			MapList.AddMap( mapObj );
+		}
+		
+		ret.push(MapList.GetShow3D(1));
+		ret.push(MapList.GetLoadFlag());
+		ret.push(MapList.GetLayerControl());
+		
+		return ret.join('^');
+	}
+
+	/**
+	 * doGetRecord() : 지도서버에서 레코드 검색.
+	 * IntraMapWeb 5.0에서 사용하는 Xmap 중 xdb가 존재하는 레이어에서만 레코드를 검색할 수 있습니다.
+	 */
+	function doGetRecord() {
+		//alert(GetRecord);
+		var param = {
+			"MapID" : 1,
+			"LayerID" : 7,
+			"Filter" : [
+				//{"OBJECTID" : 10}
+				//{"OBJREFID" : 1091},
+				//{"OBJREFID" : 1954},
+				{"OBJREFID" : 15084}
+			],
+			"ReturnFieldName" : ["BD_NM", "XGEOMETRY"]
+		}
+		var result = graphic.GetIMAPRecord(param, funcSuccess, funcFail);
+		
+		return;
+	}
+	
+	// GetRecord() 실행한 후 받은 데이터를 파싱한 객체를 받는 콜백함수 example.
+	function funcSuccess(obj)
+	{
+		var rCount;
+		rCount = obj.GetRecordCount();
+		
+		var area = document.getElementById("resultArea");
+		var str = "NormalField <br>";
+		for(var i = 0; i < rCount; i++) 
+		{
+			for(var j = 0; j < obj.GetRecord(i).GetNormalFieldCount(); j++) {
+				str += ("i : " + i + ", j : " + j + ", FieldName: " + obj.GetRecord(i).GetFieldName(j) + ", FieldValue : " + obj.GetRecord(i).GetFieldValue(j) + "<br>");
+			}
+		}
+		area.innerHTML = str;
+		
+		str = "<br><br>Geometry Field <br>";
+		str += ("MinX : " + obj.MinX + ", MinY : " + obj.MinY + ", MaxX : " + obj.MaxX + ", MaxY : " + obj.MaxY + "<br>");
+		for(var z = 0; z < rCount; z++) 
+		{
+			var geoObj = obj.GetRecord(z).GetGeometryFieldSet();
+			if(!geoObj){
+				break;
+			}
+			for(var x = 0; x < geoObj.GetGeometryCount(); x++)
+			{
+				for(var y =0; y < geoObj.GetGeometry(x).GetPartCount(); y++) {
+					
+					str += ("CoordCount : " + geoObj.GetGeometry(x).GetCoordCount(y) + "<br>" );	
+					str += ("Coords : " + geoObj.GetGeometry(x).GetCoordXYZSet(y) + "<br>");
+				}
+				//
+			}
+			str += "<br><br>WKT<br>" +  obj.GetRecord(z).RecordToWKT()[0];
+			str += "<br>";
+		}
+		
+		area.innerHTML += str;
+		
+		
+	}
+	
+	
+	// GetRecord() 실패시...
+	function funcFail(obj)
+	{
+		alert("failed callback...->" + obj);
+	}
+
+</script>
+</head>
+<body onload="init();">
+	<h1 id="title">IMAP5 Layer Example</h1>
+
+    <div id="tags"></div>
+
+    <div id="map" class="smallmap"></div>
+
+    <div id="docs">
+        <p class="caption">
+            IMAP5 test.
+        </p>
+    </div>
+	<div id="mousePos"></div>
+	<br>
+	
+	
+	<!-- 지도서버에 GetRecord()호출해서 레코드 검색하는거.. -->
+	<button id="btnGetRecord" onclick="doGetRecord()">GetRecord</button>
+	<div id="resultArea" width="100%" height="700" style="border:1px">
+	</div>
+</body>
+</html>

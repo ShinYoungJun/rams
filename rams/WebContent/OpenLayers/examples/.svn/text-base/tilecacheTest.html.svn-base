@@ -1,0 +1,268 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>OpenLayers TileCache Example</title>
+    <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="../lib/OpenLayers.js"></script>
+    <script type="text/javascript">
+		
+		
+		
+		
+        var map, layer;
+		var graphic;
+		//var servletUrl = "http://175.196.63.214:8081/IntraMapGS/MapService";
+		var servletUrl = "http://localhost:9981/IntraMapTOPIS/MapService";
+		var arrLayers = [];
+		arrLayers[0] = {};
+		arrLayers[0].name = "emd";
+		arrLayers[0].checked = false;
+		arrLayers[0].qCheck = false;
+		
+		
+		arrLayers[1] = {};
+		arrLayers[1].name = "STNL_LINK_CAR_LV9_EPSG2097";
+		arrLayers[1].checked = false;
+		arrLayers[1].qCheck = false;
+		
+		
+		arrLayers[2] = {};
+		arrLayers[2].name = "STNL_LINK_CAR_LV9_EPSG2nd";
+		arrLayers[2].checked = false;
+		arrLayers[2].qCheck = false;
+		
+		arrLayers[3] = {};
+		arrLayers[3].name = "STNL_LINK_CAR_LV9";
+		arrLayers[3].checked = false;
+		arrLayers[3].qCheck = false;
+		
+		arrLayers[4] = {};
+		arrLayers[4].name = "SUCHIJIDO20_G001_3";
+		arrLayers[4].checked = true;
+		arrLayers[4].qCheck = false;
+		
+		arrLayers[5] = {};
+		arrLayers[5].name = "SUCHIJIDO20_G001_4";
+		arrLayers[5].checked = true;
+		arrLayers[5].qCheck = false;
+		
+		
+		//GetMap 연산 요청하는 레이어 목록.
+		function getSelectedLayer()
+		{
+			var rStr = [];
+			for( var i = 0; i < arrLayers.length; i++)
+			{
+				if(arrLayers[i].checked) 
+				{
+					rStr.push(arrLayers[i].name);
+				}
+			}
+			
+			//alert(rStr.join(','));
+			return rStr.join(',');
+		}
+		
+		function setLayerList() {
+			var obj = document.getElementById("layerList");
+			var chkElem, divElem, txtElem;
+			var i;
+			
+			if( obj )
+			{
+				for( i = 0; i < arrLayers.length; i++)
+				{
+					divElem = document.createElement('div');
+					chkElem = document.createElement('input');
+					chkElem.type = 'checkbox';
+					
+					//chkElem.checked = arr[i].checked;
+					chkElem.onclick = reRequest;
+					
+					chkElem.name = arrLayers[i].name;
+					chkElem.checked = arrLayers[i].checked;
+					divElem.appendChild(chkElem);
+					
+					txtElem = document.createTextNode(arrLayers[i].name);
+					divElem.appendChild(txtElem);
+					
+					obj.appendChild(divElem);
+				}
+			}
+		}
+		
+		function reRequest()
+		{
+			for( var i = 0; i < arrLayers.length; i++ )
+			{
+				if( arrLayers[i].name == this.name ) {
+					arrLayers[i].checked = this.checked;
+					break;
+				}
+			}
+			
+			var newParams = {'layers' : getSelectedLayer() };
+			graphic.mergeNewParams( newParams );
+			
+			map.zoomTo(map.getZoom());
+		}
+		
+        function init()
+		{
+			document.getElementById("map").style.height="400px";
+		
+			//(function(){
+				Proj4js.defs["SR-ORG:6640"] = "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs";
+			//})();
+			var projSRORG = new OpenLayers.Projection("SR-ORG:6640");
+			
+			var options = { 
+				projection: new OpenLayers.Projection("SR-ORG:6640"), //EPSG:2097
+				displayProjection: new OpenLayers.Projection("SR-ORG:6640"),
+				units: "m",
+				maxResolution : "223.52171471150155",
+				numZoomLevels : 10,
+				//POI_ParkingLot
+				//maxExtent:  new OpenLayers.Bounds( 182529.175,437956.866,215035.319,465623.683 ),
+				
+				//STNL_LINK_CAR_LV1
+				//maxExtent:  new OpenLayers.Bounds( 182017.707,413417.376,235322.520,466004.201 ),
+				
+				//topis_tile maxExtent
+				/* 타일 이미지의 Max Extent 값으로 지정합니다. */
+				maxExtent : new OpenLayers.Bounds( 145191.28460926747, 390875.74283858587, 259597.56054367914, 505318.86077087466 ),
+				
+				controls : [
+					new OpenLayers.Control.PanZoomBar(),
+					new OpenLayers.Control.Scale(),
+					new OpenLayers.Control.LayerSwitcher(),
+					new OpenLayers.Control.Navigation(),
+					new OpenLayers.Control.MousePosition(),
+					new OpenLayers.Control.Permalink()
+				]
+			 };
+			
+			
+			map = new OpenLayers.Map( $('map'), options);
+			//alert(map.numZoomLevels);
+			/* 
+				- 타일 이미지를 사용하는 레이어. 
+				- 타일 이미지 요청 url은 수정하셔야 합니다.
+			*/
+            layer = new OpenLayers.Layer.TMS("TileCache Layer",
+                ["http://localhost/SM_B_WEB_D"],
+                "basic",
+                {}
+            );
+
+			/* MaxResolution 값을 1/2씩 나누어 단계별로 지정한 것입니다. 10단계.*/
+			layer.serverResolutions = [	
+				0.43656584904590146484375,
+				0.8731316980918029296875,
+				1.746263396183605859375,
+				3.49252679236721171875,
+				6.9850535847344234375,
+				13.970107169468846875,
+				27.94021433893769375,
+				55.8804286778753875,		
+				111.760857355750775,
+				223.52171471150155
+			];
+			//layer.displayOutsideMaxExtent = true;
+			
+			//topis tile.
+			layer.tileOrigin = new OpenLayers.LonLat(145191.28460926747, 390875.74283858587);
+			layer.maxExtent = new OpenLayers.Bounds( 145191.28460926747, 390875.74283858587, 259597.56054367914, 505318.86077087466 );
+			//layer.numZoomLevels = 10;
+			layer.setIsBaseLayer( true );
+			layer.transitionEffect = '';
+			
+			//tile레이어 추가.
+            map.addLayer(layer);
+			
+			//WMS 레이어 설정.
+			graphic = new OpenLayers.Layer.WMS( "IntraMap WMS",
+                    servletUrl, 
+					{ layers: getSelectedLayer() , format: "image/png", transparent:'true'},
+					{singleTile: !true, isBaseLayer: false, buffer:0}
+					
+			);
+			
+			graphic.transitionEffect = "resize";
+			//graphic.ratio = 2.0;			//singleTile == true일때만. 
+			//graphic.numLoadingTiles = 20;
+			//graphic.displayOutsideMaxExtent = true;		
+
+			//graphic.projection = new OpenLayers.Projection("EPSG:2097");
+			//graphic.units = "m";
+			//graphic.maxExtent = new OpenLayers.Bounds(179444.996, 413439.762, 235266.588, 466002.508);
+			//graphic.visibility = false;
+			
+			map.addLayer(graphic);
+			map.setCenter(new OpenLayers.LonLat(199730, 449438), 0);
+			
+			/*
+			var epsg = new OpenLayers.LonLat(199730, 449438);
+			var srorg = new OpenLayers.Projection.transform(epsg, new OpenLayers.Projection("EPSG:2097"), projSRORG);
+			alert(epsg + " , " + srorg);
+			*/
+			map.zoomTo(0);
+			
+			setLayerList();
+			
+			
+        }
+		
+		//GetMap 연산 요청하는 레이어 목록.
+		function getSelectedLayer()
+		{
+			var rStr = [];
+			for( var i = 0; i < arrLayers.length; i++)
+			{
+				if( arrLayers[i].checked == true )
+					rStr.push(arrLayers[i].name);
+			}
+			
+			return rStr.join(',');
+		}
+		
+        OpenLayers.Util.onImageLoadError = function() {
+            /**
+             * For images that don't exist in the cache, you can display
+             * a default image - one that looks like water for example.
+             * To show nothing at all, leave the following lines commented out.
+             */
+
+            //this.src = "../img/blank.gif";
+            //this.style.display = "";
+        };
+		
+		
+		
+    </script>
+  </head>
+  <body onload="init()">
+      <h1 id="title">TileCache Example</h1>
+
+      <div id="tags"></div>
+
+      <p id="shortdesc">
+        Demonstrates a TileCache layer that loads tiles from from a web
+        accessible disk-based cache only.
+      </p>
+
+    <div id="map" class="smallmap"></div>
+	
+	
+	<div id="layerList" style="border:solid 1px red">
+	레이어 on/off
+	</div>
+
+    <div id="docs">
+        This layer should be used for web accessible disk-based caches only.
+        It is not used to request new tiles from TileCache.  Note that you
+        should specify resolutions explicitly on this layer so that they match
+        your TileCache configuration.
+    </div>
+  </body>
+</html>

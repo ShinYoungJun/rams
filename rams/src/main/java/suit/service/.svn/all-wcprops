@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/doro/!svn/ver/188/rams/src/main/java/suit/service
+END
+ISuitPriceService.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/148/rams/src/main/java/suit/service/ISuitPriceService.java
+END
+SuitAnalService.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/149/rams/src/main/java/suit/service/SuitAnalService.java
+END
+ISuitPopupService.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/188/rams/src/main/java/suit/service/ISuitPopupService.java
+END
+SuitService.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/180/rams/src/main/java/suit/service/SuitService.java
+END
+SuitPriceService.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/148/rams/src/main/java/suit/service/SuitPriceService.java
+END
+SuitPopupService.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/188/rams/src/main/java/suit/service/SuitPopupService.java
+END
+ISuitAnalService.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/149/rams/src/main/java/suit/service/ISuitAnalService.java
+END
+ISuitService.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/180/rams/src/main/java/suit/service/ISuitService.java
+END

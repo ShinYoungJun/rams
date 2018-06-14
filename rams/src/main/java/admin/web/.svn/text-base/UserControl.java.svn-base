@@ -1,0 +1,612 @@
+package main.java.admin.web;
+
+
+import java.util.List;
+import java.util.StringTokenizer;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import main.java.admin.model.UserBean;
+import main.java.admin.service.IUserRegService;
+import main.java.admin.service.IUserService;
+import main.java.admin.service.UserService;
+import main.java.common.service.CommonCodeService;
+import main.java.common.util.BoardUtil;
+import main.java.common.util.Globals;
+import main.java.common.util.StringUtil;
+import main.java.map.model.T_PNUBean;
+import main.java.suit.model.SuitBean;
+
+import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+
+public class UserControl extends MultiActionController {
+
+	private IUserRegService objUserRegService = null;
+	private IUserService objUserService = null;
+	private	CommonCodeService	commonCode		= null;		
+
+	public void setUserRegService(IUserRegService newObjUserRegService) {
+		this.objUserRegService = newObjUserRegService;
+	}
+	
+	public void setUserService(IUserService newObjUserService) {
+		this.objUserService = newObjUserService;
+	}
+	
+	public void setCommonCodeService(CommonCodeService commonCode) 
+	{
+		this.commonCode = commonCode;
+	}
+	
+ 	 /**
+   	 * login처리
+ 	 * @param HttpServletRequest request 
+ 	 * @param HttpServletResponse response
+	 * @return ModelAndView
+	 */
+	
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		String strUserId = ServletRequestUtils.getStringParameter(request, "RAMS_USERID", "").trim();
+		String strPass = ServletRequestUtils.getStringParameter(request, "RAMS_PASS", "").trim();
+		String message = ServletRequestUtils.getStringParameter(request, "message", "");
+		
+		request.setAttribute("ramsNoticeList", objUserService.getRamsNoticeList("%"));
+		request.setAttribute("roadsNoticeList", objUserService.getRoadsNoticeList("3"));
+		System.out.println("fdasfjdaslk;"+objUserService.getRoadsNoticeList("3").size());
+		request.setAttribute("message", message);
+		
+		strUserId = strUserId.replace('=','#');
+		strUserId = strUserId.replace(';','#');
+		strUserId = strUserId.replaceAll("<","&lt;");
+		strUserId = strUserId.replaceAll(">","&gt;");
+		
+		strPass = strPass.replace('=','#');
+		strPass = strPass.replace(';','#');
+		strPass = strPass.replaceAll("<","&lt;");
+		strPass = strPass.replaceAll(">","&gt;");
+
+		if(strUserId == null || strUserId == "")
+		{ //최초화면
+			
+
+			
+			
+			return new ModelAndView("/admin/user/login");
+		}
+		else
+		{
+			UserBean objUserBean = objUserRegService.getUserDetail(strUserId);
+			
+			// 등록된 사용자가 아님
+			if(objUserBean == null){
+				request.setAttribute("message", "존재하지 않는 ID입니다");
+				return new ModelAndView("/admin/user/login");
+			}
+			// 인증되지 않음     
+			else if(!objUserBean.getISAPPROVE().equals("Y")){
+				request.setAttribute("message", "미승인상태입니다. 관리자에게 승인 요청바랍니다.");
+				return new ModelAndView("/admin/user/login");
+			}
+			// password 불일치
+			else if(!objUserBean.getPASS().equals(strPass)){
+				request.setAttribute("message", "패스워드를 확인하시기 바랍니다.");
+				return new ModelAndView("/admin/user/login");
+			}
+			// 로그인 성공
+			else{
+				// 세션에 로긴 정보 등록 후 지정된 페이지로 이동
+				HttpSession session = request.getSession();
+				session.setAttribute("sessionUserId", objUserBean.getUSERID());
+				session.setAttribute("sessionAuthur", objUserBean.getAUTHURNAME());
+				session.setAttribute("sessionName", objUserBean.getUSERNAME());
+				session.setAttribute("sessionOrgCD", objUserBean.getADMINIST());
+				request.setAttribute("userId", strUserId);
+				request.setAttribute("userName", objUserBean.getUSERNAME());
+				request.setAttribute("userAuthur", objUserBean.getAUTHURNAME());
+				
+				System.out.println("사용자 이름 : : : : "+objUserBean.getUSERNAME());
+				return new ModelAndView("/admin/main/main");
+			}	
+		}
+	}
+	
+	
+	
+	public ModelAndView ramsNoticeView(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String SEQNUM = ServletRequestUtils.getStringParameter(request, "SEQNUM", "");
+		
+		request.setAttribute("ramsNotice", objUserService.getRamsNoticeList(SEQNUM).get(0));
+			
+		return new ModelAndView("/admin/user/rams_notice_view");
+	}
+	
+  	 /**
+   	 * userReg처리
+ 	 * @param HttpServletRequest request 
+ 	 * @param HttpServletResponse response
+	 * @return ModelAndView
+	 */
+	
+	public ModelAndView userReg(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		String strUserId = ServletRequestUtils.getStringParameter(request, "USERID", "").trim();
+		String strPass = ServletRequestUtils.getStringParameter(request, "PASS", "").trim();
+		
+		strUserId = strUserId.replace('=','#');
+		strUserId = strUserId.replace(';','#');
+		strUserId = strUserId.replaceAll("<","&lt;");
+		strUserId = strUserId.replaceAll(">","&gt;");
+		
+		strPass = strPass.replace('=','#');
+		strPass = strPass.replace(';','#');
+		strPass = strPass.replaceAll("<","&lt;");
+		strPass = strPass.replaceAll(">","&gt;");
+
+		if(strUserId == null || strUserId == "")
+		{	
+			return new ModelAndView("/admin/user/login");
+		}
+		else
+		{
+			UserBean objUserBean = objUserRegService.getUserDetail(strUserId);
+			
+			// 등록된 사용자가 아님
+			if(objUserBean == null){
+				request.setAttribute("message", "존재하지 않는 ID입니다");
+				return new ModelAndView("/admin/user/login");
+			}
+			// 인증되지 않음     
+			else if(!objUserBean.getISAPPROVE().equals("Y")){
+				request.setAttribute("message", "인증되지 않았습니다.");
+				return new ModelAndView("/admin/user/login");
+			}
+			// password 불일치
+			else if(!objUserBean.getPASS().equals(strPass)){
+				request.setAttribute("message", "패스워드를 확인하시기 바랍니다.");
+				return new ModelAndView("/admin/user/login");
+			}
+			// 로그인 성공
+			else{
+				// 세션에 로긴 정보 등록 후 지정된 페이지로 이동
+				HttpSession session = request.getSession();
+				
+				session.setAttribute("sessionUserId", objUserBean.getUSERID());
+				session.setAttribute("sessionAuthur", objUserBean.getAUTHURNAME());
+				session.setAttribute("sessionName", objUserBean.getUSERNAME());
+				session.setAttribute("sessionOrgCD", objUserBean.getSIGU_CD());
+				request.setAttribute("userId", strUserId);
+				
+				return new ModelAndView("/admin/main/main");
+			}	
+		}
+	}
+	
+ 	 /**
+   	 * findId처리
+ 	 * @param HttpServletRequest request 
+ 	 * @param HttpServletResponse response
+	 * @return ModelAndView
+	 */
+	public ModelAndView findId(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		String strUserId = ServletRequestUtils.getStringParameter(request, "USERID", "").trim();
+		String strPass = ServletRequestUtils.getStringParameter(request, "PASS", "").trim();
+		
+		strUserId = strUserId.replace('=','#');
+		strUserId = strUserId.replace(';','#');
+		strUserId = strUserId.replaceAll("<","&lt;");
+		strUserId = strUserId.replaceAll(">","&gt;");
+		
+		strPass = strPass.replace('=','#');
+		strPass = strPass.replace(';','#');
+		strPass = strPass.replaceAll("<","&lt;");
+		strPass = strPass.replaceAll(">","&gt;");
+
+		if(strUserId == null || strUserId == "")
+		{	
+			return new ModelAndView("/admin/user/login");
+		}
+		else
+		{
+			UserBean objUserBean = objUserRegService.getUserDetail(strUserId);
+			
+			// 등록된 사용자가 아님
+			if(objUserBean == null){
+				request.setAttribute("message", "존재하지 않는 ID입니다");
+				return new ModelAndView("/admin/user/login");
+			}
+			// 인증되지 않음     
+			else if(!objUserBean.getISAPPROVE().equals("Y")){
+				request.setAttribute("message", "인증되지 않았습니다.");
+				return new ModelAndView("/admin/user/login");
+			}
+			// password 불일치
+			else if(!objUserBean.getPASS().equals(strPass)){
+				request.setAttribute("message", "패스워드를 확인하시기 바랍니다.");
+				return new ModelAndView("/admin/user/login");
+			}
+			// 로그인 성공
+			else{
+				// 세션에 로긴 정보 등록 후 지정된 페이지로 이동
+				HttpSession session = request.getSession();
+				session.setAttribute("sessionUserId", objUserBean.getUSERID());
+				session.setAttribute("sessionAuthur", objUserBean.getAUTHURNAME());
+				session.setAttribute("sessionName", objUserBean.getUSERNAME());
+				session.setAttribute("sessionOrgCD", objUserBean.getSIGU_CD());
+				request.setAttribute("userId", strUserId);
+				System.out.println("사용자 이름 : : : : "+objUserBean.getUSERNAME());
+
+				return new ModelAndView("/admin/main/main");
+			}	
+		}
+	}
+    	
+	/**
+   	 * logout처리
+ 	 * @param HttpServletRequest request 
+ 	 * @param HttpServletResponse response
+	 * @return ModelAndView
+	 */
+	
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("sessionUserId");
+		session.removeAttribute("sessionOrgCD");
+		
+		return new ModelAndView("redirect:/admin/user/login.do");
+	}
+	
+	
+	
+	//사용자 관리
+	public ModelAndView userManager(HttpServletRequest request, HttpServletResponse response,String MSG) throws Exception {
+		HttpSession session = request.getSession();
+		String 		userId	= (String)session.getAttribute("sessionUserId");
+		
+		UserBean bean = new UserBean();
+		List blist = null;
+
+		try{
+			if(userId != null)
+			{
+				
+				String USERNAME = ServletRequestUtils.getStringParameter(request, "USERNAME", "");
+				String GU_CD = ServletRequestUtils.getStringParameter(request, "GU_CD", "");
+				String ISAPPROVE = ServletRequestUtils.getStringParameter(request, "ISAPPROVE", "");
+				String currentPage = ServletRequestUtils.getStringParameter(request, "currentPage", Globals.DEFAULT_CURRENT_PAGE);
+				
+				System.out.println("MSG :: : :"+MSG);
+				
+				request.setAttribute("MSG", MSG);
+				
+				bean.setUSERID("%");
+				bean.setUSERNAME(USERNAME.equals("")?"%":USERNAME);
+				bean.setADMINIST(GU_CD.equals("")?"%":GU_CD);
+				bean.setISAPPROVE(ISAPPROVE.equals("")?"%":ISAPPROVE);
+				
+				blist = objUserService.getUserList(bean,currentPage,Globals.DEFAULT_COUNTPER_PAGE);
+				int listCount = objUserService.GetUserCount(bean);
+				
+				String strPageDivideForm = BoardUtil.getDividePageForm(Integer.parseInt(currentPage),Integer.valueOf(Globals.DEFAULT_COUNTPER_PAGE),
+						"&USERNAME="+USERNAME+"&GU_CD="+GU_CD+"&ISAPPROVE="+ISAPPROVE
+						, "/rams/admin/user/user_manager.do", listCount);
+				
+				request.setAttribute("strPageDivideForm", strPageDivideForm);
+				request.setAttribute("guList", commonCode.getGuList(Globals.DEFAULT_SI_CD, ""));
+				request.setAttribute("USERNAME", USERNAME);
+				request.setAttribute("GU_CD", GU_CD);
+				request.setAttribute("ISAPPROVE", ISAPPROVE);
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return new ModelAndView("/admin/main/user_manager","blist",blist);
+	}
+	
+	//사용자 등급변환
+	public ModelAndView userApproveModify(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		String 		userId	= (String)session.getAttribute("sessionUserId");
+		
+		String MSG = "";
+		//승인변경
+		String NAME = ServletRequestUtils.getStringParameter(request, "NAME", "");
+		String USERID = ServletRequestUtils.getStringParameter(request, "USERID", "");
+		String APPROVE = ServletRequestUtils.getStringParameter(request, "APPROVE", "");
+
+		try{
+			if(userId != null)
+			{
+
+				objUserService.setUserApprove(APPROVE, USERID);
+				
+				if(APPROVE.equals("Y")){
+					MSG = NAME+"님에 승인처리 되었습니다.";
+				}else{
+					MSG = NAME+"님에 승인이 철회되었습니다.";
+				}
+			}
+		}catch(Exception e){
+			MSG = NAME+"님에 승인이 실패하였습니다.";
+		}
+		
+		return userManager(request,response,MSG);
+	}
+	
+	//사용자 삭제
+	public ModelAndView userDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		String 		userId	= (String)session.getAttribute("sessionUserId");
+		
+		//사용자 삭제
+		String TARGET_ID = ServletRequestUtils.getStringParameter(request, "TARGET_ID", "");
+		String MSG = "";
+
+		try{
+			if(userId != null)
+			{
+				//사용자 삭제
+				objUserService.setUserDelete(TARGET_ID);
+				MSG = "사용자ID "+TARGET_ID+"이 삭제되었습니다.";
+			}
+		}catch(Exception e){
+			MSG = "사용자ID "+TARGET_ID+"이 삭제에 실패하였습니다.";
+		}
+		
+		return userManager(request,response,MSG);
+	}
+	
+	//사용자 수정
+	public ModelAndView userModify(HttpServletRequest request, HttpServletResponse response,String MSG) throws Exception {
+		HttpSession session = request.getSession();
+		String 		userId	= (String)session.getAttribute("sessionUserId");
+		
+		UserBean bean = new UserBean();
+		UserBean view = new UserBean();
+
+		try{
+			if(userId != null)
+			{
+				
+				String TARGET_ID = ServletRequestUtils.getStringParameter(request, "TARGET_ID", "");
+				bean.setUSERID(TARGET_ID);
+				bean.setUSERNAME("%");
+				bean.setADMINIST("%");
+				bean.setISAPPROVE("%");
+				
+				view = (UserBean)objUserService.getUserList(bean,"1","1").get(0);
+				
+				if(view.getJUMINNUM() != null && view.getJUMINNUM().length() == 13){
+					view.setJUMINNUM1(view.getJUMINNUM().substring(0, 6));
+					view.setJUMINNUM2(view.getJUMINNUM().substring(6,13));
+				}
+				request.setAttribute("MSG", MSG);				
+				request.setAttribute("TARGET_ID", TARGET_ID);
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return new ModelAndView("/admin/main/user_modify","view",view);
+	}
+	
+	//사용자 수정 처리
+	public ModelAndView userModifyPrc(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		String 		userId	= (String)session.getAttribute("sessionUserId");
+		String MSG = "";
+		UserBean bean = new UserBean();
+		
+
+		try{
+			if(userId != null)
+			{
+				bind(request, bean);
+				String TARGET_ID = ServletRequestUtils.getStringParameter(request, "TARGET_ID", "");
+				String AUTHURNAME = "";
+                String[] AUTHUR = request.getParameterValues("AUTHUR");
+                for (int i = 0; i < AUTHUR.length; i++) {
+                	AUTHURNAME += AUTHUR[i];
+				}
+                bean.setUSERID(TARGET_ID);
+                bean.setJUMINNUM(bean.getJUMINNUM1()+bean.getJUMINNUM2());
+                bean.setAUTHURNAME(AUTHURNAME);
+                
+                objUserService.setUserUpdate(bean);
+                
+                MSG = "사용자 정보가 수정되었습니다.";
+                
+                
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			MSG = "사용자 정보 수정에 실패하였습니다.";
+		}
+		return userModify(request,response,MSG);
+	}
+	
+	//사용자 가입폼
+	public ModelAndView idRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String msg = ServletRequestUtils.getStringParameter(request, "msg", "");
+		
+		System.out.println("사용자가입");
+		
+		List list = objUserRegService.getGuCodeList();
+		
+		System.out.println("list : "+list.size());
+		
+		
+		String gu = "<select id='ADMINIST' name='ADMINIST' class='formBox6'>";
+		
+		for(int i  = 0; i<list.size();i++){
+		UserBean bean = (UserBean)list.get(i);
+		
+			if(!bean.getGU_CD().equals("450")){
+				gu += "<option value='"+bean.getGU_CD()+"'>"+bean.getGU_NM()+"</option>";
+			}
+		}
+		
+		gu+= "</select>";
+		
+		String job ="<SELECT ID='AUTHURNAME' NAME='AUTHURNAME' class='formBox6'>";
+		
+		job +="<OPTION VALUE='12345' selected>업무담당자</OPTION>";
+		job +="<OPTION VALUE='012345'>관리자</OPTION></SELECT>";			
+		
+		
+	
+		
+		System.out.println(gu);
+		
+		
+		//System.out.println(bean2.getEMAIL());
+		
+		
+		request.setAttribute("gu", gu);
+		request.setAttribute("job", job);
+		request.setAttribute("msg", msg);
+		return new ModelAndView("/admin/user/id_request");
+	
+	}
+
+	//사용자 가입폼
+	public ModelAndView idRequestPrc(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		System.out.println("사용자저장");
+		
+		UserBean bean2 = new UserBean();
+		
+		
+		String userId = ServletRequestUtils.getStringParameter(request, "USERID", "");
+		
+		bean2.setUSERID(userId);
+		bean2.setAUTHURNAME(ServletRequestUtils.getStringParameter(request, "AUTHURNAME", "123456"));
+		bean2.setPASS(ServletRequestUtils.getStringParameter(request, "PASS", ""));
+		bean2.setPASS2(ServletRequestUtils.getStringParameter(request, "PASS2", ""));
+		bean2.setUSERNAME(ServletRequestUtils.getStringParameter(request, "USERNAME", ""));
+		bean2.setADMINIST(ServletRequestUtils.getStringParameter(request, "ADMINIST", ""));
+		bean2.setPART(ServletRequestUtils.getStringParameter(request, "PART", ""));
+		bean2.setINLINENUM(ServletRequestUtils.getStringParameter(request, "INLINENUM", ""));
+		bean2.setTEL1(ServletRequestUtils.getStringParameter(request, "TEL1", ""));
+		bean2.setTEL2(ServletRequestUtils.getStringParameter(request, "TEL2", ""));
+		bean2.setTEL3(ServletRequestUtils.getStringParameter(request, "TEL3", ""));
+		
+		bean2.setMTEL1(ServletRequestUtils.getStringParameter(request, "MTEL1", ""));		
+		bean2.setMTEL2(ServletRequestUtils.getStringParameter(request, "MTEL2", ""));
+		bean2.setMTEL3(ServletRequestUtils.getStringParameter(request, "MTEL3", ""));
+		bean2.setEMAIL(ServletRequestUtils.getStringParameter(request, "EMAIL", ""));
+		bean2.setASSIGNWORK(ServletRequestUtils.getStringParameter(request, "ASSIGNWORK", ""));
+		bean2.setISAPPROVE("N");
+		bean2.setJUMINNUM(ServletRequestUtils.getStringParameter(request, "JUMINNUM1", "")+ServletRequestUtils.getStringParameter(request, "JUMINNUM2", ""));
+		bean2.setJUMINNUM1(ServletRequestUtils.getStringParameter(request, "JUMINNUM1", ""));
+		bean2.setJUMINNUM2(ServletRequestUtils.getStringParameter(request, "JUMINNUM2", ""));
+		int i  = objUserRegService.checkUserId(userId);
+		
+		Boolean a = false;
+		
+		if(i==0){
+			a =  objUserRegService.insertMember(bean2);
+			
+			System.out.println("회원가입 성공? : "+a);
+			
+			
+			return new ModelAndView("redirect:/admin/user/idRequest.do?msg=등록되었습니다");
+			
+		}else{
+	
+			List list = objUserRegService.getGuCodeList();
+			
+			String gu = "<select id='ADMINIST' name='ADMINIST' class='formBox6'>";
+			
+			
+			System.out.println("BEAN : "+bean2.getADMINIST());
+			for(int j  = 0; j<list.size();j++){
+			UserBean bean = (UserBean)list.get(j);
+			
+			
+				if(!bean.getGU_CD().equals("450")){
+					if(bean.getGU_CD().equals(bean2.getADMINIST())){
+						gu += "<option value='"+bean.getGU_CD()+"' selected>"+bean.getGU_NM()+"</option>";						
+						
+					}else{
+						gu += "<option value='"+bean.getGU_CD()+"'>"+bean.getGU_NM()+"</option>";
+					}
+				}
+			}
+					
+			
+			gu+= "</select>";
+			
+			String job ="<SELECT ID='AUTHURNAME' NAME='AUTHURNAME' class='formBox6'>";
+			if(bean2.getAUTHURNAME()=="012345"){
+				job +="<OPTION VALUE='12345'>업무담당자</OPTION>";
+				job += "<OPTION VALUE='012345' selected>관리자</OPTION></SELECT>";			
+			}else{
+				job +="<OPTION VALUE='12345' selected>업무담당자</OPTION>";	
+				job += "<OPTION VALUE='012345'>관리자</OPTION></SELECT>";			
+			}
+		
+			
+			request.setAttribute("gu", gu);
+			request.setAttribute("job", job);	
+			request.setAttribute("bean2", bean2);
+			request.setAttribute("msg","같은 아이디가 있습니다.");
+			
+			
+			return new ModelAndView("/admin/user/id_request");
+			
+		}
+		
+		
+
+		
+	
+	}
+	
+	public ModelAndView		CompareUserId(HttpServletRequest request,HttpServletResponse response) throws Exception 
+	{
+		HttpSession session = request.getSession();
+		String 		userId	= ServletRequestUtils.getStringParameter(request,"USERID");
+		
+
+		System.out.println("userId : "+userId);
+		
+			String	Xml	= "<?xml version='1.0' encoding='utf-8'?>";
+			Xml	+= "<ROOT>";
+
+			int i  = objUserRegService.checkUserId(userId);
+	                		  
+	                			
+	                        	Xml += "<td>"+i+"</td>";	                        	
+	                        	
+
+	                        	System.out.println("id값 유무 : "+i);
+			Xml	+= "</ROOT>";
+
+	        response.setContentType("text/html;charset=EUC-KR");
+	        response.setHeader("Cache-Control", "no-cache");
+	        response.getWriter().write(Xml);
+	        
+	        System.out.println("Get_GU_CD :::::::::"+Xml);
+	        
+	        
+
+		return null;
+	}
+
+}

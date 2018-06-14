@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/manual
+END
+vector-features-performance.html
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/vector-features-performance.html
+END
+overviewmap-projection.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/overviewmap-projection.html
+END
+ve-opacity.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/manual/ve-opacity.html
+END
+renderedDimensions.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/renderedDimensions.html
+END
+geodesic.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/manual/geodesic.html
+END
+tween.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/tween.html
+END
+ajax.html
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/ajax.html
+END
+draw-feature.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/draw-feature.html
+END
+tiles-loading.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/manual/tiles-loading.html
+END
+pan-redraw-svg.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/pan-redraw-svg.html
+END
+ajax.txt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/ajax.txt
+END
+reflow.html
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/reflow.html
+END
+rendered-dimensions.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/rendered-dimensions.html
+END
+clip-features-svg.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/manual/clip-features-svg.html
+END
+big-georss.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/big-georss.html
+END
+multiple-google-layers.html
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/manual/multiple-google-layers.html
+END
+google-panning.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/manual/google-panning.html
+END
+geojson-geomcoll-reprojection.html
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/geojson-geomcoll-reprojection.html
+END
+feature-handler.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/feature-handler.html
+END
+arkansas.rss
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/arkansas.rss
+END
+arcims-2117.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/arcims-2117.html
+END
+select-feature.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/select-feature.html
+END
+popup-keepInMap.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/popup-keepInMap.html
+END
+google-resize.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/manual/google-resize.html
+END
+vector-layer-zindex.html
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/manual/vector-layer-zindex.html
+END

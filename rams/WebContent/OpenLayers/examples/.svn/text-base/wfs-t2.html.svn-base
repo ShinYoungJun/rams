@@ -1,0 +1,133 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>OpenLayers: WFS-T</title>
+    <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="../lib/Firebug/firebug.js"></script>
+    <script src="../lib/OpenLayers.js"></script>
+    <script type="text/javascript">
+        var map, wfs, wms;
+        
+        function init() {
+            var options = { 
+				projection: new OpenLayers.Projection("EPSG:2097"), //EPSG:2097
+				displayProjection: new OpenLayers.Projection("EPSG:2097"),
+				units: "m",
+				maxResolution : "auto",
+				maxExtent:  new OpenLayers.Bounds( 934969.095, 1936360.618, 972001.695, 1966682.529),
+				controls: [
+					new OpenLayers.Control.PanZoomBar(),
+					new OpenLayers.Control.Scale()
+				]
+			 };
+		
+			map = new OpenLayers.Map('map', options);
+			wms = new OpenLayers.Layer.WMS( "IntraMap WMS",
+					"http://123.140.215.214:8081/IntraMapGS/MapService", 
+					//{layers: arrLayers.join(',') , format: 'image/png'},
+					{layers: "sido,sgg,barea,park,river", format: "image/png"},
+					{singleTile: true},
+					{'buffer':0} 
+			);
+			map.addLayer(wms);
+            
+            //
+            // Word to the Wise from an anonymous OpenLayers hacker:
+            //             
+            // The typename in the options list when adding/loading a wfs 
+            // layer not should contain the namespace before, (as in the 
+            // first typename parameter to the wfs consctructor).
+            // 
+            // Specifically, in the first parameter you write typename: 
+            // 'topp:myLayerName', and in the following option list 
+            // typeName: 'myLayerName'. 
+            // 
+            // If you have topp included in the second one you will get 
+            // namespace 14 errors when trying to insert features.
+            //
+			/*
+            wfs = new OpenLayers.Layer.WFS(
+                "Cities",
+                "http://sigma.openplans.org/geoserver/wfs",
+                {typename: 'topp:tasmania_cities'},
+                {
+                    typename: "tasmania_cities",
+                    featureNS: "http://www.openplans.org/topp",
+                    extractAttributes: false,
+                    commitReport: function(str) {
+                        OpenLayers.Console.log(str);
+                    }
+                }
+            );
+	*/		
+           
+		    wfs = new OpenLayers.Layer.WFS(
+                "",
+                "http://123.140.215.214:8081/IntraMapGS/MapService",
+                {typename: 'wfs_test'},
+                {
+                    typename: "wfs_test",
+                    //featureNS: "http://www.openplans.org/topp",
+                    extractAttributes: false,
+                    commitReport: function(str) {
+                        //OpenLayers.Console.log(str);
+						alert(this.getURL());
+                    }
+                }
+            );
+            map.addLayer( wfs);
+
+            var panel = new OpenLayers.Control.Panel({
+                displayClass: "olControlEditingToolbar"
+            });
+
+            var draw = new OpenLayers.Control.DrawFeature(
+                wfs, OpenLayers.Handler.Polygon,
+                {
+                    handlerOptions: {freehand: false, multi: true},
+                    displayClass: "olControlDrawFeaturePoint"
+                }
+            );
+            
+            var save = new OpenLayers.Control.Button({
+                trigger: OpenLayers.Function.bind(wfs.commit, wfs),
+                displayClass: "olControlSaveFeatures"
+            });
+           
+            panel.addControls([
+                new OpenLayers.Control.Navigation(),
+                save, draw
+            ]);
+
+            map.addControl(panel);
+            
+            map.zoomToMaxExtent();
+        }
+        
+    </script>
+</head>
+<body onload="init()">
+
+    <h1 id="title">WFS Transaction Example</h1>
+    
+    <div id="tags">
+    </div>
+    <p id="shortdesc">
+        Shows the use the WFS layer for transactions.
+    </p>
+    
+    <div id="map" class="smallmap"></div>
+    
+    <p id="docs">
+    This is an example of using a WFS layer type. Note that it requires a 
+    working GeoServer install, which the OpenLayers project does not maintain;
+    however, if you're interested, you should be able to point this against
+    a default GeoServer setup without too much trouble.
+    </p>
+
+
+
+    </body>
+</html>
+
+

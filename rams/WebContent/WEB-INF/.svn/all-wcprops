@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/doro/!svn/ver/268/rams/WebContent/WEB-INF
+END
+applicationContext-map.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/268/rams/WebContent/WEB-INF/applicationContext-map.xml
+END
+applicationContext-gongsa.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/121/rams/WebContent/WEB-INF/applicationContext-gongsa.xml
+END
+config.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/config.txt
+END
+jeus-web-dd.xml
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/jeus-web-dd.xml
+END
+applicationContext-jdbc.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/applicationContext-jdbc.xml
+END
+applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/165/rams/WebContent/WEB-INF/applicationContext.xml
+END
+applicationContext-reward.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/256/rams/WebContent/WEB-INF/applicationContext-reward.xml
+END
+applicationContext-suit.xml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/188/rams/WebContent/WEB-INF/applicationContext-suit.xml
+END
+applicationContext-board.xml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/applicationContext-board.xml
+END
+web.xml
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/web.xml
+END
+applicationContext-cityland.xml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/111/rams/WebContent/WEB-INF/applicationContext-cityland.xml
+END
+applicationContext-admin.xml
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/243/rams/WebContent/WEB-INF/applicationContext-admin.xml
+END
+applicationContext-common.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/103/rams/WebContent/WEB-INF/applicationContext-common.xml
+END
+action-servlet.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/74/rams/WebContent/WEB-INF/action-servlet.xml
+END

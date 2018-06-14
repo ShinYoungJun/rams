@@ -1,0 +1,240 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<title>IMap5 Map Test(Show3D, Map on/off)</title>
+	<link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <style type="text/css">
+        input, select, textarea {
+            font: 0.9em Verdana, Arial, sans-serif;
+        }
+        #leftcol {
+            position: absolute;
+            top: 0;
+            left: 1em;
+            padding: 0;
+            width: 517px;
+        }
+        #map {
+            width: 512px;
+            height: 400px;
+            border: 1px solid #ccc;
+        }
+        #input {
+            width: 512px;
+        }
+     
+        #info {
+            position: relative;
+            padding: 2em 0;
+            margin-left: 540px;
+        }
+        #output {
+            font-size: 0.8em;
+            width: 100%;
+            height: 512px;
+            border: 0;
+        }
+        p {
+            margin: 0;
+            padding: 0.75em 0 0.75em 0;
+        }
+    </style>
+	<script src="../lib/Firebug/firebug.js"></script>
+    <script src="../lib/OpenLayers.js"></script>
+	<script type="text/javascript">
+		var map;
+		var graphic;
+		//var servletUrl = "http://localhost:9981/kMap_base/MapServiceV5?";
+		var servletUrl = "http://localhost:9981/servlet/intramapswg.MapServiceV5?";
+		var getBoundUrl = servletUrl + "cmd=getallmapinfoxml";
+		
+		// 지도 정보 가져올거...Show3D, LayerControl등 파라미터 값 조정하려구..
+		var MapList = new IMap_MapInfo();
+		MapList.Init();
+		//
+		
+		function init(){
+			/**
+			* 지도를 띄우기 전에 IntraMap Web 5.0 에 설정된 boundary 값을 가져와서 설정해야합니다.
+			* 지도 boundary 값을 가져오지 못하면 지도를 띄우지 못합니다.
+			*/
+			OpenLayers.loadURL(getBoundUrl, '', this, function(res) {
+				var rXml = res.responseXML;
+				var boundary;
+				var flag;
+				var minX, minY, maxX, maxY;
+				
+				var bndArr = [];
+				
+				var boundary;
+				var flag;
+				var minX, minY, maxX, maxY;
+				//if( rXml != null  && boundary) {
+				if(navigator.appName.indexOf("Explorer") != -1 ) 
+				{
+					
+					var xmlText = res.responseText;
+					var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+					xmlDoc.async="false";
+					xmlDoc.loadXML(xmlText); 
+					rXml = xmlDoc.documentElement;
+				}
+				
+				if(rXml == null)
+					alert("Error");
+				
+				boundary = rXml.getElementsByTagName("Boundary");				
+				minX = parseFloat(boundary[0].getElementsByTagName("MinX")[0].firstChild.nodeValue );
+				minY = parseFloat(boundary[0].getElementsByTagName("MinY")[0].firstChild.nodeValue );
+				maxX = parseFloat(boundary[0].getElementsByTagName("MaxX")[0].firstChild.nodeValue );
+				maxY = parseFloat(boundary[0].getElementsByTagName("MaxY")[0].firstChild.nodeValue );
+				//alert(minX);
+				
+				// 결과 확인용..
+				bndArr.push(minX);
+				bndArr.push(maxX);
+				bndArr.push(minY);
+				bndArr.push(maxY);
+				document.getElementById("r2").innerText = (bndArr.join(", "));
+				//alert(bndArr.join(", "));
+				//
+				
+				//xml읽어서 Show3D, LoadFlag, LayerControl 파라미터값을 가져옴...
+				var strMap = getMapInfo( rXml );
+				document.getElementById('result').innerHTML = strMap;
+				var strShow3D = strMap.split('^')[0];
+				var strLoadFlag  = strMap.split('^')[1];
+				var strLayerControl  = strMap.split('^')[2];
+				
+				// 지도 초기화....
+				// maxResolution 값은 반드시 'auto'로 지정해야합니다.
+				map = new OpenLayers.Map('map', {maxResolution : 'auto'});
+
+				graphic = new OpenLayers.Layer.IMAP5(
+					"",
+					servletUrl,
+					[{'Show3D':strShow3D, 'LayerControl':strLayerControl, 'LoadFlag':strLoadFlag}],
+					[],
+					minX,
+					minY,
+					maxX,
+					maxY
+				);
+				
+				map.addLayers([graphic]);
+				
+				map.addControl(new OpenLayers.Control.MousePosition());
+				
+				map.zoomToMaxExtent();
+				
+			}, function(res) {
+				alert("Fail");
+				return;
+			});
+		
+
+		}  // end of Init();
+		
+		function getMapInfo( objXml )
+		{
+			var ret = [];		//리턴값...string... -> 'mapReqString^mapReq3DString' 이런형태로 리턴할꺼임.
+			var mapObj = null;
+			
+			var MapInfo = objXml.getElementsByTagName('MapInfo');
+			var MapCnt = MapInfo.length;
+			if( MapCnt == 0 )
+				return ',';
+			
+			//var MapList = new IMap_MapInfo();
+			//MapList.Init();
+			
+			var MapVisible;
+			for( var i = 0; i < MapCnt; i++)
+			{
+				//기존 코드.
+				//MapVisible = MapInfo[i].getElementsByTagName('Visible')[0].firstChild.nodeValue;
+				//mapObj = new Object();
+				//mapObj.visible = MapVisible +'';
+				//MapList.AddMap( mapObj );
+				
+				//변경된 코드.
+				MapList.AddMap( MapInfo[i] );
+			}
+			
+			ret.push(MapList.GetShow3D(1));
+			ret.push(MapList.GetLoadFlag());
+			ret.push(MapList.GetLayerControl());
+			
+			return ret.join('^');
+		}
+		
+		// show3d on / off
+		function onBtn3DClick(obj)
+		{
+			var s3d = '';
+			if( obj.value == "show3D" )
+			{
+				//3d 보이기
+				s3d = MapList.GetShow3D(1);
+				obj.value = "hide3D";
+			}
+			else
+			{
+				//3d 숨기기
+				s3d = MapList.GetShow3D(0);
+				obj.value = "show3D";
+			}
+			graphic.mergeNewParams({'Show3D': s3d});
+			
+		}
+		
+		// 지도 on/off
+		function onBtnMapOnOffClick()
+		{
+			var idx 		= document.getElementById('txtMapIndex').value;
+			var visible 	= document.getElementById('txtMapVisible').value;
+			
+			
+			//var newLoadFlag = MapList.GetChangedLoadFlag( idx, visible, [1,4], [0,0] );
+			var newLoadFlag = MapList.GetChangedLoadFlag( idx, visible, [{layerIndex:0, visible:0}, {layerIndex:1, visible:0}] );
+			document.getElementById('result').innerHTML += ('\n' + newLoadFlag + " , layerCount: " + MapList.GetLayerCount(idx));
+			document.getElementById('result').innerHTML += (', [map 0, layer 1] 레이어명은 \'' + MapList.GetLayerName( 0, 1 ) + '\'');
+			
+			//var retObj = MapList.GetLayerIndexFullSearch("등고선 200");
+			//alert(retObj.length);
+			//document.getElementById('result').innerHTML += ('\n, [레이어명 \'등고선 200\']의 맵 인덱스는 \'' + retObj[0].mapIndex + ' \', 레이어 인덱스는 \'' + retObj[0].layerIndex + '\'');
+			var retObj2 = MapList.GetLayerIndex( 0, "등고선 200" );
+			document.getElementById('result').innerHTML += ('\n, [맵인덱스 0, 레이어명 \'등고선 200\']의 레이어 인덱스는 \'' + retObj2[0] + '\'');
+			
+			var retObj3 = MapList.GetChangedLoadFlag(0, 0, [{layerIndex:5, visible:0}, {layerIndex:4, visible:0}]);
+			document.getElementById('result').innerHTML += ('\n, 세번째, 첫번째 레이어를 Off한 LoadFlag는 \'' + retObj3 + '\'');
+			
+			
+			//alert('map 0, layer 0 -> layerName : ' + MapList.GetLayerName(0, 0));
+			if( newLoadFlag != null )
+			{
+				graphic.mergeNewParams({'LoadFlag': newLoadFlag});
+				
+			}
+		}
+		
+	</script>
+	</head>
+	<body onload="init();">
+	
+	<div id="map" class="smallmap"></div>
+	<input id="btn3d" type="button" onclick="onBtn3DClick(this);" value="hide3D"/>
+	mapIndex:<input type="text" id="txtMapIndex" value="0" />
+	mapVisible:<input type="text" id="txtMapVisible" value="0" />
+	<input id="btnMapOnOff" type="button" onclick="onBtnMapOnOffClick();" value="MapOnOff"/>
+	<br />
+	GetAllMapInfo Test
+	<br />
+	<textarea id="r2" rows="10" cols="100"></textarea> <br /><br />
+	
+	<!--<input type="button" value="GetLayerInfo" onclick="onBtnGetLayerInfo();" />-->
+	<!--<input type="button" value="GetLayerInfo" onclick="onBtnGetMapInfo();" />-->
+	<br />
+	<textarea id="result" rows="10" cols="100" ></textarea>
+	</body>
+</html>

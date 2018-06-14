@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/Geometry
+END
+LineString.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/Geometry/LineString.html
+END
+MultiPolygon.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/Geometry/MultiPolygon.html
+END
+Curve.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/Geometry/Curve.html
+END
+MultiPoint.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/Geometry/MultiPoint.html
+END
+Rectangle.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/Geometry/Rectangle.html
+END
+Polygon.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/Geometry/Polygon.html
+END
+Surface.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/Geometry/Surface.html
+END
+MultiLineString.html
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/Geometry/MultiLineString.html
+END
+Point.html
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tests/Geometry/Point.html
+END
+LinearRing.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/Geometry/LinearRing.html
+END
+Collection.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tests/Geometry/Collection.html
+END

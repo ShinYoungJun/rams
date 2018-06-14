@@ -1,0 +1,87 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>무제 문서</title>
+<link href="../css/doro.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.box777 {
+	background-color:#ffffff;
+	border: 1px #d3e2ea solid;
+	color: #9a9a9a;
+	}
+
+</style>
+
+<script language="javascript">
+
+
+function goDetail(pnu){
+
+	location.href='/rams/map/suitbizdetail.do?PNU='+pnu;
+	
+}
+
+function goLocation(xid,layer){
+
+	parent.fnGetCentroid(xid,layer);
+}
+</script>
+
+</head>
+
+<body>
+<div id="left" align="center" >
+  <table width="260" height="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+			<td>
+				<table width="250" border="0" cellspacing="0" cellpadding="0">
+				  <tr>
+					<th height="35" valign="bottom" scope="row"><img src="../images/map/l_st_rst.gif" alt="검색결과"/></th>
+				  </tr>
+				  <tr>
+					<th scope="row" class="cont3">
+							<table width="250" border="1" cellspacing="0" cellpadding="0" bordercolor="#bed6e1">
+											  <tr>
+														<th height="25" scope="col" class="title">구명</th>
+														<th class="title" scope="col">동명</th>
+														<th class="title" scope="col">지번</th>
+														<th class="title" scope="col">지목</th>
+											  </tr>
+										
+											  <c:forEach items="${SearchList}"  var="list">
+											  <tr onClick="javascript:goLocation('${list.XID}','LP_PA_CBND_ALL');goDetail('${list.PNU}');" style='cursor:hand;'>
+														<td height="25" class="title">${list.SGGCODE}</td>
+														<td class="title" >${list.DONGCODE }</td>
+														<td class="title" >${list.JIBUN }</td>
+														<td class="title" >${list.CODEDESC }</td>
+											  </tr>
+											  </c:forEach>											
+								 </table>
+					
+					</th>
+				  </tr>
+				</table>
+			</td>
+		  </tr>
+		  <tr>
+		  <td height='10'></td>
+		  </tr>
+		  <tr>
+			<td height="30" align="center">
+		
+			
+			<table width="139" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					${strPageDivideForm}
+				</tr>
+			</table>
+			</td>
+		  </tr>
+    </table>
+</div>
+</body>
+</html>

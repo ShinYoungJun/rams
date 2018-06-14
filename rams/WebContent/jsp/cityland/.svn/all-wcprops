@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/doro/!svn/ver/199/rams/WebContent/jsp/cityland
+END
+base_list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/199/rams/WebContent/jsp/cityland/base_list.jsp
+END
+moodan_list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/199/rams/WebContent/jsp/cityland/moodan_list.jsp
+END
+dis_list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/199/rams/WebContent/jsp/cityland/dis_list.jsp
+END
+history_list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/199/rams/WebContent/jsp/cityland/history_list.jsp
+END
+permiss_list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/199/rams/WebContent/jsp/cityland/permiss_list.jsp
+END

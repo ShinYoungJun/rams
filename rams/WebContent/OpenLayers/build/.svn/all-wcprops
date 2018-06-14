@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/build
+END
+full.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/build/full.cfg
+END
+license.txt
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/build/license.txt
+END
+library.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/build/library.cfg
+END
+build.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/build/build.py
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/build/README.txt
+END
+lite.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/build/lite.cfg
+END
+OpenLayers.js
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/build/OpenLayers.js
+END
+buildUncompressed.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/build/buildUncompressed.py
+END

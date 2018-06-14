@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>무제 문서</title>
+<link href="../css/doro.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="tImg">
+  <table width="804" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <th align="left" scope="row"><img src="../images/map/tit_calcul.gif" alt="보상가선정" width="80" height="19" /></th>
+      <td align="right" width="62"><a href="#"><img src="../images/common/btn_sum.gif" alt="지가합산" border="0"/></a></td>
+      <td align="right" width="70"><a href="#"><img src="../images/common/btn_excel.gif" alt="엑셀출력" border="0"/></a></td>
+      <td align="right" width="70"><a href="#"><img src="../images/common/btn_close2.gif" alt="창닫기" border="0" /></a></td>
+    </tr>
+  </table>
+</div>
+<table width="804" border="1" cellpadding="1" cellspacing="1" bordercolor="#d3e2ea">
+  <tr>
+    <td><table width="800" border="1" cellpadding="0" cellspacing="1" class="mapPopup" summary="" bordercolor="#bed6e1">
+      <tr>
+        <th width="80" scope="col">보상용지선정</th>
+        <th width="70" scope="col">지번</th>
+        <th width="70" scope="col">지목</th>
+        <th width="100" scope="col">소유자</th>
+        <th width="100" scope="col">면적(m2)</th>
+        <th width="170" scope="col">공시지가(원)<br />
+          (2010.1.1기준)</th>
+        <th scope="col">지가산정(원)</th>
+      </tr>
+      <tr>
+        <td><label for="checkbox"><input type="checkbox" name="checkbox" value="checkbox" id="checkbox" /></label></td>
+        <td>33-1</td>
+        <td>대</td>
+        <td>아무개</td>
+        <td>30</td>
+        <td>000</td>
+        <td><label for="textfield"><input name="textfield" type="text" class="formBox3" id="textfield" /></label></td>
+      </tr>
+      <tr>
+        <td><label for="checkbox"><input type="checkbox" name="checkbox" value="checkbox" id="checkbox" /></label></td>
+        <td>12-3</td>
+        <td>대</td>
+        <td>아무개</td>
+        <td>32</td>
+        <td>000</td>
+        <td><label for="textfield"><input name="textfield" type="text" class="formBox3" id="textfield" /></label></td>
+      </tr>
+      <tr>
+        <td><label for="checkbox"><input type="checkbox" name="checkbox" value="checkbox" id="checkbox" /></label></td>
+        <td>12-2</td>
+        <td>대</td>
+        <td>아뭄개</td>
+        <td>32</td>
+        <td>000</td>
+        <td><label for="textfield"><input name="textfield" type="text" class="formBox3" id="textfield" /></label></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<table width="804" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="390" height="40" align="right"><strong>편입면적</strong></td>
+    <td width="128" align="right"><label for="label">
+    <input name="textfield2" type="text" class="formBox1" id="label" /></label></td>
+    <td width="140" align="right"><strong>보상용지지가 합산</strong> </td>
+    <td width="128" align="right"><label for="label"><input name="textfield2" type="text" class="formBox1" id="label" /></label></td>
+  </tr>
+  <tr>
+  	<td height="35" colspan="4" align="center" valign="bottom" class="t_org">*보상가 산정은 편입 토지에 대한 지가에 대한 합산으로 대략적인 금액만 산정해 볼 수 있습니다.</td>
+  </tr>
+</table>
+</body>
+</html>

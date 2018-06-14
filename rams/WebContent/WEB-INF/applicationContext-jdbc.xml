@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+					   "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="ramsDataSource" class="main.java.common.dao.RamsDataSource" destroy-method="close"/>
+
+	<bean id="ramsJdbcDaoSupport" abstract="true" class="main.java.common.dao.RamsJdbcDaoSupport">
+		<property name="ramsDataSource">
+			<ref local="ramsDataSource" />
+		</property>
+		<property name="messageSourceAccessor">
+			<ref bean="messageSourceAccessor" />
+		</property>
+	</bean>
+</beans>

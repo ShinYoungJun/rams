@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/doro/!svn/ver/243/rams/src/main/java/admin/service
+END
+UserService.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/243/rams/src/main/java/admin/service/UserService.java
+END
+IUserRegService.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/242/rams/src/main/java/admin/service/IUserRegService.java
+END
+IUserService.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/243/rams/src/main/java/admin/service/IUserService.java
+END
+UserRegService.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/242/rams/src/main/java/admin/service/UserRegService.java
+END

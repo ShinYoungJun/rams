@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tools
+END
+exampleparser.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tools/exampleparser.py
+END
+toposort.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tools/toposort.py
+END
+jsmin.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tools/jsmin.c
+END
+mergejs.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tools/mergejs.py
+END
+shrinksafe.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tools/shrinksafe.py
+END
+jsmin.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tools/jsmin.py
+END
+update_dev_dir.sh
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/tools/update_dev_dir.sh
+END
+minimize.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tools/minimize.py
+END
+oldot.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tools/oldot.py
+END
+release.sh
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tools/release.sh
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tools/README.txt
+END
+BeautifulSoup.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/tools/BeautifulSoup.py
+END

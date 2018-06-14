@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/doro/!svn/ver/243/rams/WebContent/jsp/board
+END
+editor.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/doro/!svn/ver/114/rams/WebContent/jsp/board/editor.jsp
+END
+notice_view.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/114/rams/WebContent/jsp/board/notice_view.jsp
+END
+notice_write.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/doro/!svn/ver/114/rams/WebContent/jsp/board/notice_write.jsp
+END
+notice_list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/114/rams/WebContent/jsp/board/notice_list.jsp
+END
+test.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/doro/!svn/ver/114/rams/WebContent/jsp/board/test.jsp
+END
+board_view.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/doro/!svn/ver/243/rams/WebContent/jsp/board/board_view.jsp
+END
+board_write.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/243/rams/WebContent/jsp/board/board_write.jsp
+END
+board_list.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/doro/!svn/ver/243/rams/WebContent/jsp/board/board_list.jsp
+END

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>무제 문서</title>
+<link href="../css/doro.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="cont02">
+	  <h3><img src="../images/suit/st_input.gif" alt="소송 결과 입력"/></h3>
+	  <p class="t_org">※ 패소의 경우 관련 정보는 미불보상자료에 재등록됩니다. </p>
+	  
+	  <!-- 기본사항 -->
+      <table width="817" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th scope="row" width="5" height="70"><img src="../images/suit/srch2_bg1.gif" alt="." /></th>
+          <td background="../images/suit/srch2_bg2.gif" class="srch"><table width="787" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <th width="80" height="23" align="left" scope="row">판결선고일자</th>
+			  <td width="127"><input name="textfield" type="text" class="formBox1" /></td>
+			  <td width="70"><img src="../images/suit/cal.gif" alt="달력"/></td>
+              <td width="20"><input type="radio" name="radiobutton" value="radiobutton" /></td>
+              <td width="70">승소</td>
+              <td width="20"><input type="radio" name="radiobutton" value="radiobutton" /></td>
+              <td width="70">패소</td>
+              <td width="20"><input type="radio" name="radiobutton" value="radiobutton" /></td>
+              <td width="100">화해권고결정</td>
+              <td align="right"><input name="textfield" type="text" class="formBox1" /></td>
+              <td width="70" align="right"><a href="#"><img src="../images/common/btn_save.gif" alt="저장" width="62" height="19" border="0" /></a></td>
+            </tr>
+            <tr>
+              <th height="23" scope="row"></th>
+              <td></td>
+              <td></td>
+              <td><input type="radio" name="radiobutton" value="radiobutton" /></td>
+              <td>강제조정</td>
+              <td><input type="radio" name="radiobutton" value="radiobutton" /></td>
+              <td>소취하</td>
+              <td><input type="radio" name="radiobutton" value="radiobutton" /></td>
+              <td>기타</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table></td>
+          <td width="5"><img src="../images/suit/srch2_bg3.gif" alt="."/></td>
+        </tr>
+      </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers
+END
+Xcoordinate사용예.txt
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/lib/OpenLayers/Xcoordinate%EC%82%AC%EC%9A%A9%EC%98%88.txt
+END
+Map.js
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Map.js
+END
+Handler.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Handler.js
+END
+Control.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Control.js
+END
+Lang.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Lang.js
+END
+SingleFile.js
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/SingleFile.js
+END
+Style2.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Style2.js
+END
+Ajax.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Ajax.js
+END
+Filter.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Filter.js
+END
+Tile.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Tile.js
+END
+StyleMap.js
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/StyleMap.js
+END
+BaseTypes.js
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/BaseTypes.js
+END
+Symbolizer.js
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Symbolizer.js
+END
+Popup.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Popup.js
+END
+Events.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Events.js
+END
+Renderer.js
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Renderer.js
+END
+Rule.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Rule.js
+END
+Layer.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Layer.js
+END
+Projection.js
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Projection.js
+END
+Util.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Util.js
+END
+XCoordinate.js
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/lib/OpenLayers/XCoordinate.js
+END
+Marker.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Marker.js
+END
+Tween.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Tween.js
+END
+Icon.js
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Icon.js
+END
+Format.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Format.js
+END
+Request.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Request.js
+END
+Feature.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Feature.js
+END
+Geometry.js
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry.js
+END
+proj4js-compressed.js
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/doro/!svn/ver/74/rams/WebContent/OpenLayers/lib/OpenLayers/proj4js-compressed.js
+END
+Style.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Style.js
+END
+Protocol.js
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Protocol.js
+END
+Console.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Console.js
+END
+Strategy.js
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Strategy.js
+END

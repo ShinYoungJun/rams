@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry
+END
+Curve.js
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/Curve.js
+END
+MultiPoint.js
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/MultiPoint.js
+END
+Rectangle.js
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/Rectangle.js
+END
+Polygon.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/Polygon.js
+END
+Surface.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/Surface.js
+END
+MultiLineString.js
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/MultiLineString.js
+END
+Point.js
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/Point.js
+END
+LinearRing.js
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/LinearRing.js
+END
+Collection.js
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/Collection.js
+END
+LineString.js
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/LineString.js
+END
+MultiPolygon.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/doro/!svn/ver/215/rams/WebContent/OpenLayers/lib/OpenLayers/Geometry/MultiPolygon.js
+END

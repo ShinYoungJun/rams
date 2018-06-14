@@ -1,0 +1,241 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<title>IntraMapWeb 5.6 BMT</title>
+    <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+	<style type="text/css">
+		#map {
+			width : 512px;
+			height : 400px;
+		}
+		
+		table, td {
+			border : solid 1px #0000ff;
+			vertical-align : top;
+		}
+	</style>
+    <script src="../lib/OpenLayers.js"></script>
+    <script type="text/javascript">
+        var lon = 5;
+        var lat = 40;
+        var zoom = 5;
+        var map, layer;
+		
+		var selectedLayer;		// 레코드 검색용
+		
+		var arrLayers = [
+			{"name":"sido", "checked":false},
+			{"name":"sgg", "checked":false},
+			{"name":"barea", "checked":true},
+			{"name":"park", "checked":false},
+			{"name":"river", "checked":false},
+			{"name":"road", "checked":false},
+			{"name":"bridge", "checked":false},
+			{"name":"tunnel", "checked":false},
+			{"name":"bldg", "checked":false},
+			{"name":"bldggun", "checked":false},
+			{"name":"bldghistory", "checked":false},
+			{"name":"upperroad", "checked":false},
+			{"name":"jc", "checked":false},
+			{"name":"basic", "checked":false},
+			{"name":"etcpanel", "checked":false},
+			{"name":"roadpanel", "checked":false},
+			{"name":"roadhistory", "checked":false},
+			{"name":"realroad", "checked":false},
+			{"name":"roadcar", "checked":false},
+			{"name":"underroad", "checked":false},
+			{"name":"railroad", "checked":false},
+			{"name":"railstation", "checked":false},
+			{"name":"subway", "checked":false},
+			{"name":"subwaystation", "checked":false},
+			{"name":"subwaygate", "checked":false},
+			{"name":"gate", "checked":false},
+			{"name":"conn", "checked":false}
+		];
+
+        function init(){
+			var options = { 
+				projection: new OpenLayers.Projection("EPSG:2097"),
+				displayProjection: new OpenLayers.Projection("EPSG:2097"),
+				units: "m",
+				maxResolution : "auto",
+				//maxExtent:  new OpenLayers.Bounds( 171836.748526, 430494.198328, 223823.621719, 472890.250221),
+				maxExtent:  new OpenLayers.Bounds( 934969.095, 1936360.618, 972001.695, 1966682.529),
+				//maxExtent:  new OpenLayers.Bounds( 937987.650, 1937061.813, 971931.624, 1965805.093),
+				//scales: [216000, 80000, 40000, 12000, 7000, 3372, 1686, 843],
+				controls: [
+					new OpenLayers.Control.PanZoomBar(),
+					new OpenLayers.Control.Scale(),
+					new OpenLayers.Control.Navigation()
+				]
+			 };
+		
+            map = new OpenLayers.Map( 'map' , options );
+            layer = new OpenLayers.Layer.WMS( "BMT WMS",
+                    //"http://123.140.215.214:9981/IntraMapBmt/MapService", 
+					"http://30.30.30.71:8888/IntraMapBmt/MapService", 
+					//{layers: arrLayers.join(',') , format: 'image/png'},
+					{layers: getSelectedLayer() , format: 'image/png'},
+					{singleTile: true},
+					{'buffer':0} 
+			);
+            map.addLayer(layer);
+
+            //map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+			map.zoomToMaxExtent();
+            map.addControl( new OpenLayers.Control.LayerSwitcher() );
+			
+			
+			//------레이어 정보 구성.
+			setLayerInfo( 'layerinfo', arrLayers );
+			setTargetLayer();
+			
+			// 클릭 이벤트 등록
+			map.events.register('click', map, function (e) {
+					OpenLayers.Util.getElement('recordresult').innerHTML = "Loading... please wait...";
+					var pos = map.getLonLatFromPixel(e.xy);
+					var url =  layer.getFullRequestString({
+									REQUEST: "GetFeatureInfo",
+									EXCEPTIONS: "application/vnd.ogc.se_xml",
+									BBOX: layer.map.getExtent().toBBOX(),
+									X: pos.lon,
+									Y: pos.lat,
+									INFO_FORMAT: 'text/html',
+									QUERY_LAYERS: selectedLayer,
+									WIDTH: layer.map.size.w,
+									HEIGHT: layer.map.size.h});
+					alert(url);
+					OpenLayers.loadURL(url, '', this, setResult);
+					OpenLayers.Event.stop(e);
+			  });
+        }
+		
+		function setResult( response )
+		{
+			document.getElemetById('recordresult').innerHTML = response.responseText;
+		}
+		
+		function getSelectedLayer()
+		{
+			var rStr = [];
+			for( var i = 0; i < arrLayers.length; i++)
+			{
+				if(arrLayers[i].checked) 
+				{
+					rStr.push(arrLayers[i].name);
+				}
+			}
+			
+			return rStr.join(',');
+		}
+		
+		function setLayerInfo( id, arr )
+		{
+			if( !arr ) return;
+			
+			var r = document.getElementById( id );
+			
+			var divElem;
+			var chkElem;
+			var txtElem;
+			
+			for( var i = 0; i < arr.length; i++) 
+			{
+				divElem = document.createElement('div');
+				chkElem = document.createElement('input');
+				chkElem.type = 'checkbox';
+				chkElem.checked = arr[i].checked;
+				chkElem.onclick = onChkClick;
+				chkElem.name = arr[i].name;
+				divElem.appendChild(chkElem);
+				
+				txtElem = document.createTextNode(arr[i].name);
+				divElem.appendChild(txtElem);
+				
+				r.appendChild(divElem);
+			}
+		}
+		
+		function setTargetLayer()
+		{
+			var oj = document.getElementById("tgtlayer");
+			var opElem, txtElem;
+			if(oj) 
+			{
+				oj.onchange = function() {
+					selectedLayer = this.value;
+				};
+				
+				for( var i = 0; i < arrLayers.length; i++ )
+				{
+					opElem = document.createElement('option');
+					opElem.value = arrLayers[i].name;
+					if( i == 0 ) {
+						opElem.selected = true;
+						selectedLayer = opElem.value;
+					}
+					
+					txtElem = document.createTextNode(arrLayers[i].name);
+					opElem.appendChild( txtElem );
+					
+					oj.appendChild( opElem );
+				}
+			}
+		}
+		
+		
+		function onChkClick()
+		{
+			//alert(this.name);
+			
+			for( var i = 0; i < arrLayers.length; i++ )
+			{
+				if( arrLayers[i].name == this.name ) {
+					arrLayers[i].checked = this.checked;
+					break;
+				}
+			}
+			
+			var newParams = {'layers' : getSelectedLayer() };
+			layer.mergeNewParams( newParams );
+			layer.redraw();
+		}
+		
+    </script>
+  </head>
+  <body onload="init()">
+    <h1 id="title">IntraMapWeb 5.6 BMT</h1>
+
+    <div id="tags">
+    </div>
+    <p id="shortdesc">
+        bmt 테스트 페이지 입니다.
+    </p>
+	
+	<table>
+		<tr>
+			<td>
+				<div id="map" class="smallmap"></div>
+			</td>
+			<td>
+				<div id="layerinfo">
+				레이어&nbsp;On&nbsp;/&nbsp;Off
+				</div>
+			</td>
+			<td>
+				<div id="targetlayer">
+				레이어&nbsp;선택<br />
+					<select id="tgtlayer">
+					</select>
+				</div>
+				<div id="recordresult">
+				</div>
+			</td>
+		</tr>
+	</table>
+  </body>
+</html>
+
+
+
+

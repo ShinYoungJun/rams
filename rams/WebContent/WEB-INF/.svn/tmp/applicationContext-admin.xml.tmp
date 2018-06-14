@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+					   "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="methodNameResolver_admin" class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+ 		<property name="mappings">
+ 			<props>
+ 			<prop key="/admin/user/login.do">login</prop>
+ 			<prop key="/admin/user/logout.do">logout</prop>
+ 			<prop key="/admin/user/rams_notice_view.do">ramsNoticeView</prop>
+ 			<prop key="/admin/user/user_manager.do">userManager</prop>
+ 			<prop key="/admin/user/user_approve_modify.do">userApproveModify</prop>
+ 			<prop key="/admin/user/user_delete.do">userDelete</prop>
+ 			<prop key="/admin/user/user_modify.do">userModify</prop>
+ 			<prop key="/admin/user/user_modify_prc.do">userModifyPrc</prop>
+
+			<prop key="/admin/user/userReg.do">userReg</prop>
+ 			<prop key="/admin/user/findId.do">findId</prop>
+ 			
+ 			<prop key="/admin/user/idRequest.do">idRequest</prop>
+ 			<prop key="/admin/user/idRequestPrc.do">idRequestPrc</prop>
+ 			<prop key="/admin/user/idCompare.do">CompareUserId</prop>
+ 			
+ 			
+ 			
+ 			
+			</props>
+ 		</property>
+ 	</bean> 	
+ 	
+ 	<bean id="urlMapping_admin" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+ 		<property name="mappings">
+ 			<props>
+ 			<prop key="/admin/user/login.do">userControl</prop>
+ 			<prop key="/admin/user/logout.do">userControl</prop>
+ 			<prop key="/admin/user/rams_notice_view.do">userControl</prop>
+ 			<prop key="/admin/user/user_manager.do">userControl</prop>
+ 			<prop key="/admin/user/user_approve_modify.do">userControl</prop>
+ 			<prop key="/admin/user/user_delete.do">userControl</prop>
+			<prop key="/admin/user/user_modify.do">userControl</prop>
+ 			<prop key="/admin/user/user_modify_prc.do">userControl</prop>
+
+			<prop key="/admin/user/userReg.do">userControl</prop>
+ 			<prop key="/admin/user/findId.do">userControl</prop>
+ 			
+ 			<prop key="/admin/user/idRequest.do">userControl</prop>
+ 			<prop key="/admin/user/idRequestPrc.do">userControl</prop>
+ 			<prop key="/admin/user/idCompare.do">userControl</prop>
+ 			</props>
+ 		</property>
+ 	</bean>
+
+	<bean id="userControl" class="main.java.admin.web.UserControl">
+		<property name="methodNameResolver">
+			<ref local="methodNameResolver_admin"/>
+		</property>
+		<property name="userRegService" ref="userRegService"/>
+		<property name="userService" ref="userService"/>
+		<property name="commonCodeService" ref="commonCodeService"/>
+	</bean>
+	
+	<bean id="userDao" parent="ramsJdbcDaoSupport" class="main.java.admin.dao.UserDao"/>
+ 	  
+ 	<bean id="userService" class="main.java.admin.service.UserService"> 
+ 		<property name="userDao" ref="userDao"/> 
+ 	</bean>
+
+
+ 	<bean id="userRegDao" parent="ramsJdbcDaoSupport" class="main.java.admin.dao.UserRegDao"/>
+ 	  
+ 	<bean id="userRegService" class="main.java.admin.service.UserRegService"> 
+ 		<property name="userRegDao" ref="userRegDao"/> 
+ 	</bean>
+ 
+
+</beans>

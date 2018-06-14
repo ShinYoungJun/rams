@@ -1,0 +1,879 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<title>IntraMap/Web 6.0 GS 인증</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+	<style type="text/css">
+		#map {
+			width: 512px;
+			height: 400px;
+		}
+		
+		table, td {
+			border : solid 1px #0000ff;
+			vertical-align : top;
+		}
+	</style>
+	<script src="../lib/jquery-1.3.1.min.js"></script>
+    <script src="../lib/OpenLayers.js"></script>
+    <script type="text/javascript">
+		/**
+		*	214번 서버에서 IntraMapWeb_GS 웹 엔진 구동해서 사용.
+		*/
+		
+		//var servletUrl = "http://175.196.63.214:9981/IntraMapTOPIS/MapService";
+		var servletUrl = "http://localhost:9981/IntraMapGS/MapService";
+		
+		
+		//G3WAY Servlet
+		//var servletUrl = "http://localhost:9981/IntraMapG3WAY/MapService";
+		
+		//eclipse tomcat
+		//var servletUrl = "http://localhost:9981/kMap/MapService";
+		
+        var lon = 5;
+        var lat = 40;
+        var zoom = 5;
+        var map, layer;
+		var mode;					//컨트롤 모드
+		var measureControls; 		//측정 컨트롤
+		var buffer_wfs; 			//도형그릴 벡터 레이어
+		var measure_wfs;			//측정 벡터 레이어 
+		var marker; 				//위치표시-깃발
+		var nav;					//이전, 다음
+		//var mPopup;
+		var selectedLayer = [];		// 레코드 검색용
+		var logPopup;
+		
+		
+		// checked : GetMap 요청 레이어 목록 만들때..
+		// qCheck : GetFeatureInfo 요청 레이어 목록 만들때..
+		var arrLayers = [
+			{"name":"NW_LP_AA_EMD", "checked":true, "qCheck":false},
+			{"name":"poi_hotel", "checked":true, "qCheck":false},
+			{"name":"barea", "checked":false, "qCheck":false},
+			{"name":"park", "checked":false, "qCheck":false},
+			{"name":"river", "checked":false, "qCheck":false},
+			{"name":"road", "checked":false, "qCheck":false},
+			{"name":"bridge", "checked":false, "qCheck":false},
+			{"name":"tunnel", "checked":true, "qCheck":false},
+			{"name":"bldg", "checked":false, "qCheck":false},
+			{"name":"bldggun", "checked":false, "qCheck":false},
+			{"name":"bldghistory", "checked":false, "qCheck":false},
+			{"name":"upperroad", "checked":false, "qCheck":false},
+			{"name":"jc", "checked":false, "qCheck":false},
+			{"name":"basic", "checked":false, "qCheck":false},
+			{"name":"etcpanel", "checked":false, "qCheck":false},
+			{"name":"roadpanel", "checked":false, "qCheck":false},
+			{"name":"roadhistory", "checked":false, "qCheck":false},
+			{"name":"realroad", "checked":false, "qCheck":false},
+			{"name":"roadcar", "checked":false, "qCheck":false},
+			{"name":"underroad", "checked":false, "qCheck":false},
+			{"name":"railroad", "checked":false, "qCheck":false},
+			{"name":"railstation", "checked":false, "qCheck":false},
+			{"name":"subway", "checked":false, "qCheck":false},
+			{"name":"subwaystation", "checked":false, "qCheck":false},
+			{"name":"subwaygate", "checked":false, "qCheck":false},
+			{"name":"gate", "checked":false, "qCheck":false},
+			{"name":"conn", "checked":false, "qCheck":false}
+		];
+
+		myStyles2 = new OpenLayers.StyleMap({ //쿼리도형
+			"default": new OpenLayers.Style({
+				strokeColor: "#0000ff",
+				fillColor: "#ffff00",
+				strokeWidth: 2,
+				strokeOpacity: 1,
+				fillOpacity: 0.4,
+				pointRadius: 5
+			})
+		});
+		
+		myStyles4 = new OpenLayers.StyleMap({ //거리,면적측정
+			"default": new OpenLayers.Style({
+				strokeColor: "#30C0FF",
+				fillColor: "#30C0FF",
+				strokeWidth: 2,
+				strokeOpacity: 1,
+				fillOpacity: 0.5,
+				pointRadius: 5
+			})
+		});
+		
+		
+		//전체보기 
+		function Fit() { map.zoomToMaxExtent(); } 
+		//지도 확대
+		function ZoomIn() { zoomlevel = map.getZoom(); map.zoomIn(); }
+		//지도 축소
+		function ZoomOut() { zoomlevel = map.getZoom(); map.zoomOut(); }
+		//뒤로 
+		function Prev() { nav.previousTrigger(); }
+		//앞으로 
+		function Next() { nav.nextTrigger(); }
+		//거리재기 클릭 시
+		function distance() {
+			//if(maptool08.status=="push") {
+				mode = "distance";
+				toggleControl(measureControls["line"]);
+			//} else {
+			//	mode = "move";
+			//	toggleControl();
+			//}
+			//maptool09.defBtn();
+			//maptool17.defBtn();
+		}
+		//면적재기 클릭 시
+		function area() {
+			//if(maptool09.status=="push") {
+				mode = "area";
+				toggleControl(measureControls["polygon"]);
+			//} else {
+			//	mode = "move";
+			//	toggleControl();
+			//}
+			//maptool17.defBtn();
+			//maptool08.defBtn();
+		}
+		//컨트롤 토글링
+		function toggleControl(control) {
+			//mPopup.hStyle().display = "none";
+			if(mode == "infoLoc") {
+				if(click != null) click.activate();
+			} else {
+				if(click != null) click.deactivate();
+			}
+			if(control != null) {
+				control.activate();
+			} else {
+				for(key in measureControls) {
+					var c = measureControls[key];
+					c.deactivate();
+				}
+			}
+		}
+		
+		
+		
+		function SetControlEventHandle()
+		{
+			var oFit = document.getElementById('btnFit');
+			var oIn = document.getElementById('btnZoomIn');
+			var oOut = document.getElementById('btnZoomOut');
+			var oPrev = document.getElementById('btnPrev');
+			var oNext = document.getElementById('btnNext');
+			var oMarker = document.getElementById('btnMarker');
+			var oCentroid = document.getElementById('btnCentroid');
+			var oContains = document.getElementById('btnContains');
+			var oImageFormat = document.getElementById('getMapFormat');
+
+			if(oContains) oContains.onclick = fnGetContains;
+			if(oFit) 	oFit.onclick = Fit;
+			if(oIn)  	oIn.onclick = ZoomIn;
+			if(oOut) 	oOut.onclick = ZoomOut;
+			if(oPrev) 	oPrev.onclick = Prev;
+			if(oNext) 	oNext.onclick = Next;
+			if(oMarker) oMarker.onclick = fnAddMarker;
+			if(oCentroid) oCentroid.onclick = fnGetCentroid;
+			if(oImageFormat) oImageFormat.onchange = onSelectImageFormat;
+			
+		}
+
+		/**
+			Contains 연산
+		*/
+		function fnGetContains()
+		{
+		
+			var filterHeader = '<' + '?xml version="1.0" encoding="UTF-8"?>';
+			filterHeader += '<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" xmlns:ksic="http://www.ksic.net/wfs" ';
+			filterHeader += 'xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml" ';
+			filterHeader += 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1.0" service="WFS" ';
+			filterHeader += 'xsi:schemaLocation="http://www.ksic.net/wfs http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">';
+
+			var targetLayer = "NW_LP_AA_EMD";
+			
+			var filter3 = "";
+			filter3 += '<wfs:Query typeName="' + targetLayer + '">';
+			filter3 += '<wfs:PropertyName>XID</wfs:PropertyName> ';
+			filter3 += '<ogc:Filter>';
+			filter3 += '<ogc:Contains>';	
+			
+			/** Polygon 타입으로 Contains 연산
+				filter3 += '<gml:Polygon>';
+				filter3 += '<gml:exterior>';
+				filter3 += '<gml:LinearRing srsName="EPSG:2097">';
+				filter3 += '<gml:posList>206136 463401 206146 463411 206146 463401 206136 463401</gml:posList>';
+				filter3 += '</gml:LinearRing>';
+				filter3 += '</gml:exterior>';
+				filter3 += '</gml:Polygon>';
+			*/
+
+			filter3 += '<gml:Point>';
+			filter3 += '<gml:pos>206136 463401</gml:pos>';	//contains
+			//filter3 += '<gml:pos>1000000 1000000</gml:pos>';	//not contains
+			filter3 += '</gml:Point>';
+			filter3 += '</ogc:Contains>';
+			filter3 += '</ogc:Filter>';
+			filter3 += '</wfs:Query>';
+			
+			var filter = filterHeader + filter3 + '</wfs:GetFeature>';
+			
+			alert(filter);
+
+			//Contains 연산 결과처리
+			this.fnContainsResult = function(response)
+			{
+				//alert(response.responseText);
+
+				var xml = response.responseXML;
+				if(xml) 
+				{
+					/**
+						결과로 받은 XML에 연산 요청시의 타겟 레이어명의 Element가 있으면
+						해당 레이어에 특정 Point가 속한것임.
+					*/
+					var b = xml.getElementsByTagName(targetLayer)[0];
+					
+					if( b ) 
+						alert("Contains!!");
+					else
+						alert("Not Contains");		
+				}
+			}
+				
+			new OpenLayers.Request.POST({
+				method: "POST",
+				url: servletUrl,
+				headers: {"Content-Type":"text/xml"},
+				data: filter,
+				callback: this.fnContainsResult
+			});
+		}
+
+		
+		
+		/**
+			폴리곤의 중심점 찾기 샘플
+			WFS의 ksic:centroid 연산을 요청하여 처리한다.
+		*/
+		function fnGetCentroid()
+		{
+		
+			var filterHeader = '<' + '?xml version="1.0" encoding="UTF-8"?>';
+			filterHeader += '<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" xmlns:ksic="http://www.ksic.net/wfs" ';
+			filterHeader += 'xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml" ';
+			filterHeader += 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1.0" service="WFS" ';
+			filterHeader += 'xsi:schemaLocation="http://www.ksic.net/wfs http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">';
+			
+			/**
+				NW_LP_AA_EMD 테이블에서 XID=2인 폴리곤데이터의 중심점을 찾는다.
+			*/
+			var targetLayer = 'NW_LP_AA_EMD';
+			var filter3 = "";
+			filter3 += '<wfs:Query typeName="'+ targetLayer + '">';						//테이블명 설정( 'NW_LP_AA_EMD' )
+			filter3 += '<wfs:PropertyName>ksic:centroid</wfs:PropertyName> ';		//중심점 찾기 연산( 'ksic:centroid' )
+			//filter3 += '<wfs:PropertyName>TN_MGT_SN</wfs:PropertyName> ';
+			//filter3 += '<wfs:PropertyName>XGEOMETRY</wfs:PropertyName> ';
+			
+			var targetField = 'XID';
+			var targetValue = 2;
+			filter3 += '<ogc:Filter>';					
+			filter3 += '<ogc:PropertyIsEqualTo>';
+			filter3 += '<ogc:PropertyName>' + targetField + '</ogc:PropertyName>';
+			filter3 += '<ogc:Literal>' + targetValue + '</ogc:Literal>';
+			filter3 += '</ogc:PropertyIsEqualTo>';
+			//filter3 += '<ogc:GmlObjectId gml:id="NW_LP_AA_EMD.1" />';
+			filter3 += '</ogc:Filter>';
+			filter3 += '</wfs:Query>';
+			
+			var filter = filterHeader + filter3 + '</wfs:GetFeature>';
+			
+			alert(filter);
+			
+			//Centroid 연산 결과 처리
+			this.fnCentroidResult = function(response) {
+				alert(response.responseText);
+				
+				var gml = new OpenLayers.Format.GML();
+				var features = gml.read(response.responseText); 
+				
+				var bounds = ""; 
+				
+				if(features) 
+				{
+					for(var i=0; i<features.length; ++i) 
+					{   
+						if (!bounds) 
+						{    
+							bounds = features[i].geometry.getBounds();
+						} 
+						else 
+						{   
+							bounds.extend(features[i].geometry.getBounds());   
+						}  
+					}  
+
+					map.zoomToExtent(bounds);
+					buffer_wfs.addFeatures(features);
+
+					//centroid지점에 이미지 뿌리기
+					var xml = response.responseXML;
+					if( xml )
+					{
+						var cenPos = xml.getElementsByTagName("centroid")[0].firstChild.nextSibling.firstChild.nextSibling.firstChild.nodeValue;
+						var x = cenPos.split(' ')[0];
+						var y = cenPos.split(' ')[1];
+
+						alert(x + ", " + y);
+						var size = new OpenLayers.Size(30,30);
+						var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+						var icon = new OpenLayers.Icon('image/Balloon.bmp',size,offset);
+						
+						//OpenLayers.Layer.Markers 레이어에 특정 이미지를 특정 위치에 뿌립니다.
+						markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(x, y),icon));
+					}
+				}
+			}
+			
+			//centroid 연산 요청( POST )
+			new OpenLayers.Request.POST({
+				method: "POST",
+				url: servletUrl,
+				headers: {"Content-Type":"text/xml"},
+				data: filter,
+				callback: this.fnCentroidResult
+			});
+			
+			
+		}
+
+		
+
+		//특정 위치에 심볼(이미지) 표출.
+		function fnAddMarker()
+		{
+			/**
+				WFS GetFeature 연산으로 POI_HOTEL지도레이어에서 
+				X좌표( 필드명 : X_CODE), Y좌표( 필드명 : Y_CODE)를 가져와서 
+				해당 위치에 Marker(image 등)를 뿌립니다.
+				
+				DB에 있는 자료를 이용하여 지도상에 심볼을 뿌리는것도 이와 같은 방식으로 하시면 됩니다.
+				DB에 있는 자료를  특정 데이터 형식(xml, json등) 형식으로 반환하는 페이지나 servlet을 만드셔서
+				ajax로 가져와서 해당 결과를 파싱해서 해당 위치에 뿌리도록 하시면 됩니다.
+			*/
+			var filter = "";
+			filter = '<ogc:Filter xmlns="http:www.opengis.net/ogc">';					
+			filter += '<ogc:PropertyIsEqualTo>';
+			filter += '<ogc:PropertyName>XID</ogc:PropertyName>';
+			filter += '<ogc:Literal>106</ogc:Literal>';
+			filter += '</ogc:PropertyIsEqualTo>';
+			filter += '</ogc:Filter>';
+			
+			var url2 = servletUrl + "?" + "SERVICE=WFS&REQUEST=GetFeature";
+			url2 += "&TYPENAME=POI_HOTEL&SRSNAME=EPSG:2097";
+			url2 += "&PROPERTYNAME=X_CODE,Y_CODE&FILTER=";
+			url2 += filter;
+			
+			OpenLayers.loadURL(url2, '', this, function(response){
+				var xml = response.responseXML;
+				alert(xml);
+				if( xml )
+				{
+					var x = xml.getElementsByTagName("X_CODE")[0].firstChild.nodeValue;
+					var y = xml.getElementsByTagName("Y_CODE")[0].firstChild.nodeValue;
+					
+					var size = new OpenLayers.Size(30,30);
+					var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+					var icon = new OpenLayers.Icon('http://localhost:9981/OpenLayers/examples/image/Balloon.bmp',size,offset);
+					
+					//OpenLayers.Layer.Markers 레이어에 특정 이미지를 특정 위치에 뿌립니다.
+					markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(x, y),icon));
+				}
+			});
+		}
+		
+        function init(){
+			var options = { 
+				projection: new OpenLayers.Projection("EPSG:2097"), //EPSG:2097
+				displayProjection: new OpenLayers.Projection("EPSG:2097"),
+				units: "m",
+				maxResolution : "auto",
+				//maxExtent:  new OpenLayers.Bounds( 171836.748526, 430494.198328, 223823.621719, 472890.250221),
+				//maxExtent:  new OpenLayers.Bounds( 934969.095, 1936360.618, 972001.695, 1966682.529),
+				//maxExtent:  new OpenLayers.Bounds( 100000, 400000, 972001.695, 1966682.529),
+				maxExtent:  new OpenLayers.Bounds( 100000, 400000, 1000000, 2000000),
+				
+				
+				//maxExtent:  new OpenLayers.Bounds( 937987.650, 1937061.813, 971931.624, 1965805.093),
+				//scales: [216000, 80000, 40000, 12000, 7000, 3372, 1686, 843],
+				controls: [
+					new OpenLayers.Control.PanZoomBar(),
+					new OpenLayers.Control.Scale(),
+					new OpenLayers.Control.Navigation(),
+					new OpenLayers.Control.MousePosition()
+				]
+			 };
+		
+            map = new OpenLayers.Map( 'map' , options );
+            layer = new OpenLayers.Layer.WMS( "IntraMap WMS",
+                    servletUrl, 
+					//{layers: arrLayers.join(',') , format: 'image/png'},
+					{layers: getSelectedLayer() , format: getSelectedValue('getMapFormat')},
+					{singleTile: true},
+					{'buffer':0} 
+			);
+			map.addLayer(layer);
+
+			buffer_wfs = new OpenLayers.Layer.Vector("buffer Features", {styleMap:myStyles2});
+			markers = new OpenLayers.Layer.Markers( "Markers" );
+			map.addLayers([ buffer_wfs, markers ]);
+		
+			
+
+            //map.setCenter(new OpenLayers.LonLat(lon, lat), zoom);
+			map.zoomToMaxExtent();
+            map.addControl( new OpenLayers.Control.LayerSwitcher() );
+			
+			
+			
+			
+			// 클릭 이벤트 등록
+			map.events.register('click', map, function (e) {
+					OpenLayers.Util.getElement('recordresult').innerHTML = "Loading... please wait...";
+					var pos = map.getLonLatFromPixel(e.xy);
+					var url =  layer.getFullRequestString({
+									REQUEST: "GetFeatureInfo",
+									EXCEPTIONS: "application/vnd.ogc.se_xml",
+									BBOX: layer.map.getExtent().toBBOX(),
+									X: e.xy.x,  //window 좌표
+									Y: e.xy.y,  //window 좌표
+									INFO_FORMAT: getSelectedValue('getFeatureInfoFormat'), //'text/html',
+									QUERY_LAYERS: getSelectedLayer(),//getQueryLayers(),
+									WIDTH: layer.map.size.w,
+									HEIGHT: layer.map.size.h});
+					//alert(url);
+					//OpenLayers.loadURL(url, '', this, setResult);
+					
+					//wfs getfeature 연산
+					var filter = "";
+					filter = '<ogc:Filter xmlns="http:www.opengis.net/ogc">';					
+					filter += '<ogc:PropertyIsEqualTo>';
+					filter += '<ogc:PropertyName>EMD_CD</ogc:PropertyName>';
+					filter += '<ogc:Literal>11350105</ogc:Literal>';
+					filter += '</ogc:PropertyIsEqualTo>';
+					filter += '</ogc:Filter>';
+					
+					var url2 = servletUrl + "?" + "SERVICE=WFS&REQUEST=GetFeature";
+					url2 += "&TYPENAME=NW_LP_AA_EMD&SRSNAME=EPSG:2097";
+					url2 += "&PROPERTYNAME=XGEOMETRY&FILTER=";
+					url2 += filter;
+					
+					alert(url2);
+					OpenLayers.loadURL(url2, '', this, setWFSResult);
+					
+					OpenLayers.Event.stop(e);
+					
+					if( logPopup )
+						logPopup.addLog("GetFeatureInfo : " + url);
+			  });
+			
+			
+			
+			  
+			//뒤로, 앞으로
+			nav = new OpenLayers.Control.NavigationHistory();
+			map.addControl(nav);
+			
+			
+			// 페이지내 button 들에 이벤트 핸들러 할당.
+			SetControlEventHandle();
+			
+			//------레이어 정보 구성.
+			setLayerInfo( "layerinfo", arrLayers , onChkClick );
+			
+			//logPopup = window.open("bmtLogPopup.html", "", "width=800,height=600,scrollbars=yes");
+		}
+		
+		
+		function setWFSResult( response )
+		{
+			var r = "";
+//r += '<wfs:FeatureCollection xmlns:wfs="http://www.opengis.net/wfs" xmlns:ksic="http://www.ksic.net/wfs" xmlns:ows="http://www.opengis.net/ows" xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1.0" service="WFS" xsi:schemaLocation="http://www.opengis.net/wfs http://localhost:9981/IntraMapGS/MapService?service=WFS&amp;request=DescribeFeatureType&amp;typename=subwaystation"> ';
+r = '<?xml version="1.0" encoding="UTF-8" ?> '
+r += '<wms:FeatureCollection xmlns:wms="http://www.opengis.net/wms"'
+r += 'xmlns:gml="http://www.opengis.net/gml"'
+r += 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+r += 'xsi:schemaLocation="http://www.opengis.net/wms http://schemas.opengis.net/wms/1.3.0/wms.xsd http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/feature.xsd">'
+
+r += '<gml:boundedBy> ';
+r += '<gml:Envelope srsName="EPSG:2097"> ';
+r += '<gml:lowerCorner>945201.241594 1942052.232615</gml:lowerCorner> ';
+r += '<gml:upperCorner>945278.478031 1942233.308630</gml:upperCorner> ';
+r += '</gml:Envelope> ';
+r += '</gml:boundedBy> ';
+r += '<gml:featureMember> ';
+r += '<subwaystation gml:id="subwaystation.1"> ';
+r += '<ksic_geom> ';
+r += '<gml:Polygon srsName="EPSG:2097"> ';
+r += '<gml:exterior> ';
+r += '<gml:LinearRing> ';
+r += '<gml:posList dimension="2">945278.478247 1942058.772764 945260.822440 1942052.232535 945254.692159 1942070.048301 945201.241378 1942227.244516 945219.074547 1942233.308710 945272.360097 1942076.593550 945278.478247 1942058.772764</gml:posList> ';
+r += '</gml:LinearRing> ';
+r += '</gml:exterior> ';
+r += '</gml:Polygon> ';
+r += '</ksic_geom> ';
+r += '</subwaystation> ';
+r += '</gml:featureMember> ';
+r += '</wfs:FeatureCollection>';
+			
+			//alert(r);
+			alert(response.responseText);
+			var options = {};
+			OpenLayers.Util.extend(options, this.formatOptions);
+			var gml = this.format ? new this.format(options) : new OpenLayers.Format.GML(options);
+			var features = gml.read(response.responseText); 
+			//var features = gml.read(r); 
+			//var features = gml.read(str); 
+
+			var bounds = ""; 
+			
+			if(features) 
+			{
+				//if(features.constructor != Array) 
+				//{
+				//	alert("not array");
+				//	features = [features];  
+				//}  
+				for(var i=0; i<features.length; ++i) 
+				{   
+					if (!bounds) 
+					{    
+						bounds = features[i].geometry.getBounds();
+					} 
+					else 
+					{   
+						bounds.extend(features[i].geometry.getBounds());   
+					}  
+					//alert(features[i].geometry);
+					//alert("bounds : " + bounds);
+				}  
+
+				map.zoomToExtent(bounds);
+				buffer_wfs.addFeatures(features);
+			}
+		}
+		
+		// GetFeatureInfo 연산 결과
+		function setResult( response )
+		{
+			//결과창에 text출력.
+		  	document.getElementById('recordresult').innerHTML = "";
+			var txt = response.responseText;
+			var txtElem = document.createTextNode(txt);
+			document.getElementById('recordresult').appendChild(txtElem);
+			
+			//gml형식의 경우 vector 레이어에 추가. 해당 바운더리로 지도 이동, 해당 개체 하이라이트.
+			var outputFormat = document.getElementById("getFeatureInfoFormat").value;
+			if( outputFormat == "application/vnd.ogc.gml" )
+			{
+				var gml = new OpenLayers.Format.GML();
+				
+var str = "";
+str = '<?xml version="1.0" encoding="UTF-8" ?> '
+//str += '<wfs:FeatureCollection xmlns:wfs="http://www.opengis.net/wfs" xmlns:ksic="http://www.ksic.net/wfs" xmlns:ows="http://www.opengis.net/ows" xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1.0" service="WFS" xsi:schemaLocation="http://www.opengis.net/wfs http://10.47.40.3/gml.xsd">'
+str += '<wms:FeatureCollection xmlns:wms="http://www.opengis.net/wms"'
+str += 'xmlns:gml="http://www.opengis.net/gml"'
+str += 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+str += 'xsi:schemaLocation="http://www.opengis.net/wms http://schemas.opengis.net/wms/1.3.0/wms.xsd http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/feature.xsd">'
+
+str += '<gml:boundedBy>'
+str += '<gml:Envelope srsName="EPSG:2097">'
+str += '<gml:lowerCorner>204867.68 461238.38</gml:lowerCorner> '
+str += '<gml:upperCorner>204990.89 461380.98</gml:upperCorner> '
+str += '</gml:Envelope>'
+str += '</gml:boundedBy>'
+str += '<gml:featureMember>'
+str += '<NW_LP_PA_CBND gml:id="NW_LP_PA_CBND.19518">'
+str += '<ksic_geom>'
+str += '<gml:Polygon srsName="EPSG:2097">'
+str += '<gml:exterior>'
+str += '<gml:LinearRing>'
+str += '<gml:posList dimension="2">204960.24 461380.98 204967.52000000002 461376.89 204979.93 461332.70999999996 204972.24 461330.54000000004 204990.89 461263.95999999996 204899.56 461238.38 204867.68 461354.87 204915.83000000002 461368.44999999995 204960.24 461380.98</gml:posList> '
+str += '</gml:LinearRing>'
+str += '</gml:exterior>'
+str += '</gml:Polygon>'
+str += '</ksic_geom>'
+str += '</NW_LP_PA_CBND>'
+str += '</gml:featureMember>'
+str += '</wfs:FeatureCollection>'
+
+
+				
+				//alert(response.responseText);
+				//var features = gml.read(response.responseText); 
+				var features = gml.read(str); 
+
+				var bounds; 
+				
+				if(features) 
+				{
+					if(features.constructor != Array) 
+					{   
+						features = [features];  
+					}  
+					for(var i=0; i<features.length; ++i) 
+					{   
+						if (!bounds) 
+						{    
+							bounds = features[i].geometry.getBounds();
+						} 
+						else 
+						{   
+							bounds.extend(features[i].geometry.getBounds());   
+						}  
+						
+						alert("bounds : " + bounds);
+					}  
+
+					map.zoomToExtent(bounds);
+					buffer_wfs.addFeatures(features);
+				}
+			
+			}
+			
+		}
+		
+		//GetMap 연산 요청하는 레이어 목록.
+		function getSelectedLayer()
+		{
+			var rStr = [];
+			for( var i = 0; i < arrLayers.length; i++)
+			{
+				if(arrLayers[i].checked) 
+				{
+					rStr.push(arrLayers[i].name);
+				}
+			}
+			
+			//alert(rStr.join(','));
+			return rStr.join(',');
+		}
+		
+		function setLayerInfo( id, arr, callback )
+		{
+			//if( !arr ) return;
+			//alert(id);
+			var r = document.getElementById( id );
+			
+			var divElem;
+			var chkElem;
+			var txtElem;
+			var tmp = [];
+			
+			for( var i = 0; i < arr.length; i++) 
+			{
+				divElem = document.createElement('div');
+				chkElem = document.createElement('input');
+				chkElem.type = 'checkbox';
+				
+				//chkElem.checked = arr[i].checked;
+				chkElem.onclick = callback;
+				
+				chkElem.name = arr[i].name;
+				divElem.appendChild(chkElem);
+				
+				txtElem = document.createTextNode(arr[i].name);
+				divElem.appendChild(txtElem);
+				
+				r.appendChild(divElem);
+				
+				if ( id == 'layerinfo' )
+					chkElem.checked = arr[i].checked;
+				else
+					chkElem.checked = arr[i].qCheck;
+			}
+			
+			
+		}
+		
+		function onSelectImageFormat()
+		{
+			var newParam = {'format' : getSelectedValue('getMapFormat') };
+			
+			layer.mergeNewParams( newParam );
+			var tmpBnd = layer.getExtent();
+			if( logPopup )
+			logPopup.addLog( "GetMap : " + layer.getURL(tmpBnd) );
+		}
+		
+		// GetMap 레이어 목록 선택시 재요청하는거...
+		function onChkClick()
+		{
+			//alert(this.name);
+			
+			for( var i = 0; i < arrLayers.length; i++ )
+			{
+				if( arrLayers[i].name == this.name ) {
+					arrLayers[i].checked = this.checked;
+					break;
+				}
+			}
+			
+			var newParams = {'layers' : getSelectedLayer(), 'format' : getSelectedValue('getMapFormat') };
+			layer.mergeNewParams( newParams );
+			//layer.redraw();
+			
+			var tmpBnd = layer.getExtent();
+			if( logPopup )
+			logPopup.addLog( "GetMap : " + layer.getURL(tmpBnd) );
+		}
+		
+		// GetFeatureInfo 연산할 대상 레이어 목록.
+		function getQueryLayers()
+		{
+			var ret = [];
+			for( var i = 0; i < arrLayers.length; i++ )
+			{
+				if( arrLayers[i].qCheck )
+					ret.push(arrLayers[i].name);
+			}
+			
+			return ret.join(',');
+		}
+		
+		// GetFeatureInfo연산에 필요한 레이어 선택하기위한 체크박스 클릭시.
+		function onChkClick2()
+		{
+			//if( this.checked ){
+			//	if( selectedLayer.indexOf( this.name ) == -1 )
+			//		selectedLayer.push(this.name);
+			//}
+			for( var i = 0; i < arrLayers.length; i++ )
+			{
+				if( arrLayers[i].name == this.name )
+				{
+					arrLayers[i].qCheck = this.checked;
+					break;
+				}
+				
+				//if( arrLayers[i].qCheck )
+				//	selectedLayer.push(this.name);
+			}
+		}
+		
+		// 콤보박스에서 선택한 값 리턴.
+		function getSelectedValue( id )
+		{
+			if( typeof id != "string" )
+				return null; 
+				
+			var o = document.getElementById(id);
+			if( o )
+				return o.value;
+			else 
+				return null;
+		
+		}
+
+/*
+$(document).ready(function(){
+    init();
+	//changeSize();
+});
+
+function changeSize()
+{
+    var vMapLeft, vMapTop, vMapHeigh, vMapWidth;
+    vMapLeft  = 0;
+    vMapTop   = 53;
+    vMapHeight = $(window).height() -55;
+    vMapWidth  = $(window).width()  -6;
+    $("#map").css("left",  vMapLeft);
+    $("#map").css("top",   vMapTop);
+    $("#map").css("height",vMapHeight);
+    //$("#map").css("zIndex",-100);
+}
+*/		
+		
+    </script>
+  </head>
+  <!--<body onload="init()">-->
+  <body onload="init();">
+    <h1 id="title">IntraMap/Web 6.0 GS인증</h1>
+
+    <div id="tags">
+    </div>
+    <p id="shortdesc">
+        GS인증 테스트 페이지 입니다.
+    </p>
+	<!--<div id="map" name="map" class="smallmap" style="position:absolute; 
+				top:0px;width:100%;height:100%;z-index:100"></div>
+	-->
+	<table width="900">
+		<tr>
+			<td>
+				<div id="map" class="smallmap"></div>
+				<br/>
+				<input type="button" value="전체보기" id="btnFit" />
+				<input type="button" value="확대" id="btnZoomIn" />
+				<input type="button" value="축소" id="btnZoomOut" />
+				<input type="button" value="이전" id="btnPrev" />
+				<input type="button" value="다음" id="btnNext" />
+				<input type="button" value="Add Marker" id="btnMarker" />
+				<input type="button" value="Get Centroid" id="btnCentroid" />
+				<input type="button" value="Contains" id="btnContains" />
+				<br />
+				
+				GetMap&nbsp;&nbsp;Image Format : 
+				<select id="getMapFormat">
+					<option value="image/png" selected>image/png</option>
+					<option value="image/jpeg">image/jpeg</option>
+					<option value="image/gif">image/gif</option>
+				</select>
+				<br />
+				GetFeatureInfo&nbsp;&nbsp;Result Format : 
+				<select id="getFeatureInfoFormat">
+					<option value="text/html" selected>text/html</option>
+					<option value="text/xml">text/xml</option>
+					<option value="text/plain">text/plain</option>
+					<option value="application/vnd.ogc.gml">application/vnd.ogc.gml</option>
+				</select>
+				<br />
+			</td>
+			<td>
+				<div id="layerinfo">
+				
+				레이어&nbsp;On&nbsp;/&nbsp;Off
+				</div>
+			</td>
+			<!--
+			<td>
+				<div id="targetlayer">
+				
+				대상&nbsp;레이어&nbsp;선택<br />
+				</div>
+				
+			</td>
+			-->
+		</tr>
+		<tr>
+			<td colspan="2">
+				GetFeatureInfo 결과<br />
+			</td>
+		<tr>
+		<tr>
+			<td colspan="2">
+				<div id="recordresult">
+				</div>
+			</td>
+		<tr>
+	</table>
+	
+  </body>
+</html>
+
+
+
+

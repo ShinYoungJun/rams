@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<title>무제 문서</title>
+<link href="../css/doro.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="idFind">
+  <h1><img src="../images/login/t_idfind.gif" alt="아이디찾기" /></h1>
+  <div class="srch" >
+  	<p class="alarm">* 이름과 주민번호를 입력하세요. </p>
+	<fieldset>
+	  <legend>아이디찾기 정보입력</legend>
+	  <dl>
+		<dt><strong>이름</strong></dt>
+		<dd><input name="name" type="text" class="formBox2" id="name1" value="" size="10" maxlength="30"/>
+		</dd>
+		<dt><strong>주민등록번호</strong></dt>
+		<dd>
+			<input name="ssn1" type="text" class="formBox2" id="ssn1" value="" size="10" maxlength="6"/> 
+			- 
+			<input name="ssn2" type="password" class="formBox2" id="ssn2" value="" size="10" maxlength="7" />
+		</dd>
+	  </dl>
+	</fieldset>
+	<p class="btnC"><a href="#"><img src="../images/common/btn_confirm.gif" alt="확인" border="0" /></a></p>
+  </div>
+</div>
+</body>
+</html>

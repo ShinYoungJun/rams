@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>GS인증 url logs</title>
+<script type="text/javascript">
+function addLog(val)
+{
+	if( typeof val != "string" )
+		val += "";
+	var txtElem = document.createTextNode(val);
+	//var aElem = document.createElement("a");
+	var brElem = document.createElement("br");
+	var brElem2 = document.createElement("br");
+	var btnElem = document.createElement("input");
+	var url = val.slice(val.indexOf("http"));
+	//aElem.setAttribute("href", url);
+	//aElem.appendChild(txtElem);	
+	btnElem.type = "button";
+	btnElem.value = "새창에서열기";
+	
+	
+	var bodyElem = document.getElementsByTagName("body")[0];
+	bodyElem.appendChild( txtElem );
+	bodyElem.appendChild( btnElem );
+	bodyElem.appendChild( brElem );
+	bodyElem.appendChild( brElem2 );
+	
+	btnElem.onclick = function()
+	{
+		window.open(url, "", "width=800,height=600,scrollbars=yes");
+	}
+	
+	window.scrollTo(0, 1000000);
+}
+
+</script>
+</head>
+<body>
+</body>
+</html>

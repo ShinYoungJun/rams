@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/doro/!svn/ver/265/rams/WebContent/config
+END
+admin_user_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/243/rams/WebContent/config/admin_user_sql.properties
+END
+suit_price_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/152/rams/WebContent/config/suit_price_sql.properties
+END
+cityland_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/doro/!svn/ver/118/rams/WebContent/config/cityland_sql.properties
+END
+suit_popup_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/188/rams/WebContent/config/suit_popup_sql.properties
+END
+board_notice_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/doro/!svn/ver/74/rams/WebContent/config/board_notice_sql.properties
+END
+messages.properties
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/74/rams/WebContent/config/messages.properties
+END
+suit_suit_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/186/rams/WebContent/config/suit_suit_sql.properties
+END
+map_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/doro/!svn/ver/265/rams/WebContent/config/map_sql.properties
+END
+board_board_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/doro/!svn/ver/74/rams/WebContent/config/board_board_sql.properties
+END
+gongsa_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/123/rams/WebContent/config/gongsa_sql.properties
+END
+suit_anal_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/doro/!svn/ver/152/rams/WebContent/config/suit_anal_sql.properties
+END
+common_common_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/doro/!svn/ver/222/rams/WebContent/config/common_common_sql.properties
+END
+reward_sql.properties
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/doro/!svn/ver/260/rams/WebContent/config/reward_sql.properties
+END
